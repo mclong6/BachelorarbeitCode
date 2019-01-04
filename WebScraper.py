@@ -2,6 +2,7 @@ from bs4 import BeautifulSoup
 from urllib.error import HTTPError
 import requests
 import re
+import csv
 
 url = "https://www.fupa.net"
 # A set is an unordered collection of items.
@@ -39,7 +40,6 @@ def get_new_html(link):
             req = session.get(link, headers=headers)
         else:
             req = session.get(url + link, headers=headers)
-
     except HTTPError as e:
         print(e)
     html = BeautifulSoup(req.text, "html.parser")
@@ -68,7 +68,6 @@ def search_breadth(depth, html):
                     if 'data-level' in a_tag.attrs:
                         if a_tag.attrs['data-level'] == "3":
                             search_breadth(depth + 1, get_new_html(formatted_link))
-                            print(a_tag)
                 elif depth == secondDepth:
                     if re.match(r".*(/liga/).*", formatted_link) is not None:
                         # print(formatted_link)
@@ -81,12 +80,40 @@ def search_breadth(depth, html):
                 elif depth == fourthDepth:
                     if re.match(r"(https://www.fupa.net/spieler/)[a-z+\-]*[0-9]{5,6}", formatted_link) is not None:
                         linksToPlayerCollection.add(formatted_link)
-                        linksToPlayerFile.write(formatted_link + "\n")
                         linkAlreadyVisitedCollection.add(formatted_link)
-                        print("Player found and added to the list")
+                        csv_data = [formatted_link]
+                        with open('linksToPlayerFile.csv', 'a') as csvFile:
+                            writer = csv.writer(csvFile)
+                            writer.writerow(csv_data)
+                        csvFile.close()
+                        # print("Player found and added to the list")
                 else:
                     print("!!   Depth is to big  !! Depth: ", depth)
 
+def get_playerlink_from_csvfile():
+    with open('linksToPlayerFile.csv', 'r') as csvFile:
+        reader = csv.reader(csvFile)
+        for row in reader:
+            print(row)
 
-search_breadth(noDepth, get_new_html(""))
-# search_breadth(fourthDepth, get_new_html("https://www.fupa.net/club/tsv-tettnang/team/m1"))
+    csvFile.close()
+
+def get_player_information(url):
+    html = get_new_html(url)
+    records= []
+    print(html.h1)
+    table_tag = html.find("table", {'class': re.compile("^(content_table_std steckbrief)")})
+    for row in table_tag.findAll("tr"):
+        col = row.findAll("td")
+        prvy = col[0].text
+        record = '%s' % (prvy)  # store the record with a ';' between prvy and druhy
+        records.append(record)
+    print(records[2])
+
+    teststring = table_tag.h1.text
+    print(teststring)
+    print(table_tag.table.tr)
+# search_breadth(noDepth, get_new_html(""))
+#search_breadth(fourthDepth, get_new_html("https://www.fupa.net/club/tsv-tettnang/team/m1"))
+#get_playerlink_from_csvfile()
+get_player_information("https://www.fupa.net/spieler/marco-lang-1261543.html")
