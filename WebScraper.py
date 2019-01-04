@@ -78,17 +78,19 @@ def search_breadth(depth, html):
                         linkAlreadyVisitedCollection.add(formatted_link)
                         search_breadth(depth + 1, get_new_html(formatted_link))
                 elif depth == fourthDepth:
-                    if re.match(r"(https://www.fupa.net/spieler/)[a-z+\-]*[0-9]{5,6}", formatted_link) is not None:
+                    if re.match(r"(https://www.fupa.net/spieler/)[a-z+\-]*[0-9]{5,7}.*", formatted_link) is not None:
                         linksToPlayerCollection.add(formatted_link)
                         linkAlreadyVisitedCollection.add(formatted_link)
                         csv_data = [formatted_link]
                         with open('linksToPlayerFile.csv', 'a') as csvFile:
                             writer = csv.writer(csvFile)
-                            writer.writerow(csv_data)
+                            #writer.writerow(csv_data)
+                            writer.writerow(get_player_information(formatted_link))
                         csvFile.close()
                         # print("Player found and added to the list")
                 else:
                     print("!!   Depth is to big  !! Depth: ", depth)
+
 
 def get_playerlink_from_csvfile():
     with open('linksToPlayerFile.csv', 'r') as csvFile:
@@ -98,22 +100,60 @@ def get_playerlink_from_csvfile():
 
     csvFile.close()
 
+
 def get_player_information(url):
     html = get_new_html(url)
-    records= []
-    print(html.h1)
-    table_tag = html.find("table", {'class': re.compile("^(content_table_std steckbrief)")})
-    for row in table_tag.findAll("tr"):
-        col = row.findAll("td")
-        prvy = col[0].text
-        record = '%s' % (prvy)  # store the record with a ';' between prvy and druhy
-        records.append(record)
-    print(records[2])
+    records = []
+    data_of_player_list =[]
+    formatted_data_of_player_list = []
 
-    teststring = table_tag.h1.text
-    print(teststring)
-    print(table_tag.table.tr)
+    td_tag = html.find("td", {'class': re.compile("^(stammdaten)")})
+    name_array = td_tag.h1.text.split()  # to split the name in first and second name
+    #TODO Mögolicherweise verein aufsplitten
+    for name in name_array:
+        data_of_player_list.append(name)
+    if len(name_array) == 1:
+        data_of_player_list.append('-')
+        data_of_player_list.append('-')
+    elif len(name_array) == 2:
+        data_of_player_list.insert(1, '-')
+    player_data_information =['Vorname','Zweitname','Nachname']
+    for row in td_tag.findAll("tr"):
+        col = row.findAll("td")
+        player_data_information.append(col[0].text)
+        data_of_player_list.append(col[1].text)
+    print(player_data_information)
+    print(data_of_player_list)
+    example_list = ['Vorname','Zweitname','Nachname','Spitzname:', 'Position:', 'Geburtsdatum:', 'Nationalität:', 'starker Fuß:', 'Größe:', 'Gewicht:', 'Profilaufrufe:', '\n\n\n\n\n\n\n\n\n']
+    counter = 0
+
+    for element1 in example_list:
+        test_bool = False
+        counter2 = 0
+        for element2 in player_data_information:
+            if element2 == element1:
+                formatted_data_of_player_list.append(data_of_player_list[counter2])
+                test_bool= True
+                break
+            counter2 = counter2 +1
+        if not test_bool:
+            formatted_data_of_player_list.insert(counter,"keine Angaben")
+        counter = counter + 1
+
+
+
+    #print(player_data_information)
+    print(formatted_data_of_player_list)
+    return formatted_data_of_player_list
+
+    # teststring = table_tag.h1.text
+    # print(teststring)
+    # print(table_tag.table.tr)
+
+
 # search_breadth(noDepth, get_new_html(""))
-#search_breadth(fourthDepth, get_new_html("https://www.fupa.net/club/tsv-tettnang/team/m1"))
-#get_playerlink_from_csvfile()
-get_player_information("https://www.fupa.net/spieler/marco-lang-1261543.html")
+search_breadth(fourthDepth, get_new_html("https://www.fupa.net/club/tsv-tettnang/team/m1"))
+# get_playerlink_from_csvfile()
+#get_player_information("https://www.fupa.net/spieler/nils-maurer-869238.html")
+
+
