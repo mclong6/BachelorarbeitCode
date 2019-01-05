@@ -109,7 +109,6 @@ def get_player_information(url):
 
     td_tag = html.find("td", {'class': re.compile("^(stammdaten)")})
     name_array = td_tag.h1.text.split()  # to split the name in first and second name
-    #TODO Mögolicherweise verein aufsplitten
     for name in name_array:
         data_of_player_list.append(name)
     if len(name_array) == 1:
@@ -117,14 +116,18 @@ def get_player_information(url):
         data_of_player_list.append('-')
     elif len(name_array) == 2:
         data_of_player_list.insert(1, '-')
-    player_data_information =['Vorname','Zweitname','Nachname']
+    player_data_information =['Vorname:','Zweitname:','Nachname:']
     for row in td_tag.findAll("tr"):
         col = row.findAll("td")
+        if col[0].text == '\n\n\n\n\n\n\n\n\n':
+            club_array = col[1].text.split("\n")
+            data_of_player_list.append(club_array[1])
+            print('!!!!',club_array)
+        else:
+            data_of_player_list.append(col[1].text)
         player_data_information.append(col[0].text)
-        data_of_player_list.append(col[1].text)
-    print(player_data_information)
-    print(data_of_player_list)
-    example_list = ['Vorname','Zweitname','Nachname','Spitzname:', 'Position:', 'Geburtsdatum:', 'Nationalität:', 'starker Fuß:', 'Größe:', 'Gewicht:', 'Profilaufrufe:', '\n\n\n\n\n\n\n\n\n']
+
+    example_list = ['Vorname:','Zweitname:','Nachname:','Spitzname:', 'Position:', 'Geburtsdatum:', 'Nationalität:', 'starker Fuß:', 'Größe:', 'Gewicht:', 'Profilaufrufe:', '\n\n\n\n\n\n\n\n\n']
     counter = 0
 
     for element1 in example_list:
@@ -137,7 +140,7 @@ def get_player_information(url):
                 break
             counter2 = counter2 +1
         if not test_bool:
-            formatted_data_of_player_list.insert(counter,"keine Angaben")
+            formatted_data_of_player_list.insert(counter,"unbekannt")
         counter = counter + 1
 
 
