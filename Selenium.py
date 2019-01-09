@@ -34,14 +34,23 @@ def open_link(url):
     return html
 
 
-def get_companies_links(html):
+def get_page_links(url):
+    print("get_page_links")
+    html = open_link(url)
     page_links = html.find_all("a", attrs={'href': re.compile("^(/search/companies).*")})
 
     for link in page_links:
         if not link.attrs["href"] in page_links_list:
-            companies_list.append(link.attrs['href'])
+            print(link.attrs['href'],"!!!!!!!!!!!!!!!!",link)
+            page_links_list.append(link.attrs['href'])
+            get_companies_links(link.attrs['href'])
 
-    print(len(companies_list))
+    print(len(page_links_list))
+
+
+def get_companies_links(url):
+    print("IN get_companies_links",url)
+    html = open_link("https://www.xing.com"+url)
     companies_links = html.find_all("a", attrs={'href': re.compile("^(https://www.xing.com/companies/|"
                                                                    "https://www.xing.com/company/).*")})
 
@@ -51,8 +60,11 @@ def get_companies_links(html):
         if not link.attrs["href"] in companies_list:
             companies_list.append(link.attrs['href'])
 
+    get_page_links("https://www.xing.com"+url)
     print(companies_list)
 
 
 login_xing(username,password)
-get_companies_links(open_link(url_german_companies))
+get_page_links(url_german_companies)
+
+
