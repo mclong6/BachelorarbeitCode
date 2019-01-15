@@ -1,6 +1,7 @@
 from bs4 import BeautifulSoup
 import re
 import time
+from selenium.webdriver.common.by import By
 from selenium import webdriver
 # Mechanize cannot execute javascript and send asynchronous requests, but Selenium can do it;If you want to scrap a
 # static website, Mechanize is better(provides friendly apis and quickly);If you want to scrap any SPA(like AngularJS,
@@ -10,7 +11,7 @@ from selenium import webdriver
 username = "bachelorarbeit2@gmx.de"
 password = "bachelorarbeit2"
 facebook_login_page = "https://www.facebook.com/login.php"
-instagram_login_page = "https://www.instagram.com/accounts/login"
+instagram_login_page = "https://www.instagram.com/accounts/login/?next=%2Fbachelor_arbeit2%2F&source=desktop_nav"
 xing_login_page = "https://login.xing.com/login"
 linkedin_login_page = "https://www.linkedin.com/uas/login"
 
@@ -38,7 +39,7 @@ def get_person_information():
 
     if person_object.instagram_name is not "":
         print(person_object.instagram_name)
-        login_to_any_page(instagram_login_page)
+        login_to_any_page(facebook_login_page)
 
 
 def login_to_any_page(url):
@@ -49,20 +50,26 @@ def login_to_any_page(url):
 
     html_of_search = browser.page_source
     html = BeautifulSoup(html_of_search, "html.parser")
-
+    time.sleep(1)
     input_username = html.find("input", attrs={'type': re.compile("^(text)|(email)")})
     input_password = html.find("input", {"type":"password"})
+    id_username = input_username.attrs["id"]
+    id_password = input_password.attrs["id"]
+    time.sleep(1)
+    browser.find_element_by_id(id_username).send_keys(username)
+    browser.find_element_by_id(id_password).send_keys(password+"\n")
+    time.sleep(1)
+    # html_startpage = browser.page_source
+    # html = BeautifulSoup(html_startpage, "html.parser")
+    # search_field = html.find("input", attrs={'type': re.compile("^(text)"), "placeholder": re.compile("^(Suche).*")})
+    # placeholder = search_field.attrs["placeholder"]
+    # xpath_string = "//input[@placeholder='"+placeholder+"']"
+    # search_field = browser.find_element_by_xpath(xpath_string).send_keys("Michael Fürer"+"\n")
+    # browser.find_element_by_xpath("//a[@href='/"+"Michael Fürer"+"/']").click()
+    # print(search_field.hq)
+    browser.get("https://www.facebook.com/search/str/Michael%20F%C3%BCrer/users-named/str/ZF%20Transmission/"
+                "pages-named/employees/present/intersect")
 
-    browser.find_element_by_id(input_username.attrs["id"]).send_keys(username)
-    browser.find_element_by_id(input_password.attrs["id"]).send_keys(password+"\n")
-    time.sleep(3)
-    html_startpage = browser.page_source
-    html = BeautifulSoup(html_startpage, "html.parser")
-
-    search_field = html.find("input", attrs={'type': re.compile("^(text)")})
-    print(search_field)
 
 get_person_information()
 # login_to_any_page(facebook_login_page)
-
-# ogin_xing(username, password)
