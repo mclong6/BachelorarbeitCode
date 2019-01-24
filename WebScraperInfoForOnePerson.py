@@ -3,6 +3,7 @@ import re
 import time
 from selenium.webdriver.common.by import By
 from selenium import webdriver
+from nltk import word_tokenize
 # Mechanize cannot execute javascript and send asynchronous requests, but Selenium can do it;If you want to scrap a
 # static website, Mechanize is better(provides friendly apis and quickly);If you want to scrap any SPA(like AngularJS,
 # ReactJS,VueJS) website, Selenium can help you;If you need to auto login, it depends the web page needs to execute JS
@@ -75,7 +76,32 @@ def search_linkedin(person):
     print(person_soup.text)
     stringtest = person_soup.text
 
-    print(stringtest.replace("\n", "").replace("  ",""))
+    print(stringtest.replace("\n", "").replace(" ",""))
+
+def google_search(person):
+    if person.first_name is not "" and person.second_name is not "" and person.location is not "":
+        search_string = 'https://www.google.com/search?q="'+person.first_name+'+'+person.second_name+'"+'+person.location
+        browser.get(search_string)
+        html_of_search = browser.page_source
+        html = BeautifulSoup(html_of_search, "html.parser")
+
+        search_container = html.find("div", attrs={"id": "search"})
+        google_links = search_container.findAll("a")
+
+        browser.get("https://www.linkedin.com/in/anika-z-488325168/")
+        html_of_search = browser.page_source
+        html = BeautifulSoup(html_of_search, "html.parser")
+        results = html.body.find_all(string=re.compile('.*{0}.*'.format(person.first_name)), recursive=True)
+        print(results, len(results))
+        """for link in google_links:
+            if re.match(r"https://*", link.attrs['href']) is not None:
+                browser.get(link.attrs['href'])
+                html_of_search = browser.page_source
+                html = BeautifulSoup(html_of_search, "html.parser")
+                results = html.body.find_all(string=re.compile('.*{0}.*'.format(person.first_name)), recursive=True)
+                print(results)
+                print(link.attrs["href"])"""
+
 
 def get_person_information():
     """first_name = input("Vorname: ")
@@ -87,9 +113,15 @@ def get_person_information():
     company = input("Firma: ")"""
     # person_object = Person(first_name, second_name, location, year_of_birth, instagram_name, facebook_name, company)
 
-    person_object = Person("Sebastian", "", "", "", "", "", "")
+    person_object = Person("Anika", "Fürer", "Pforzheim", "", "", "", "")
+    search_string = "https://businesspf.hs-pforzheim.de/studium/studierende/bachelor/bw_einkauf_logistik/studierende/studentisches_leben/"
+    browser.get(search_string)
+    html_of_search = browser.page_source
+    html = BeautifulSoup(html_of_search, "html.parser")
+    print(html.body.text)
 
-    if person_object.instagram_name is not "":
+    google_search(person_object)
+    """if person_object.instagram_name is not "":
         print(person_object.instagram_name)
         login_to_any_page(instagram_login_page)
         search_instagram(person_object)
@@ -99,7 +131,7 @@ def get_person_information():
         search_facebook()
     elif person_object.first_name is not "":
         login_to_any_page(linkedin_login_page)
-        search_linkedin(person_object)
+        search_linkedin(person_object)"""
 
 def login_to_any_page(url):
 
