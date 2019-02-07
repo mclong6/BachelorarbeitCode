@@ -154,9 +154,14 @@ def get_player_information(url):
     # print(table_tag.table.tr)
 
 
-# search_breadth(noDepth, get_new_html(""))
-search_breadth(fourthDepth, get_new_html("https://www.fupa.net/club/tsv-tettnang/team/m1"))
+search_breadth(noDepth, get_new_html(""))
+#search_breadth(fourthDepth, get_new_html("https://www.fupa.net/club/tsv-tettnang/team/m1"))
 # get_playerlink_from_csvfile()
 #get_player_information("https://www.fupa.net/spieler/nils-maurer-869238.html")
 
-
+"""
+from validate_email import validate_email
+valid = validate_email("marcolang95@web.de", check_mx=True) # checking domain has SMTP Server
+is_valid = validate_email("marcolang95@web.de", verify=True)
+print(valid, is_valid)
+"""

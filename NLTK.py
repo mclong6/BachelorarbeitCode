@@ -8,8 +8,11 @@ from bs4 import BeautifulSoup
 import re
 from nltk import ngrams
 import csv
+
+
 german_stopwords = stopwords.words('german')
 english_stopwords = stopwords.words("english")
+#https://www.pc-erfahrung.de/nebenrubriken/sonstiges/webdesignwebentwicklung/stoppwortliste.html
 
 browser = webdriver.Chrome('/home/marco/Downloads/chromedriver')
 browser.implicitly_wait(10)
