@@ -1,12 +1,15 @@
 from rake_nltk import Rake, Metric
 from nltk import WhitespaceTokenizer
 from nltk.stem import SnowballStemmer
+import nltk
 from nltk.corpus import stopwords
 from selenium import webdriver
 from bs4 import BeautifulSoup
-
+nltk.download()
 german_stopwords = stopwords.words('german')
-
+english_stopwords = stopwords.words('english')
+print(german_stopwords)
+print(english_stopwords)
 
 r = Rake(language="german",stopwords=german_stopwords, ranking_metric=Metric.DEGREE_TO_FREQUENCY_RATIO,max_length=4)
 #r_degree = Rake(language="german", stopwords=german_stopwords,ranking_metric=Metric.WORD_DEGREE,max_length=4)
