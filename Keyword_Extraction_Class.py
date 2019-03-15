@@ -24,6 +24,7 @@ class KeywordExtraction():
         self.stemmed_words = []
         self.all_bigrams = []
         self.whitespace_wt = WhitespaceTokenizer()
+        self.keywords = []
 
 
     def formate_input_text(self, input_string):
@@ -37,7 +38,7 @@ class KeywordExtraction():
         formatted_string = re.sub(r"(\w)([A-Z])", r"\1 \2", formatted_string)
         # formatted_string = re.sub(r"(\w)([0-9])", r"\1 \2", formatted_string)
         # formatted_string = re.sub(r' [0-9]{1,3} ', ' ', formatted_string)
-        formatted_string = re.sub(r' [a-z]{1,2} ', ' ', formatted_string)
+        formatted_string = re.sub(r' [a-z]{1,2} ', ' ', formatted_string) #TODO weniger als zwei Zeichen versuchen z.B FH
         return formatted_string
 
 
@@ -53,6 +54,10 @@ class KeywordExtraction():
         print("CREATE_KEYWORDS")
         splitted_words = word_tokenize(input_string.lower())
 
+        for word in splitted_words:
+            if word not in (self.german_stopwords or self.english_stopwords):
+                self.keywords.append(word)
+
         # Viele Fehler, dadurch entstehen wörter die es nicht gibt.
         """
         for word in splitted_words:
@@ -60,12 +65,13 @@ class KeywordExtraction():
                 all_stemmed_words.append(stemmed_words)
         """
         # With ngrams it is possible to count the occurrence of more words, this could be helpful for handling company names
-        """
-        bigrams = list(ngrams(splitted_words, 2))
-        """
-        bigrams = list(ngrams(splitted_words, 2))
-        formatted_bigrams = [" ".join(ngram) for ngram in bigrams]
-        splitted_words = splitted_words + formatted_bigrams
+
+        bigramms = list(ngrams(self.keywords, 2))
+        formatted_bigramms = [" ".join(ngram) for ngram in bigramms]
+        self.keywords = self.keywords + formatted_bigramms
+
+        #TODO create trigramms and Tetragrams, maybe Pentagramms
+        #Maybe only bigramms, seperated query
 
         # Counting words is not necessary, there is no advantage
         """counted_words = []
@@ -77,27 +83,8 @@ class KeywordExtraction():
             counted_words.append(frequencies_word)
         print(counted_words)
         """
-        print(splitted_words)
-        return splitted_words
-
-    def create_ngrams(self, input_string):
-        bigrams_list = []
-        # With ngrams it is possible to count the occurrence of more words, this could be helpful for handling company names
-        bigrams = list(ngrams(input_string, 2))
-        string = [" ".join(ngram) for ngram in bigrams]
-        print(string)
-        #for grams in bigrams:
-            #print(grams)
-            #string = string.join(grams)
-
-        """string = ""
-            for gram in grams:
-                string = string.join(gram)
-            bigrams.append(string)
-            """
-
-        #print(bigrams)
-
+        print(self.keywords)
+        return self.keywords
 
 
 """
@@ -109,5 +96,4 @@ html_string = str(html.body.text)
 create_keywords(formate_input_text(html_string))
 """
 
-#html_string = test(html_string)
 

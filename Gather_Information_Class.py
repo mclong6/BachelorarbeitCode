@@ -62,10 +62,6 @@ class GatherInformation:
             for word in keywords:
                 for element in self.database_word_list_universities:
                     #if element in word:
-                    if element == "hochschule pforzheim":
-                        print("Element",element)
-                    if word == "hochschule pforzheim":
-                        print("Wort",word)
                     if element == word:
                         if word not in self.university:
                             print("Textwort: " + word + "\nWort aus Universities-Liste: " + element)

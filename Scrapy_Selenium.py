@@ -83,11 +83,9 @@ class QuotesSpider(scrapy.Spider):
             myfile.write("\n"+response.url+"\n")
             myfile.write(keywords_string+"\n")
 
-        #keywword_extraction_class.create_ngrams(keywords)
-
         gather_information_class = Gather_Information_Class.GatherInformation()
         gather_information_class.compare_keywords_with_databases(keywords)
-
+        keywword_extraction_class.get_email(obj.body.text)
 process = CrawlerProcess({
 "user-Agent": "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:63.0) Gecko/20100101 Firefox/63.0"
 })
