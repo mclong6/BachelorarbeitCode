@@ -73,7 +73,7 @@ def get_email(html_string):
             print("Email found:"+ element)
 
 
-browser.get("https://businesspf.hs-pforzheim.de/studium/studierende/bachelor/bw_einkauf_logistik/studierende/studentisches_leben/")
+browser.get("https://www.schwaebische.de/landkreis/bodenseekreis/tettnang_artikel,-junge-union-will-partty-bus-verwirklichen-_arid,10701303.html")
 html_of_search = browser.page_source
 html = BeautifulSoup(html_of_search, "html.parser")
 html_string = str(html.body.text)
