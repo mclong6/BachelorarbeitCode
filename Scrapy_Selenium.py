@@ -23,17 +23,15 @@ class QuotesSpider(scrapy.Spider):
 
     def start_requests(self):
         #For link-creation
-        """create_search_link = Create_Search_Link_Class.CreateSearchLink()
+        create_search_link = Create_Search_Link_Class.CreateSearchLink()
         url_list = create_search_link.enter_information()
         print("URL-LIST: ", url_list)
-        """
-        urls = ['https://www.google.com/search?q="Marco+Lang"+"Tettnang"+"1995"',
+
+        """url_list = ['https://www.google.com/search?q="Marco+Lang"+"Tettnang"+"1995"',
                 'https://www.schwaebische.de/landkreis/bodenseekreis/tettnang_artikel,-junge-union-will-partty-bus-\
-                verwirklichen-_arid,10701303.html']
-        #urls = ["https://www.google.com/search?q=%22Marco+Lang%22+%22Tettnang%22"]
-        for url in urls: #instead of urls, use url_list
+                verwirklichen-_arid,10701303.html']"""
+        for url in url_list:
             yield SeleniumRequest(url=url, callback=self.parse, wait_time=10)
-            #yield scrapy.Request(url=url, callback=self.parse)
 
     def parse(self, response):
         # print(response.request.meta['driver'].page_source)
@@ -86,8 +84,10 @@ class QuotesSpider(scrapy.Spider):
         gather_information_class = Gather_Information_Class.GatherInformation()
         gather_information_class.compare_keywords_with_databases(keywords)
         keywword_extraction_class.get_email(obj.body.text)
+
+
 process = CrawlerProcess({
-"user-Agent": "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:63.0) Gecko/20100101 Firefox/63.0"
+    "user-Agent": "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:63.0) Gecko/20100101 Firefox/63.0"
 })
 process.crawl(QuotesSpider)
 process.start()

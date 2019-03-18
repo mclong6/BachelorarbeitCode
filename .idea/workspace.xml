@@ -2,6 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b421c976-057a-4f3e-86fb-441c5258da44" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.~lock.universities.csv#" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Create_Search_Link_Class.py" beforeDir="false" afterPath="$PROJECT_DIR$/Create_Search_Link_Class.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Gather_Information_Class.py" beforeDir="false" afterPath="$PROJECT_DIR$/Gather_Information_Class.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Keyword_Extraction_Class.py" beforeDir="false" afterPath="$PROJECT_DIR$/Keyword_Extraction_Class.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Scrapy_Selenium.py" beforeDir="false" afterPath="$PROJECT_DIR$/Scrapy_Selenium.py" afterDir="false" />
@@ -16,28 +19,10 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Create_Search_Link_Class.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="486">
-              <caret line="27" column="42" selection-start-line="14" selection-start-column="4" selection-end-line="27" selection-end-column="42" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Scrapy.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="54">
-              <caret line="3" column="22" selection-start-line="3" selection-end-line="4" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Scrapy_Selenium.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1152">
-              <caret line="64" column="66" selection-start-line="64" selection-start-column="66" selection-end-line="64" selection-end-column="66" />
+            <state>
+              <caret line="12" column="34" selection-start-line="12" selection-start-column="34" selection-end-line="12" selection-end-column="34" />
               <folding>
                 <element signature="e#0#43#0" expanded="true" />
               </folding>
@@ -45,25 +30,20 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Gather_Information_Class.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="79">
-              <caret line="38" column="39" selection-start-line="38" selection-start-column="39" selection-end-line="38" selection-end-column="39" />
+            <state relative-caret-position="1440">
+              <caret line="80" column="40" selection-start-line="80" selection-start-column="40" selection-end-line="80" selection-end-column="40" />
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/test.txt">
-          <provider selected="true" editor-type-id="text-editor" />
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Keyword_Extraction_Class.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="186">
-              <caret line="85" column="28" selection-start-line="85" selection-start-column="28" selection-end-line="85" selection-end-column="28" />
+            <state relative-caret-position="288">
+              <caret line="49" column="73" selection-start-line="49" selection-start-column="73" selection-end-line="49" selection-end-column="73" />
               <folding>
                 <element signature="e#0#30#0" expanded="true" />
               </folding>
@@ -72,9 +52,30 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Create_Search_Link_Class.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="196">
+              <caret line="37" column="8" selection-start-line="37" selection-start-column="8" selection-end-line="50" selection-end-column="75" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/WebScraper.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="187">
+              <caret line="83" column="27" selection-start-line="83" selection-start-column="24" selection-end-line="83" selection-end-column="27" />
+              <folding>
+                <element signature="e#0#29#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/NTLK_Test.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="180">
+            <state relative-caret-position="556">
               <caret line="52" column="8" selection-start-line="52" selection-start-column="8" selection-end-line="52" selection-end-column="51" />
               <folding>
                 <element signature="e#0#30#0" expanded="true" />
@@ -86,7 +87,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Rake.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="339">
+            <state relative-caret-position="846">
               <caret line="58" column="45" selection-start-line="58" selection-start-column="45" selection-end-line="58" selection-end-column="45" />
               <folding>
                 <element signature="e#0#30#0" expanded="true" />
@@ -106,8 +107,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>lamarcong</find>
-      <find>Instagram</find>
       <find>title</find>
       <find>response</find>
       <find>quotes</find>
@@ -136,6 +135,8 @@
       <find>Marco Lang</find>
       <find>!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!</find>
       <find>tettnang</find>
+      <find>Meckenbe</find>
+      <find>csv</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -155,22 +156,22 @@
         <option value="$PROJECT_DIR$/Scrapy.py" />
         <option value="$PROJECT_DIR$/test.py" />
         <option value="$PROJECT_DIR$/Personensuche_Bachelorarbeit.py" />
-        <option value="$PROJECT_DIR$/Create_Search_Link_Class.py" />
         <option value="$PROJECT_DIR$/NTLK_Test.py" />
         <option value="$PROJECT_DIR$/NLTK.py" />
         <option value="$PROJECT_DIR$/Rake.py" />
         <option value="$PROJECT_DIR$/test.txt" />
-        <option value="$PROJECT_DIR$/Gather_Information_Class.py" />
         <option value="$PROJECT_DIR$/Scrapy_Selenium.py" />
+        <option value="$PROJECT_DIR$/Create_Search_Link_Class.py" />
+        <option value="$PROJECT_DIR$/Gather_Information_Class.py" />
         <option value="$PROJECT_DIR$/Keyword_Extraction_Class.py" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="2281" />
+    <option name="x" value="1755" />
     <option name="y" value="27" />
-    <option name="width" value="1430" />
-    <option name="height" value="998" />
+    <option name="width" value="1420" />
+    <option name="height" value="747" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -224,6 +225,27 @@
     </option>
   </component>
   <component name="RunManager" selected="Python.Scrapy_Selenium">
+    <configuration name="Create_Search_Link_Class" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="Bachelorarbeit" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Create_Search_Link_Class.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <configuration name="Keyword_Extraction_Class" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="Bachelorarbeit" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -258,27 +280,6 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/NLTK.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration name="NTLK_Test" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <module name="Bachelorarbeit" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/NTLK_Test.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -332,10 +333,10 @@
     <recent_temporary>
       <list>
         <item itemvalue="Python.Scrapy_Selenium" />
+        <item itemvalue="Python.Create_Search_Link_Class" />
         <item itemvalue="Python.Keyword_Extraction_Class" />
         <item itemvalue="Python.NLTK" />
         <item itemvalue="Python.Rake" />
-        <item itemvalue="Python.NTLK_Test" />
       </list>
     </recent_temporary>
   </component>
@@ -362,14 +363,15 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="1920" y="25" width="1920" height="998" extended-state="6" />
+    <frame x="0" y="-2" width="1920" height="1082" extended-state="6" />
+    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.14140876" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.14461046" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Find" order="1" weight="0.30010495" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49946293" weight="0.6501726" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.29919448" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.49946293" visible="true" weight="0.32423925" />
       <window_info anchor="bottom" id="Cvs" order="3" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="4" weight="0.4" />
       <window_info anchor="bottom" id="Debug" order="5" weight="0.31300345" />
@@ -444,13 +446,6 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/LoginXing.py" />
-    <entry file="file://$PROJECT_DIR$/städte.csv">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="37026">
-          <caret line="2057" column="13" selection-start-line="2057" selection-start-column="13" selection-end-line="2057" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/WebScraperInfoForOnePerson.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-1926">
@@ -494,20 +489,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/WebScraper.py">
+    <entry file="file://$PROJECT_DIR$/NLTK.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="865">
-          <caret line="62" column="68" selection-start-line="62" selection-start-column="68" selection-end-line="62" selection-end-column="80" />
-          <folding>
-            <element signature="e#0#29#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Rake.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="339">
-          <caret line="58" column="45" selection-start-line="58" selection-start-column="45" selection-end-line="58" selection-end-column="45" />
+        <state relative-caret-position="-378">
+          <caret line="9" column="10" selection-start-line="9" selection-end-line="10" />
           <folding>
             <element signature="e#0#30#0" expanded="true" />
           </folding>
@@ -521,29 +506,40 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/test.txt">
+    <entry file="file://$PROJECT_DIR$/vereinskürzel.csv">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/Create_Search_Link_Class.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="486">
-          <caret line="27" column="42" selection-start-line="14" selection-start-column="4" selection-end-line="27" selection-end-column="42" />
-        </state>
-      </provider>
+    <entry file="file://$PROJECT_DIR$/location.csv">
+      <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/NLTK.py">
+    <entry file="file://$PROJECT_DIR$/Rake.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-378">
-          <caret line="9" column="10" selection-start-line="9" selection-end-line="10" />
+        <state relative-caret-position="846">
+          <caret line="58" column="45" selection-start-line="58" selection-start-column="45" selection-end-line="58" selection-end-column="45" />
           <folding>
             <element signature="e#0#30#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/occupation.csv">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/städte.csv">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="110322">
+          <caret line="6129" column="8" selection-start-line="6129" selection-end-line="6129" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-900" />
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/NTLK_Test.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
+        <state relative-caret-position="556">
           <caret line="52" column="8" selection-start-line="52" selection-start-column="8" selection-end-line="52" selection-end-column="51" />
           <folding>
             <element signature="e#0#30#0" expanded="true" />
@@ -551,10 +547,37 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/person_information">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/WebScraper.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="187">
+          <caret line="83" column="27" selection-start-line="83" selection-start-column="24" selection-end-line="83" selection-end-column="27" />
+          <folding>
+            <element signature="e#0#29#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Create_Search_Link_Class.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="196">
+          <caret line="37" column="8" selection-start-line="37" selection-start-column="8" selection-end-line="50" selection-end-column="75" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Gather_Information_Class.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1440">
+          <caret line="80" column="40" selection-start-line="80" selection-start-column="40" selection-end-line="80" selection-end-column="40" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/Scrapy_Selenium.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1152">
-          <caret line="64" column="66" selection-start-line="64" selection-start-column="66" selection-end-line="64" selection-end-column="66" />
+        <state>
+          <caret line="12" column="34" selection-start-line="12" selection-start-column="34" selection-end-line="12" selection-end-column="34" />
           <folding>
             <element signature="e#0#43#0" expanded="true" />
           </folding>
@@ -563,18 +586,11 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Keyword_Extraction_Class.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="186">
-          <caret line="85" column="28" selection-start-line="85" selection-start-column="28" selection-end-line="85" selection-end-column="28" />
+        <state relative-caret-position="288">
+          <caret line="49" column="73" selection-start-line="49" selection-start-column="73" selection-end-line="49" selection-end-column="73" />
           <folding>
             <element signature="e#0#30#0" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Gather_Information_Class.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="79">
-          <caret line="38" column="39" selection-start-line="38" selection-start-column="39" selection-end-line="38" selection-end-column="39" />
         </state>
       </provider>
     </entry>

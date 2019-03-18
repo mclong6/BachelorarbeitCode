@@ -28,6 +28,7 @@ class GatherInformation:
                             print("Textwort: " + word + "\nWort aus Städte-Liste: " + element)
                             self.location.append(element)
 
+
         with open('hobbies.csv', 'r') as csvFile:
             # with open('hobbies.csv', 'r') as csvFile:
             csv_reader = csv.reader(csvFile)
@@ -66,6 +67,15 @@ class GatherInformation:
                         if word not in self.university:
                             print("Textwort: " + word + "\nWort aus Universities-Liste: " + element)
                             self.university.append(element)
+        #TODO Vereinskürzel hinzufügen
+
+        with open("person_information.csv", "a") as file:
+            fieldnames = ["firstname", "secondname", "location", "year_of_birth", "estimated_year_of_birth",
+                          "institution", "email", "hobbies", "occupation", "universities"]
+            writer = csv.DictWriter(file, fieldnames=fieldnames)
+            # writer.writeheader()
+            if self.hobbies is not "":
+                writer.writerow({"hobbies": self.hobbies})
 
         print("Location:", self.location)
         print("Hobbies: ", self.hobbies)

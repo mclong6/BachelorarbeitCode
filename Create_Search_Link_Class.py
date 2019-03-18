@@ -1,4 +1,4 @@
-
+import csv
 class CreateSearchLink:
     class Person(object):
         def __init__(self):
@@ -12,19 +12,17 @@ class CreateSearchLink:
             self.twitter_name = ""
             self.institution = ""
 
-    def __init__(self, instagram_key = 1, facebook_key = 2, twitter_key = 3, institution_key = 4, location_key = 5,
-                 year_of_birth_key = 6,location_year_key = 7,location_institution_key = 8,
-                 location_year_institution_key = 9, search_link_list = []):
-        self.instagram_key=instagram_key
-        self.facebook_key=facebook_key
-        self.twitter_key=twitter_key
-        self.institution_key=institution_key
-        self.location_key=location_key
-        self.year_of_birth_key=year_of_birth_key
-        self.location_year_key=location_year_key
-        self.location_institution_key=location_institution_key
-        self.location_year_institution_key=location_year_institution_key
-        self.search_link_list = search_link_list
+    def __init__(self):
+        self.instagram_key = 1
+        self.facebook_key = 2
+        self.twitter_key = 3
+        self.institution_key = 4
+        self.location_key = 5
+        self.year_of_birth_key = 6
+        self.location_year_key = 7
+        self.location_institution_key = 8
+        self.location_year_institution_key = 9
+        self.search_link_list = []
         self.person_object = self.Person()
 
     def enter_information(self):
@@ -34,9 +32,25 @@ class CreateSearchLink:
         self.person_object.year_of_birth = input("Genaues Geburtsjahr: ").replace(" ","%22")
         self.person_object.estimated_year_of_birth = input("Geschätztes Geburtsjahr: ").replace(" ","%22")
         self.person_object.institution = input("Institution: ").replace(" ","%22")
-        #self.person_object.instagram_name = input("Instagram Benutzername: ")
-        #self.person_object.facebook_name = input("Facebook Benutzername: ")
-        #self.person_object.twitter_name = input("Twitter Benutzername")
+        # self.person_object.instagram_name = input("Instagram Benutzername: ")
+        # self.person_object.facebook_name = input("Facebook Benutzername: ")
+        # self.person_object.twitter_name = input("Twitter Benutzername")
+        with open("person_information.csv","w") as file:
+            fieldnames = ["firstname", "secondname", "location", "year_of_birth", "estimated_year_of_birth",\
+                          "institution", "email", "hobbies", "occupation"]
+            writer = csv.DictWriter(file, fieldnames=fieldnames)
+            #writer = csv.writer(file)
+            """row = self.person_object.first_name + "," + self.person_object.second_name+"," +\
+                  self.person_object.location + "," + self.person_object.year_of_birth+"," +\
+                  self.person_object.estimated_year_of_birth+","+self.person_object.institution+","
+            print(row)"""
+            #writer.writeheader()
+            writer.writerow({"firstname": self.person_object.second_name,"secondname": self.person_object.first_name,
+                             "location": self.person_object.location, "year_of_birth": self.person_object.year_of_birth,
+                             "estimated_year_of_birth": self.person_object.estimated_year_of_birth,
+                            "institution": self.person_object.institution})
+
+
         self.analyze_information()
         return self.search_link_list
 
@@ -114,4 +128,7 @@ class CreateSearchLink:
 """
 person_object = enter_information()
 analyze_information(person_object)
-print(search_link_list)"""
+print(search_link_list)
+test = CreateSearchLink()
+test.enter_information()
+"""
