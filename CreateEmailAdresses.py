@@ -29,4 +29,23 @@ def create_mail(player_information):
 
     print(first_name, second_name, last_name, year_of_birth)
 
-get_player_information_from_csvfile()
+
+S = {'firstname', 'secondname', '1995'}
+
+collect = set()
+step = {''}
+while step:
+    '''for a in step:
+        for b in S:
+            if len(a+b)<=24:
+                if not a==b:
+                    step.add(a+b)
+'''
+    # step = set(a+b for a in step for b in S if len(a+b) <= 24)
+    step = set(a+b for a in step for b in S if len(a+b)<=24 and not b in a)
+
+    collect |= step
+
+print(sorted(collect))
+
+#get_player_information_from_csvfile()

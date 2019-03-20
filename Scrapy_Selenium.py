@@ -8,7 +8,21 @@ import Keyword_Extraction_Class
 import Gather_Information_Class
 import re
 
-all_keywords = []
+
+class Person(object):
+    def __init__(self):
+        self.first_name = ""
+        self.second_name = ""
+        self.location = ""
+        self.year_of_birth = ""
+        self.instagram_name = ""
+        self.facebook_name = ""
+        self.company = ""
+        self.occupation = ""
+        self.hobbies = ""
+        self.universities = ""
+        self.email = ""
+
 
 class QuotesSpider(scrapy.Spider):
     name = "quotes"
@@ -23,15 +37,14 @@ class QuotesSpider(scrapy.Spider):
 
     def start_requests(self):
         #For link-creation
-        create_search_link = Create_Search_Link_Class.CreateSearchLink()
-        url_list = create_search_link.enter_information()
+        url_list = create_search_link.get_search_links()
         print("URL-LIST: ", url_list)
 
         """url_list = ['https://www.google.com/search?q="Marco+Lang"+"Tettnang"+"1995"',
                 'https://www.schwaebische.de/landkreis/bodenseekreis/tettnang_artikel,-junge-union-will-partty-bus-\
                 verwirklichen-_arid,10701303.html']"""
         for url in url_list:
-            yield SeleniumRequest(url=url, callback=self.parse, wait_time=10)
+            yield SeleniumRequest(url=url, callback=self.parse, wait_time=10, )
 
     def parse(self, response):
         # print(response.request.meta['driver'].page_source)
@@ -56,8 +69,8 @@ class QuotesSpider(scrapy.Spider):
         else:
             print("No more pages to scrape!")
 
-        #TODO links_to_scrape must be scraped
-        #self.gather_information()
+        # TODO links_to_scrape must be scraped
+        # self.gather_information()
 
         test_links = ['https://businesspf.hs-pforzheim.de/studium/studierende/bachelor/bw_einkauf_\
                         logistik/studierende/studentisches_leben/'
@@ -67,14 +80,15 @@ class QuotesSpider(scrapy.Spider):
             yield SeleniumRequest(url=link, callback=self.gather_information, wait_time=10)
 
     def gather_information(self, response):
-        #response = SeleniumRequest(url="https://www.schwaebische.de/landkreis/bodenseekreis/tettnang_artikel,"
-                                      # "-junge-union-will-partty-bus-verwirklichen-_arid,10701303.html")
-        #print(response)
+        # response = SeleniumRequest(url="https://www.schwaebische.de/landkreis/bodenseekreis/tettnang_artikel,"
+        # "-junge-union-will-partty-bus-verwirklichen-_arid,10701303.html")
+        # print(response)
+        # person_object = Person()
         obj = BeautifulSoup(response.text, "html.parser")
         print("--------------------------------", response.url,"------------------------------------")
-        keywword_extraction_class = Keyword_Extraction_Class.KeywordExtraction()
-        formatted_string = keywword_extraction_class.formate_input_text(obj.body.text)
-        keywords = keywword_extraction_class.create_keywords(formatted_string)
+        keyword_extraction_class = Keyword_Extraction_Class.KeywordExtraction()
+        formatted_string = keyword_extraction_class.formate_input_text(obj.body.text)
+        keywords = keyword_extraction_class.create_keywords(formatted_string)
         keywords_string = "".join(keywords)
 
         with open("test.txt", "a") as myfile:
@@ -82,8 +96,33 @@ class QuotesSpider(scrapy.Spider):
             myfile.write(keywords_string+"\n")
 
         gather_information_class = Gather_Information_Class.GatherInformation()
-        gather_information_class.compare_keywords_with_databases(keywords)
-        keywword_extraction_class.get_email(obj.body.text)
+        person_object.hobbies = gather_information_class.compare_keywords_with_hobbies(keywords)
+        person_object.locations = gather_information_class.compare_keywords_with_locations(keywords)
+        person_object.universities = gather_information_class.compare_keywords_with_universities(keywords)
+        person_object.occupation = gather_information_class.compare_keywords_with_occupations(keywords)
+        person_object.email = gather_information_class.get_email(obj.body.text,person_object.first_name, person_object.second_name)
+
+        print("Object" + person_object.first_name)
+        print("Object" + person_object.second_name)
+        print("Object" + person_object.location)
+        print("Object" + person_object.year_of_birth)
+        print("Object",person_object.email)
+
+
+#and transfer information from user
+def transfer_information():
+    person_input_information = create_search_link.enter_information()
+    person_object.first_name = person_input_information.first_name
+    person_object.second_name = person_input_information.second_name
+    person_object.location = person_input_information.location
+
+
+# Create Person object
+create_search_link = Create_Search_Link_Class.CreateSearchLink()
+person_object = Person()
+
+transfer_information()
+
 
 
 process = CrawlerProcess({

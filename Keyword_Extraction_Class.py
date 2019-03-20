@@ -47,12 +47,13 @@ class KeywordExtraction:
             # element = "lang@pw-metallbau.de"
             if re.match(r".*@.*\.(de|com|net)", element) is not None:
                 print("Email found:" + element)
+                return element
                 #TODO Procent bestimmen ab wann nicht mehr übereinstimmt!
                 procent_string = element.split("@")
-                procent = self.similar("michaelfuerer", procent_string[0])
+                procent = self.compare_email_with_name("michaelfuerer", procent_string[0])
                 print("PROCCENNNNT", procent)
 
-                procent = self.similar("michaelfuerer", procent_string[1])
+                procent = self.compare_email_with_name("michaelfuerer", procent_string[1])
                 print("PROCCENNNNT", procent)
 
 

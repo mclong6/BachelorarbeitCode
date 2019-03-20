@@ -49,12 +49,9 @@ class CreateSearchLink:
                              "location": self.person_object.location, "year_of_birth": self.person_object.year_of_birth,
                              "estimated_year_of_birth": self.person_object.estimated_year_of_birth,
                             "institution": self.person_object.institution})
+        return self.person_object
 
-
-        self.analyze_information()
-        return self.search_link_list
-
-    def analyze_information(self):
+    def get_search_links(self):
         if self.person_object.instagram_name is not "":
             print("Instagram name is not none")
             self.build_search_string(self.instagram_key)
@@ -78,6 +75,8 @@ class CreateSearchLink:
             if self.person_object.institution is not "":
                 self.build_search_string(self.institution_key)
         # location kann gespeichert werden damit auf einer Webseite danach gesucht werden kann. Ode zu städte liste hinzufügen
+
+        return self.search_link_list
 
     def build_search_string(self, key):
         if key == self.facebook_key:
