@@ -1,44 +1,45 @@
 import csv
-
+from itertools import combinations, permutations
 
 class CreateEmailAddresses:
 
     def __init__(self):
         self.firstname = ""
         self.secondname = ""
-        self.birthdate = []
+        self.birthdate = ""
+        self.shortform_birthdate = ""
 
-    def create_email_addresses(self, firstname,secondname,birthdate):
+    def create_email_addresses(self, firstname,secondname,birthdate, shortform_birthdate):
         self.firstname = firstname
         self.secondname = secondname
         self.birthdate = birthdate
+        self.shortform_birthdate = shortform_birthdate
 
+        firstname_secondname_list = [self.firstname, self.secondname, self.birthdate]
+        firstname_secondname_birthdate_list = [self.firstname,self.secondname,self.birthdate]
+        firstname_secondname_shortform_list = [self.firstname, self.secondname, self.shortform_birthdate]
         info_set = { self.firstname, self.secondname, self.birthdate}
 
+        #Maybe Delete!
         collect = set()
         step = {''}
         while step:
-
-            for a in step:
-                for b in info_set:
-                    if len(a+b)<=24 and not b in a:
-                        step.add(a+b)
-            collect |= step
-
-            '''for a in step:
-                for b in S:
-                    if len(a+b)<=24:
-                        if not a==b:
-                            step.add(a+b)
-        '''
             # step = set(a+b for a in step for b in S if len(a+b) <= 24)
-            step = set(a + b for a in step for b in S if len(a + b) <= 24 and not b in a)
-
+            step = set( a+b for a in step for b in info_set if len(a + b) <= 24 and not b in a)
             collect |= step
-
         print(sorted(collect))
 
+        self.create_permutations(firstname_secondname_list)
 
+
+    def create_permutations(self,list):
+        #TODO create Permutations
+        perm = permutations(list)
+        for i in perm:
+            print(i[0])
+        #print(list(combinations(mylist,2)))
+
+"""
 player_information_list = []
 no_birth_date = '()'
 def get_player_information_from_csvfile():
@@ -88,3 +89,6 @@ while step:
 print(sorted(collect))
 
 #get_player_information_from_csvfile()
+"""
+email = CreateEmailAddresses()
+email.create_email_addresses("marco","lang", "1995", "95")
