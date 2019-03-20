@@ -1,4 +1,6 @@
 import csv
+
+
 class CreateSearchLink:
     class Person(object):
         def __init__(self):
@@ -35,20 +37,7 @@ class CreateSearchLink:
         # self.person_object.instagram_name = input("Instagram Benutzername: ")
         # self.person_object.facebook_name = input("Facebook Benutzername: ")
         # self.person_object.twitter_name = input("Twitter Benutzername")
-        with open("person_information.csv","w") as file:
-            fieldnames = ["firstname", "secondname", "location", "year_of_birth", "estimated_year_of_birth",\
-                          "institution", "email", "hobbies", "occupation"]
-            writer = csv.DictWriter(file, fieldnames=fieldnames)
-            #writer = csv.writer(file)
-            """row = self.person_object.first_name + "," + self.person_object.second_name+"," +\
-                  self.person_object.location + "," + self.person_object.year_of_birth+"," +\
-                  self.person_object.estimated_year_of_birth+","+self.person_object.institution+","
-            print(row)"""
-            #writer.writeheader()
-            writer.writerow({"firstname": self.person_object.second_name,"secondname": self.person_object.first_name,
-                             "location": self.person_object.location, "year_of_birth": self.person_object.year_of_birth,
-                             "estimated_year_of_birth": self.person_object.estimated_year_of_birth,
-                            "institution": self.person_object.institution})
+
         return self.person_object
 
     def get_search_links(self):

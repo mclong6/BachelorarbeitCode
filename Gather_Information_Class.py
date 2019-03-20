@@ -30,8 +30,8 @@ class GatherInformation:
                     #if element in word:
                     if element == word:
                         if word not in self.location:
-                            print("Textwort: " + word + "\nWort aus Städte-Liste: " + element)
                             self.location.append(element)
+        print("Location: ", self.location)
         return self.location
 
     def compare_keywords_with_hobbies(self, keywords):
@@ -45,8 +45,8 @@ class GatherInformation:
                     #if element in word:
                     if element == word:
                         if word not in self.hobbies:
-                            print("Textwort: " + word + "\nWort aus Hobby-Liste: " + element)
                             self.hobbies.append(element)
+        print("Hobbies: ", self.hobbies)
         return self.hobbies
 
     def compare_keywords_with_occupations(self, keywords):
@@ -60,8 +60,8 @@ class GatherInformation:
                     #if element in word:
                     if element == word:
                         if word not in self.occupation:
-                            print("Textwort: " + word + "\nWort aus Occupation-Liste: " + element)
                             self.occupation.append(element)
+        print("Occupation: ", self.occupation)
         return self.occupation
 
     def compare_keywords_with_universities(self, keywords):
@@ -75,8 +75,8 @@ class GatherInformation:
                     #if element in word:
                     if element == word:
                         if word not in self.university:
-                            print("Textwort: " + word + "\nWort aus Universities-Liste: " + element)
                             self.university.append(element)
+        print("Universities: ",self.university)
         return self.university
 
     def compare_keywords_with_clubs(self,keywords):
@@ -90,14 +90,13 @@ class GatherInformation:
             # writer.writeheader()
             if self.hobbies is not "":
                 writer.writerow({"hobbies": self.hobbies})"""
+
     def compare_email_with_name(self, firstname, secondname, mail):
         formatted_name = firstname.lower()+secondname.lower()
-        print("Name "+ formatted_name)
         local_part_of_mailaddress = mail.split("@")[0]
         percentage_limit = 0.4
         if SequenceMatcher(None, formatted_name, local_part_of_mailaddress).ratio()>= percentage_limit:
             self.emails.append(mail)
-        print(self.emails)
 
     def get_email(self, html_string, firstname, secondname):
         email_words = self.whitespace_wt.tokenize(html_string.lower())
@@ -107,11 +106,12 @@ class GatherInformation:
                 print("Email found:" + element)
                 self.compare_email_with_name(firstname, secondname, element)
 
-                with open("person_information.csv", "a") as file:
+                """with open("person_information.csv", "a") as file:
                     fieldnames = ["firstname", "secondname", "location", "year_of_birth", "estimated_year_of_birth",
                                   "institution", "email", "hobbies", "occupation"]
                     writer = csv.DictWriter(file, fieldnames=fieldnames)
                     # writer.writeheader()
                     writer.writerow(
-                        {"email": element})
+                        {"email": element})"""
+        print("Correct Emails: ", self.emails)
         return self.emails

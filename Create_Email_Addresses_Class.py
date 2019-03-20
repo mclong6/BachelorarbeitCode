@@ -1,5 +1,44 @@
 import csv
 
+
+class CreateEmailAddresses:
+
+    def __init__(self):
+        self.firstname = ""
+        self.secondname = ""
+        self.birthdate = []
+
+    def create_email_addresses(self, firstname,secondname,birthdate):
+        self.firstname = firstname
+        self.secondname = secondname
+        self.birthdate = birthdate
+
+        info_set = { self.firstname, self.secondname, self.birthdate}
+
+        collect = set()
+        step = {''}
+        while step:
+
+            for a in step:
+                for b in info_set:
+                    if len(a+b)<=24 and not b in a:
+                        step.add(a+b)
+            collect |= step
+
+            '''for a in step:
+                for b in S:
+                    if len(a+b)<=24:
+                        if not a==b:
+                            step.add(a+b)
+        '''
+            # step = set(a+b for a in step for b in S if len(a+b) <= 24)
+            step = set(a + b for a in step for b in S if len(a + b) <= 24 and not b in a)
+
+            collect |= step
+
+        print(sorted(collect))
+
+
 player_information_list = []
 no_birth_date = '()'
 def get_player_information_from_csvfile():

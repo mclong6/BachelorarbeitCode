@@ -24,7 +24,6 @@ class KeywordExtraction:
         self.keywords = []
 
     def formate_input_text(self, input_string):
-        print("FORMATE_INPUT_TEXT")
         h = html2text.HTML2Text()
         # is it possible to ignore <script>??
         formatted_string = h.handle(input_string)
@@ -37,36 +36,7 @@ class KeywordExtraction:
         formatted_string = re.sub(r' [a-z]{1,2} ', ' ', formatted_string) #TODO weniger als zwei Zeichen versuchen z.B FH
         return formatted_string
 
-    def similar(self,a,b):
-        print(b)
-        return SequenceMatcher(None, a, b).ratio()
-
-    def get_email(self, html_string):
-        email_words  = self.whitespace_wt.tokenize(html_string.lower())
-        for element in email_words:
-            # element = "lang@pw-metallbau.de"
-            if re.match(r".*@.*\.(de|com|net)", element) is not None:
-                print("Email found:" + element)
-                return element
-                #TODO Procent bestimmen ab wann nicht mehr übereinstimmt!
-                procent_string = element.split("@")
-                procent = self.compare_email_with_name("michaelfuerer", procent_string[0])
-                print("PROCCENNNNT", procent)
-
-                procent = self.compare_email_with_name("michaelfuerer", procent_string[1])
-                print("PROCCENNNNT", procent)
-
-
-                with open("person_information.csv", "a") as file:
-                    fieldnames = ["firstname", "secondname", "location", "year_of_birth", "estimated_year_of_birth",
-                                  "institution", "email", "hobbies", "occupation"]
-                    writer = csv.DictWriter(file, fieldnames=fieldnames)
-                    # writer.writeheader()
-                    writer.writerow(
-                        {"email": element})
-
     def create_keywords(self, input_string):
-        print("CREATE_KEYWORDS")
         splitted_words = word_tokenize(input_string.lower())
 
         for word in splitted_words:
@@ -100,7 +70,7 @@ class KeywordExtraction:
             counted_words.append(frequencies_word)
         print(counted_words)
         """
-        print(self.keywords)
+        print("KEYWORDS: ",self.keywords)
         return self.keywords
 
 
