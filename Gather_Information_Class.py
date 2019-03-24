@@ -2,7 +2,8 @@ import csv
 from nltk import WhitespaceTokenizer
 import re
 from difflib import SequenceMatcher
-
+import datetime
+import numpy
 
 class GatherInformation:
 
@@ -115,3 +116,40 @@ class GatherInformation:
                         {"email": element})"""
         print("Correct Emails: ", self.emails)
         return self.emails
+
+    def get_years(self, html_string):
+        #print(html_string)
+        average_year = -1
+        date = datetime.datetime.now()
+        number_of_characters=0
+        max_number_of_characters=100
+        min_year = 1700
+        all_years_in_text = []
+        correct_years_in_text = []
+        string_behind_copyright= ""
+        position = html_string.find("©")
+        print("position:",position,"length: ",len(html_string))
+        while position < len(html_string)and number_of_characters <= max_number_of_characters and position is not -1:
+            print(html_string[position])
+            string_behind_copyright += (html_string[position])
+            position += 1
+            number_of_characters += 1
+        years_behind_copyright = re.findall(r"[0-9]{4}",string_behind_copyright)
+
+        if years_behind_copyright:
+            int_years_behind_copyright = list(map(int, years_behind_copyright))
+            average_year = numpy.mean(int_years_behind_copyright)
+            average_year = int(round(average_year))
+            print("Year behind Copyright: ", average_year)
+        else:
+            all_years_in_text = re.findall(r"[0-9]{4}", html_string)
+            average_year = -1
+            if all_years_in_text:
+                for element in all_years_in_text:
+                    if not int(element) < min_year and not int(element) > int(date.year):
+                        correct_years_in_text.append(int(element))
+                average_year = numpy.mean(correct_years_in_text)
+                average_year = int(round(average_year))
+
+        print(average_year)
+        return average_year

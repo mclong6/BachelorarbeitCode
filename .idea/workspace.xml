@@ -2,7 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b421c976-057a-4f3e-86fb-441c5258da44" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/Identiy_Person_Class.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Social_Media_Class.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Create_Email_Addresses_Class.py" beforeDir="false" afterPath="$PROJECT_DIR$/Create_Email_Addresses_Class.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Create_Search_Link_Class.py" beforeDir="false" afterPath="$PROJECT_DIR$/Create_Search_Link_Class.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Gather_Information_Class.py" beforeDir="false" afterPath="$PROJECT_DIR$/Gather_Information_Class.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Scrapy_Selenium.py" beforeDir="false" afterPath="$PROJECT_DIR$/Scrapy_Selenium.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -12,11 +18,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Scrapy_Selenium.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="162">
-              <caret line="9" column="13" selection-start-line="9" selection-start-column="13" selection-end-line="9" selection-end-column="13" />
+            <state relative-caret-position="331">
+              <caret line="108" column="61" lean-forward="true" selection-start-line="108" selection-start-column="61" selection-end-line="108" selection-end-column="61" />
               <folding>
                 <element signature="e#0#43#0" expanded="true" />
               </folding>
@@ -25,46 +31,13 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Gather_Information_Class.py">
+        <entry file="file://$PROJECT_DIR$/Social_Media_Class.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="144">
-              <caret line="8" column="4" selection-start-line="8" selection-start-column="4" selection-end-line="18" selection-end-column="24" />
+            <state relative-caret-position="241">
+              <caret line="55" column="59" selection-start-line="55" selection-start-column="59" selection-end-line="55" selection-end-column="59" />
               <folding>
-                <element signature="e#0#10#0" expanded="true" />
+                <element signature="e#0#29#0" expanded="true" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Keyword_Extraction_Class.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="198">
-              <caret line="43" column="42" lean-forward="true" selection-start-line="43" selection-start-column="42" selection-end-line="43" selection-end-column="42" />
-              <folding>
-                <element signature="e#0#30#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/Create_Email_Addresses_Class.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="378">
-              <caret line="36" column="33" lean-forward="true" selection-start-line="36" selection-start-column="33" selection-end-line="36" selection-end-column="33" />
-              <folding>
-                <element signature="e#0#10#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Create_Email_Content_Class.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="198">
-              <caret line="11" selection-start-line="11" selection-end-line="11" />
             </state>
           </provider>
         </entry>
@@ -72,8 +45,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Create_Search_Link_Class.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="221">
-              <caret line="34" column="50" selection-start-line="34" selection-start-column="27" selection-end-line="34" selection-end-column="50" />
+            <state relative-caret-position="450">
+              <caret line="91" lean-forward="true" selection-start-line="91" selection-end-line="91" />
             </state>
           </provider>
         </entry>
@@ -89,15 +62,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>quotes</find>
-      <find>Title</find>
-      <find>var u</find>
-      <find>u</find>
-      <find>fin</find>
-      <find>@</find>
-      <find>FINAL</find>
-      <find>-</find>
-      <find>Tettnang</find>
       <find>zusammenbruchjahr01ist</find>
       <find>zusamm</find>
       <find>zusammenbr</find>
@@ -119,6 +83,15 @@
       <find>csv</find>
       <find>enter</find>
       <find>get</find>
+      <find>m.a.r.c.o</find>
+      <find>Print</find>
+      <find>2009</find>
+      <find>2019</find>
+      <find>email</find>
+      <find>Prin</find>
+      <find>©</find>
+      <find>join</find>
+      <find>4370</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -141,21 +114,22 @@
         <option value="$PROJECT_DIR$/NLTK.py" />
         <option value="$PROJECT_DIR$/Rake.py" />
         <option value="$PROJECT_DIR$/test.txt" />
-        <option value="$PROJECT_DIR$/Create_Email_Content_Class.py" />
         <option value="$PROJECT_DIR$/CreateEmailAdresses.py" />
-        <option value="$PROJECT_DIR$/Create_Search_Link_Class.py" />
-        <option value="$PROJECT_DIR$/Gather_Information_Class.py" />
         <option value="$PROJECT_DIR$/Keyword_Extraction_Class.py" />
-        <option value="$PROJECT_DIR$/Scrapy_Selenium.py" />
         <option value="$PROJECT_DIR$/Create_Email_Addresses_Class.py" />
+        <option value="$PROJECT_DIR$/Create_Email_Content_Class.py" />
+        <option value="$PROJECT_DIR$/Identiy_Person_Class.py" />
+        <option value="$PROJECT_DIR$/Gather_Information_Class.py" />
+        <option value="$PROJECT_DIR$/Create_Search_Link_Class.py" />
+        <option value="$PROJECT_DIR$/Social_Media_Class.py" />
+        <option value="$PROJECT_DIR$/Scrapy_Selenium.py" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="459" />
-    <option name="y" value="27" />
-    <option name="width" value="950" />
-    <option name="height" value="747" />
+    <option name="x" value="725" />
+    <option name="width" value="1195" />
+    <option name="height" value="1080" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -208,7 +182,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.CreateEmailAdresses">
+  <component name="RunManager" selected="Python.Scrapy_Selenium">
     <configuration name="CreateEmailAdresses" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="Bachelorarbeit" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -230,7 +204,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="Create_Search_Link_Class" type="PythonConfigurationType" factoryName="Python" temporary="true">
+    <configuration name="Create_Email_Content_Class" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="Bachelorarbeit" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -242,7 +216,7 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Create_Search_Link_Class.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Create_Email_Content_Class.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -272,27 +246,6 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="Keyword_Extraction_Class" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <module name="Bachelorarbeit" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Keyword_Extraction_Class.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
     <configuration name="Scrapy_Selenium" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="Bachelorarbeit" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -314,13 +267,34 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
+    <configuration name="Social_Media_Class" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="Bachelorarbeit" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Social_Media_Class.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.CreateEmailAdresses" />
         <item itemvalue="Python.Scrapy_Selenium" />
+        <item itemvalue="Python.Social_Media_Class" />
         <item itemvalue="Python.Gather_Information_Class" />
-        <item itemvalue="Python.Create_Search_Link_Class" />
-        <item itemvalue="Python.Keyword_Extraction_Class" />
+        <item itemvalue="Python.Create_Email_Content_Class" />
+        <item itemvalue="Python.CreateEmailAdresses" />
       </list>
     </recent_temporary>
   </component>
@@ -347,21 +321,21 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="25" width="1920" height="998" extended-state="6" />
+    <frame x="0" y="-2" width="1920" height="1082" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.1547492" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.15528281" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.29919448" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.49946293" visible="true" weight="0.35443038" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.49893278" visible="true" weight="0.35257083" />
       <window_info anchor="bottom" id="Cvs" order="3" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="4" weight="0.4" />
       <window_info anchor="bottom" id="Debug" order="5" weight="0.31300345" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.3557188" />
       <window_info anchor="bottom" id="Version Control" order="7" weight="0.32843652" />
-      <window_info anchor="bottom" id="Event Log" order="8" sideWeight="0.50053704" side_tool="true" weight="0.41900647" />
+      <window_info anchor="bottom" id="Event Log" order="8" sideWeight="0.5010672" side_tool="true" weight="0.35327962" />
       <window_info anchor="bottom" id="Terminal" order="9" weight="0.20566632" />
       <window_info anchor="bottom" id="Python Console" order="10" weight="0.32843652" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
@@ -501,33 +475,7 @@
     <entry file="file://$PROJECT_DIR$/person_information.csv">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/städte.csv">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2172">
-          <caret line="6129" column="8" selection-start-line="6129" selection-end-line="6129" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/WebScraperInfoForOnePerson.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="72">
-          <caret line="20" selection-start-line="20" selection-end-line="28" selection-end-column="30" />
-          <folding>
-            <element signature="e#0#29#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/WebScraper.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="473">
-          <caret line="83" column="27" selection-start-line="83" selection-start-column="24" selection-end-line="83" selection-end-column="27" />
-          <folding>
-            <element signature="e#0#29#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/städte.csv" />
     <entry file="file://$PROJECT_DIR$/NTLK_Test.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="473">
@@ -538,10 +486,37 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Create_Search_Link_Class.py">
+    <entry file="file://$PROJECT_DIR$/WebScraperInfoForOnePerson.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="221">
-          <caret line="34" column="50" selection-start-line="34" selection-start-column="27" selection-end-line="34" selection-end-column="50" />
+        <state relative-caret-position="450">
+          <caret line="130" column="25" lean-forward="true" selection-start-line="130" selection-start-column="25" selection-end-line="130" selection-end-column="25" />
+          <folding>
+            <element signature="e#0#29#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Identiy_Person_Class.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="108">
+          <caret line="6" column="59" selection-start-line="6" selection-start-column="59" selection-end-line="6" selection-end-column="59" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Keyword_Extraction_Class.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="882">
+          <caret line="57" column="38" selection-start-line="57" selection-start-column="34" selection-end-line="57" selection-end-column="38" />
+          <folding>
+            <element signature="e#0#30#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Create_Email_Addresses_Class.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="972">
+          <caret line="54" selection-start-line="54" selection-end-line="54" />
         </state>
       </provider>
     </entry>
@@ -552,42 +527,49 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Keyword_Extraction_Class.py">
+    <entry file="file://$PROJECT_DIR$/WebScraper.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="198">
-          <caret line="43" column="42" lean-forward="true" selection-start-line="43" selection-start-column="42" selection-end-line="43" selection-end-column="42" />
+        <state relative-caret-position="433">
+          <caret line="146" selection-start-line="146" selection-end-line="146" />
           <folding>
-            <element signature="e#0#30#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Scrapy_Selenium.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="162">
-          <caret line="9" column="13" selection-start-line="9" selection-start-column="13" selection-end-line="9" selection-end-column="13" />
-          <folding>
-            <element signature="e#0#43#0" expanded="true" />
+            <element signature="e#0#29#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Gather_Information_Class.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="144">
-          <caret line="8" column="4" selection-start-line="8" selection-start-column="4" selection-end-line="18" selection-end-column="24" />
+        <state relative-caret-position="2538">
+          <caret line="141" column="51" selection-start-line="141" selection-start-column="51" selection-end-line="141" selection-end-column="51" />
           <folding>
             <element signature="e#0#10#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Create_Email_Addresses_Class.py">
+    <entry file="file://$PROJECT_DIR$/Create_Search_Link_Class.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="378">
-          <caret line="36" column="33" lean-forward="true" selection-start-line="36" selection-start-column="33" selection-end-line="36" selection-end-column="33" />
+        <state relative-caret-position="450">
+          <caret line="91" lean-forward="true" selection-start-line="91" selection-end-line="91" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Social_Media_Class.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="241">
+          <caret line="55" column="59" selection-start-line="55" selection-start-column="59" selection-end-line="55" selection-end-column="59" />
           <folding>
-            <element signature="e#0#10#0" expanded="true" />
+            <element signature="e#0#29#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Scrapy_Selenium.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="331">
+          <caret line="108" column="61" lean-forward="true" selection-start-line="108" selection-start-column="61" selection-end-line="108" selection-end-column="61" />
+          <folding>
+            <element signature="e#0#43#0" expanded="true" />
           </folding>
         </state>
       </provider>

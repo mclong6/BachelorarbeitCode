@@ -6,7 +6,7 @@ class CreateSearchLink:
         def __init__(self):
             self.first_name = ""
             self.second_name = ""
-            self.location = ""
+            self.place_of_residence = ""
             self.year_of_birth = ""
             self.estimated_year_of_birth = ""
             self.instagram_name = ""
@@ -15,9 +15,6 @@ class CreateSearchLink:
             self.institution = ""
 
     def __init__(self):
-        self.instagram_key = 1
-        self.facebook_key = 2
-        self.twitter_key = 3
         self.institution_key = 4
         self.location_key = 5
         self.year_of_birth_key = 6
@@ -27,7 +24,7 @@ class CreateSearchLink:
         self.search_link_list = []
         self.person_object = self.Person()
 
-    def enter_information(self):
+    """def enter_information(self):
         self.person_object.first_name = input("Vorname: ").replace(" ","%22")
         self.person_object.second_name = input("Nachname: ").replace(" ","%22")
         self.person_object.location = input("Wohnort: ").replace(" ","%22")
@@ -39,36 +36,27 @@ class CreateSearchLink:
         # self.person_object.twitter_name = input("Twitter Benutzername")
 
         return self.person_object
-
-    def get_search_links(self):
-        if self.person_object.instagram_name is not "":
-            print("Instagram name is not none")
-            self.build_search_string(self.instagram_key)
-        if self.person_object.facebook_name is not "":
-            print("Facebook name is not none")
-            self.build_search_string(self.facebook_key)
-        if self.person_object.twitter_name is not "":
-            print("Twitter name is not none")
-            self.build_search_string(self.twitter_key)
-        if self.person_object.first_name and self.person_object.second_name is not "":
-            if self.person_object.location is not "":
+"""
+    def get_search_links(self, person_object):
+        if person_object.first_name and person_object.second_name is not "":
+            if person_object.place_of_residence is not "":
                 self.build_search_string(self.location_key)
-                if self.person_object.year_of_birth is not "":
+                if person_object.year_of_birth is not "":
                     self.build_search_string(self.location_year_key)
-                    if self.person_object.institution is not "":
+                    if person_object.institution is not "":
                         self.build_search_string(self.location_year_institution_key)
-                if self.person_object.institution is not "":
+                if person_object.institution is not "":
                     self.build_search_string(self.location_institution_key)
-            if self.person_object.year_of_birth is not "":
+            if person_object.year_of_birth is not "":
                 self.build_search_string(self.year_of_birth_key)
-            if self.person_object.institution is not "":
+            if person_object.institution is not "":
                 self.build_search_string(self.institution_key)
         # location kann gespeichert werden damit auf einer Webseite danach gesucht werden kann. Ode zu städte liste hinzufügen
 
         return self.search_link_list
 
     def build_search_string(self, key):
-        if key == self.facebook_key:
+        """if key == self.facebook_key:
             search_string = ""
             self.search_link_list.append(search_string)
 
@@ -79,11 +67,11 @@ class CreateSearchLink:
         if key == self.twitter_key:
             search_string = "https://twitter.com/search?f=users&q=%20" + self.person_object.first_name + "%20" + \
                             self.person_object.second_name
-            self.search_link_list.append(search_string)
+            self.search_link_list.append(search_string)"""
 
         if key == self.location_key:
             search_string = "https://www.google.com/search?q=%22" + self.person_object.first_name + "+" \
-                            + self.person_object.second_name + "%22+" + "%22" + self.person_object.location + "%22"
+                            + self.person_object.second_name + "%22+" + "%22" + self.person_object.place_of_residence + "%22"
             self.search_link_list.append(search_string)
 
         if key == self.year_of_birth_key:
@@ -98,20 +86,20 @@ class CreateSearchLink:
 
         if key == self.location_year_key:
             search_string = "https://www.google.com/search?q=%22" + self.person_object.first_name + "+" \
-                            + self.person_object.second_name + "%22+" + "%22"+self.person_object.location + "%22+" + "%22" \
+                            + self.person_object.second_name + "%22+" + "%22" + self.person_object.place_of_residence + "%22+" + "%22" \
                             + self.person_object.year_of_birth + "%22"
             self.search_link_list.append(search_string)
 
         if key == self.location_institution_key:
             search_string = "https://www.google.com/search?q=%22" + self.person_object.first_name + "+" \
-                            + self.person_object.second_name + "%22+" + "%22" + self.person_object.location + "%22+" + "%22" \
+                            + self.person_object.second_name + "%22+" + "%22" + self.person_object.place_of_residence + "%22+" + "%22" \
                             + self.person_object.institution + "%22"
             self.search_link_list.append(search_string)
 
         if key == self.location_year_institution_key:
             search_string = "https://www.google.com/search?q=%22" + self.person_object.first_name + "+" \
-                        + self.person_object.second_name + "%22+" + "%22" + self.person_object.location + "%22+" + "%22" \
-                        + self.person_object.year_of_birth + "%22+" + "%22" + self.person_object.institution + "%22"
+                            + self.person_object.second_name + "%22+" + "%22" + self.person_object.place_of_residence + "%22+" + "%22" \
+                            + self.person_object.year_of_birth + "%22+" + "%22" + self.person_object.institution + "%22"
             self.search_link_list.append(search_string)
 """
 person_object = enter_information()

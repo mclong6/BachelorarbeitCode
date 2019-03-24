@@ -6,13 +6,28 @@ from bs4 import BeautifulSoup
 import Create_Search_Link_Class
 import Keyword_Extraction_Class
 import Gather_Information_Class
+import Social_Media_Class
 import re
-import Create
 
 
 class Person(object):
     def __init__(self):
-        self.first_name = ""
+        self.first_name = input("Vorname: ").replace(" ", "%22")
+        self.second_name = input("Nachname: ").replace(" ", "%22")
+        self.place_of_residence = input("Wohnort: ").replace(" ", "%22")
+        self.year_of_birth = input("Genaues Geburtsjahr: ").replace(" ", "%22")
+        self.estimated_year_of_birth = input("Geschätztes Geburtsjahr: ").replace(" ", "%22")
+        self.institution = input("Institution: ").replace(" ", "%22")
+        self.instagram_name = input("Instagram Benutzername: ")
+        # self.facebook_name = input("Facebook Benutzername: ")
+        # self.twitter_name = input("Twitter Benutzername")
+        self.occupation = []
+        self.hobbies = []
+        self.universities = []
+        self.email = []
+        self.locations = []
+
+        """self.first_name = ""
         self.second_name = ""
         self.location = ""
         self.year_of_birth = ""
@@ -23,25 +38,35 @@ class Person(object):
         self.hobbies = ""
         self.universities = ""
         self.email = ""
-        self.estimated_year_of_birth = ""
+        self.estimated_year_of_birth = """""
 
 
 class QuotesSpider(scrapy.Spider):
-    name = "quotes"
-    custom_settings = {
-        'SELENIUM_DRIVER_NAME': 'chrome',
-        'SELENIUM_DRIVER_EXECUTABLE_PATH' : which('/home/marco/Downloads/chromedriver'),
-        'SELENIUM_DRIVER_ARGUMENTS' : ['--headless'],  # '--headless' if using chrome instead of firefox
-        'DOWNLOADER_MIDDLEWARES' : {
-        'scrapy_selenium.SeleniumMiddleware': 800
+    def __init__(self):
+        self.name = "quotes"
+        self.custom_settings = {
+            'SELENIUM_DRIVER_NAME': 'chrome',
+            'SELENIUM_DRIVER_EXECUTABLE_PATH' : which('/home/marco/Downloads/chromedriver'),
+            'SELENIUM_DRIVER_ARGUMENTS' : ['--headless'],  # '--headless' if using chrome instead of firefox
+            'DOWNLOADER_MIDDLEWARES' : {
+            'scrapy_selenium.SeleniumMiddleware': 800
+            }
         }
-    }
+        self.instagram_key = 1
+        self.facebook_key = 2
+        self.twitter_key = 3
 
     def start_requests(self):
         #For link-creation
-        url_list = create_search_link.get_search_links()
+        social_media = Social_Media_Class.SocialMedia()
+        if person_object.instagram_name:
+            print("instagram is not empty!!!")
+            social_media.login_to_any_page(self.instagram_key)
+            response = social_media.search_instagram(person_object.instagram_name)
+            self.gather_information(response)
+        create_search_link = Create_Search_Link_Class.CreateSearchLink()
+        url_list = create_search_link.get_search_links(person_object)
         print("URL-LIST: ", url_list)
-
         """url_list = ['https://www.google.com/search?q="Marco+Lang"+"Tettnang"+"1995"',
                 'https://www.schwaebische.de/landkreis/bodenseekreis/tettnang_artikel,-junge-union-will-partty-bus-\
                 verwirklichen-_arid,10701303.html']"""
@@ -71,30 +96,32 @@ class QuotesSpider(scrapy.Spider):
         else:
             print("No more pages to scrape!")
         # For testing
-        test_links = ['https://businesspf.hs-pforzheim.de/studium/studierende/bachelor/bw_einkauf_\
-                        logistik/studierende/studentisches_leben/'
-                      ]
+        #test_links = ['http://www.internetlivestats.com/total-number-of-websites/']
+        test_links = ['https://www.instagram.com/']
         # for link in links_to_scrape: # for real use
         for link in test_links:
             yield SeleniumRequest(url=link, callback=self.gather_information, wait_time=10)
 
     def gather_information(self, response):
-        obj = BeautifulSoup(response.text, "html.parser")
-        print("--------------------------------", response.url,"------------------------------------")
+        if isinstance(response, str):
+            obj = BeautifulSoup(response, "html.parser")
+        else:
+            obj = BeautifulSoup(response.text, "html.parser")
         keyword_extraction_class = Keyword_Extraction_Class.KeywordExtraction()
-        formatted_string = keyword_extraction_class.formate_input_text(obj.body.text)
+        formatted_string = keyword_extraction_class.formate_input_text(obj.text)
         keywords = keyword_extraction_class.create_keywords(formatted_string)
 
         gather_information_class = Gather_Information_Class.GatherInformation()
-        person_object.hobbies = gather_information_class.compare_keywords_with_hobbies(keywords)
-        person_object.locations = gather_information_class.compare_keywords_with_locations(keywords)
-        person_object.universities = gather_information_class.compare_keywords_with_universities(keywords)
-        person_object.occupation = gather_information_class.compare_keywords_with_occupations(keywords)
-        person_object.email = gather_information_class.get_email(obj.body.text,person_object.first_name, person_object.second_name)
+        gather_information_class.get_years(obj.text)
+        person_object.hobbies.extend(gather_information_class.compare_keywords_with_hobbies(keywords))
+        person_object.locations.extend(gather_information_class.compare_keywords_with_locations(keywords))
+        person_object.universities.extend(gather_information_class.compare_keywords_with_universities(keywords))
+        person_object.occupation.extend(gather_information_class.compare_keywords_with_occupations(keywords))
+        person_object.email.extend(gather_information_class.get_email(obj.body.text,person_object.first_name, person_object.second_name))
 
         print("Object" + person_object.first_name)
         print("Object" + person_object.second_name)
-        print("Object" + person_object.location)
+        print("Object" + person_object.place_of_residence)
         print("Object" + person_object.year_of_birth)
         print("Object" + person_object.estimated_year_of_birth)
         print("Object" + person_object.institution)
@@ -104,7 +131,7 @@ class QuotesSpider(scrapy.Spider):
 
 
 # transfer information from user input
-def transfer_information():
+"""def transfer_information():
     person_input_information = create_search_link.enter_information()
     person_object.first_name = person_input_information.first_name
     person_object.second_name = person_input_information.second_name
@@ -112,13 +139,13 @@ def transfer_information():
     person_object.institution = person_input_information.institution
     person_object.year_of_birth = person_input_information.year_of_birth
     person_object.estimated_year_of_birth = person_input_information.estimated_year_of_birth
-
+"""
 
 # Create Person object
-create_search_link = Create_Search_Link_Class.CreateSearchLink()
+#create_search_link = Create_Search_Link_Class.CreateSearchLink()
 person_object = Person()
 
-transfer_information()
+#transfer_information()
 
 
 
