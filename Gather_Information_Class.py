@@ -82,15 +82,7 @@ class GatherInformation:
 
     def compare_keywords_with_clubs(self,keywords):
         # TODO Vereinskürzel hinzufügen
-
-
-        """with open("person_information.csv", "a") as file:
-            fieldnames = ["firstname", "secondname", "location", "year_of_birth", "estimated_year_of_birth",
-                          "institution", "email", "hobbies", "occupation", "universities"]
-            writer = csv.DictWriter(file, fieldnames=fieldnames)
-            # writer.writeheader()
-            if self.hobbies is not "":
-                writer.writerow({"hobbies": self.hobbies})"""
+        print("compare_keywords_with_clubs")
 
     def compare_email_with_name(self, firstname, secondname, mail):
         formatted_name = firstname.lower()+secondname.lower()
@@ -107,18 +99,10 @@ class GatherInformation:
                 print("Email found:" + element)
                 self.compare_email_with_name(firstname, secondname, element)
 
-                """with open("person_information.csv", "a") as file:
-                    fieldnames = ["firstname", "secondname", "location", "year_of_birth", "estimated_year_of_birth",
-                                  "institution", "email", "hobbies", "occupation"]
-                    writer = csv.DictWriter(file, fieldnames=fieldnames)
-                    # writer.writeheader()
-                    writer.writerow(
-                        {"email": element})"""
         print("Correct Emails: ", self.emails)
         return self.emails
 
     def get_years(self, html_string):
-        #print(html_string)
         average_year = -1
         date = datetime.datetime.now()
         number_of_characters=0
@@ -128,9 +112,7 @@ class GatherInformation:
         correct_years_in_text = []
         string_behind_copyright= ""
         position = html_string.find("©")
-        print("position:",position,"length: ",len(html_string))
         while position < len(html_string)and number_of_characters <= max_number_of_characters and position is not -1:
-            print(html_string[position])
             string_behind_copyright += (html_string[position])
             position += 1
             number_of_characters += 1
@@ -140,7 +122,6 @@ class GatherInformation:
             int_years_behind_copyright = list(map(int, years_behind_copyright))
             average_year = numpy.mean(int_years_behind_copyright)
             average_year = int(round(average_year))
-            print("Year behind Copyright: ", average_year)
         else:
             all_years_in_text = re.findall(r"[0-9]{4}", html_string)
             average_year = -1
@@ -151,5 +132,5 @@ class GatherInformation:
                 average_year = numpy.mean(correct_years_in_text)
                 average_year = int(round(average_year))
 
-        print(average_year)
+        print("Year of Webpage: ",average_year)
         return average_year

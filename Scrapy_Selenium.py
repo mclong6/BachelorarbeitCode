@@ -60,7 +60,6 @@ class QuotesSpider(scrapy.Spider):
         #For link-creation
         social_media = Social_Media_Class.SocialMedia()
         if person_object.instagram_name:
-            print("instagram is not empty!!!")
             social_media.login_to_any_page(self.instagram_key)
             response = social_media.search_instagram(person_object.instagram_name)
             self.gather_information(response)
@@ -71,7 +70,7 @@ class QuotesSpider(scrapy.Spider):
                 'https://www.schwaebische.de/landkreis/bodenseekreis/tettnang_artikel,-junge-union-will-partty-bus-\
                 verwirklichen-_arid,10701303.html']"""
         for url in url_list:
-            yield SeleniumRequest(url=url, callback=self.parse, wait_time=10, )
+            yield SeleniumRequest(url=url, callback=self.parse, wait_time=10)
 
     def parse(self, response):
         # print(response.request.meta['driver'].page_source)

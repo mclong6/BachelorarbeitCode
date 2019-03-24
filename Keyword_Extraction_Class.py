@@ -30,7 +30,8 @@ class KeywordExtraction:
         formatted_string = formatted_string.replace("\n", " ")
 
         formatted_string = re.sub(r'[><!"|?&#/$()\'\-,.}{;:*+_[\]=]', ' ', formatted_string)
-        formatted_string = re.sub(r"(\w)([A-Z])", r"\1 \2", formatted_string)
+        formatted_string = re.sub(r"([A-Z])*([A-Z])", r"\1 \2", formatted_string)
+        # formatted_string = re.sub(r"(\w)([A-Z])", r"\1 \2", formatted_string)
         # formatted_string = re.sub(r"(\w)([0-9])", r"\1 \2", formatted_string)
         # formatted_string = re.sub(r' [0-9]{1,3} ', ' ', formatted_string)
         formatted_string = re.sub(r' [a-z]{1,2} ', ' ', formatted_string) #TODO weniger als zwei Zeichen versuchen z.B FH
