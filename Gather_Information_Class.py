@@ -5,6 +5,7 @@ from difflib import SequenceMatcher
 import datetime
 import numpy
 
+
 class GatherInformation:
 
     def __init__(self):
@@ -18,6 +19,7 @@ class GatherInformation:
         self.university = []
         self.whitespace_wt = WhitespaceTokenizer()
         self.emails = []
+    # TODO ADD something like Jodel,Whatsapp,Snapchat ....
 
     def compare_keywords_with_locations(self, keywords):
         print(keywords)
