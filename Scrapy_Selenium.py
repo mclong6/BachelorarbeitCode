@@ -20,7 +20,7 @@ class Person(object):
         self.estimated_year_of_birth = input("Geschätztes Geburtsjahr: ").replace(" ", "%22")
         self.institution = input("Institution: ").replace(" ", "%22")
         self.instagram_name = input("Instagram Benutzername: ")
-        # self.facebook_name = input("Facebook Benutzername: ")
+        self.facebook_name = input("Facebook Benutzername: ")
         self.twitter_name = input("Twitter Benutzername")
         self.occupation = []
         self.hobbies = []
@@ -61,8 +61,9 @@ class QuotesSpider(scrapy.Spider):
 
     def start_requests(self):
         #For link-creation
+        #TODO new Information should be used in google search
         social_media = Social_Media_Class.SocialMedia()
-        self.person_object = social_media.handle_social_media(self.person_object)
+        self.transfer_information(social_media.handle_social_media(self.person_object))
         create_search_link = Create_Search_Link_Class.CreateSearchLink()
         search_url_list = create_search_link.get_search_links(self.person_object)
         print("URL-LIST: ", search_url_list)
@@ -100,20 +101,23 @@ class QuotesSpider(scrapy.Spider):
         self.person_object.occupation.extend(gather_information_class.compare_keywords_with_occupations(keywords))
         self.person_object.email.extend(gather_information_class.get_email(obj.body.text,self.person_object.first_name, self.person_object.second_name))
 
+        print("names", self.person_object.first_name)
+        print("instiution",self.person_object.universities)
+        print("locations",self.person_object.locations)
+
+    def transfer_information(self, social_media_person):
+        self.person_object.occupation = social_media_person.occupation
+        self.person_object.locations = social_media_person.locations
+        self.person_object.universities = social_media_person.universities
+        self.person_object.contacts_information = social_media_person.contacts_information
+        self.person_object.email = social_media_person.email
+        self.person_object.hobbies = social_media_person.hobbies
 
 
 
 
 # transfer information from user input
-"""def transfer_information():
-    person_input_information = create_search_link.enter_information()
-    person_object.first_name = person_input_information.first_name
-    person_object.second_name = person_input_information.second_name
-    person_object.location = person_input_information.location
-    person_object.institution = person_input_information.institution
-    person_object.year_of_birth = person_input_information.year_of_birth
-    person_object.estimated_year_of_birth = person_input_information.estimated_year_of_birth
-"""
+
 
 # Create Person object
 # create_search_link = Create_Search_Link_Class.CreateSearchLink()
