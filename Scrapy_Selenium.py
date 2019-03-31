@@ -21,26 +21,14 @@ class Person(object):
         self.institution = input("Institution: ").replace(" ", "%22")
         self.instagram_name = input("Instagram Benutzername: ")
         self.facebook_name = input("Facebook Benutzername: ")
-        self.twitter_name = input("Twitter Benutzername")
+        self.twitter_name = input("Twitter Benutzername: ")
+        self.input_email = input("E-Mail-Adresse: ")
         self.occupation = []
         self.hobbies = []
         self.universities = []
-        self.email = []
+        self.founded_mails = []
         self.locations = []
         self.contacts_information = []
-
-        """self.first_name = ""
-        self.second_name = ""
-        self.location = ""
-        self.year_of_birth = ""
-        self.instagram_name = ""
-        self.facebook_name = ""
-        self.institution = ""
-        self.occupation = ""
-        self.hobbies = ""
-        self.universities = ""
-        self.email = ""
-        self.estimated_year_of_birth = """""
 
 
 class QuotesSpider(scrapy.Spider):
@@ -99,7 +87,7 @@ class QuotesSpider(scrapy.Spider):
         self.person_object.locations.extend(gather_information_class.compare_keywords_with_locations(keywords))
         self.person_object.universities.extend(gather_information_class.compare_keywords_with_universities(keywords))
         self.person_object.occupation.extend(gather_information_class.compare_keywords_with_occupations(keywords))
-        self.person_object.email.extend(gather_information_class.get_email(obj.body.text,self.person_object.first_name, self.person_object.second_name))
+        self.person_object.founded_mails.extend(gather_information_class.get_email(obj.body.text, self.person_object.first_name, self.person_object.second_name))
 
         print("names", self.person_object.first_name)
         print("instiution",self.person_object.universities)
@@ -110,7 +98,7 @@ class QuotesSpider(scrapy.Spider):
         self.person_object.locations = social_media_person.locations
         self.person_object.universities = social_media_person.universities
         self.person_object.contacts_information = social_media_person.contacts_information
-        self.person_object.email = social_media_person.email
+        self.person_object.founded_mails = social_media_person.email
         self.person_object.hobbies = social_media_person.hobbies
 
 

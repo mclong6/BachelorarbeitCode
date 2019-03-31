@@ -1,6 +1,7 @@
 from bs4 import BeautifulSoup
 import re
 import time
+from selenium.webdriver.common.by import By
 import Keyword_Extraction_Class
 import Gather_Information_Class
 from selenium import webdriver
@@ -60,7 +61,7 @@ class SocialMedia:
                 self.url = self.linkedin_login_page
             self.browser.maximize_window()
             self.browser.get(self.url)
-            time.sleep(1)
+            time.sleep(2)
             html_of_search = self.browser.page_source
             html = BeautifulSoup(html_of_search, "html.parser")
             input_username = html.find("input", {'type': re.compile("^(text)|(email)")})
@@ -107,7 +108,7 @@ class SocialMedia:
             self.login_to_any_page(self.instagram_key)
             self.instagram_login = True
             self.handle_instagram()
-            self.search_trough_contacts(self.instagram_key)
+            #self.get_contacts_private_account(self.instagram_key)
         if self.person_object.twitter_name:
             self.login_to_any_page(self.twitter_key)
             self.twitter_login = True
@@ -152,8 +153,15 @@ class SocialMedia:
 
         # handle profile site
         self.handle_social_media_url(url_to_profil)
-        # Just for testing
-        # self.search_trough_contacts(self.instagram_key, person_object)
+        #is accunt private or not
+        html_of_search = self.browser.page_source
+        html_soup = BeautifulSoup(html_of_search, "html.parser")
+        if html_soup.find_all(text="Dieses Konto ist privat"):
+            print("Dieses Konto is privat!!!")
+            # Just for testing
+            self.get_contacts_private_account(self.instagram_key, )
+        else:
+            self.get_contacts_public_account()
 
         # handle_further_information
         self.browser.get(url_to_further_information)
@@ -182,7 +190,27 @@ class SocialMedia:
         self.person_object.universities.extend(gather_information_class.compare_keywords_with_universities(keywords))
         self.person_object.occupation.extend(gather_information_class.compare_keywords_with_occupations(keywords))
 
-    def search_trough_contacts(self, key):
+    def get_contacts_public_account(self):
+        print("get_contacts_public_account()")
+        html_of_search = self.browser.page_source
+        html_soup = BeautifulSoup(html_of_search, "html.parser")
+        username = html_soup.find("h1")
+        follower_tag = html_soup.find("a", attrs={"href": re.compile("/.*(/followers/)")})
+        print("Follower TAG",follower_tag)
+        self.browser.find_element_by_class_name(follower_tag.attrs["class"][0]).click()
+        #TODO get information
+        #url = "https://www.instagram.com/"+username.text+"/followers/"
+        #self.browser.get(url)
+        #print(url)
+        time.sleep(2)
+        html_of_search = self.browser.page_source
+        html_soup = BeautifulSoup(html_of_search, "html.parser")
+        print(self.browser.current_url)
+        print(html_soup)
+        time.sleep(20)
+
+
+    def get_contacts_private_account(self, key):
         if key == self.instagram_key:
             try:
                 while 1:

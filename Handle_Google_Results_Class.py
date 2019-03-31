@@ -11,6 +11,7 @@ class HandleGoogleResults:
             obj = BeautifulSoup(response, "html.parser")
         else:
             obj = BeautifulSoup(response.text, "html.parser")
+        print(obj.prettify())
         # TODO why is class name not r???
         result_div_list = obj.find_all("div", attrs={"class": "g"})
         # result_div_list = obj.find_all("div",class_:"r")
