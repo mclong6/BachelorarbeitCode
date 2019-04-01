@@ -3,11 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="b421c976-057a-4f3e-86fb-441c5258da44" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Create_Search_Link_Class.py" beforeDir="false" afterPath="$PROJECT_DIR$/Create_Search_Link_Class.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Gather_Information_Class.py" beforeDir="false" afterPath="$PROJECT_DIR$/Gather_Information_Class.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Handle_Google_Results_Class.py" beforeDir="false" afterPath="$PROJECT_DIR$/Handle_Google_Results_Class.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Scrapy_Selenium.py" beforeDir="false" afterPath="$PROJECT_DIR$/Scrapy_Selenium.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Send_Email.py" beforeDir="false" afterPath="$PROJECT_DIR$/Send_Email.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Social_Media_Class.py" beforeDir="false" afterPath="$PROJECT_DIR$/Social_Media_Class.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -19,21 +15,9 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Scrapy_Selenium.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="67">
-              <caret line="53" column="8" selection-start-line="53" selection-start-column="8" selection-end-line="53" selection-end-column="8" />
-              <folding>
-                <element signature="e#0#43#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Gather_Information_Class.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="85">
+            <state relative-caret-position="1368">
               <caret line="81" column="47" selection-start-line="81" selection-start-column="47" selection-end-line="81" selection-end-column="47" />
               <folding>
                 <element signature="e#0#10#0" expanded="true" />
@@ -45,7 +29,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Create_Search_Link_Class.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="180">
+            <state relative-caret-position="1386">
               <caret line="77" column="36" selection-start-line="77" selection-start-column="36" selection-end-line="77" selection-end-column="36" />
             </state>
           </provider>
@@ -63,8 +47,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Social_Media_Class.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="432">
-              <caret line="207" column="39" lean-forward="true" selection-start-line="207" selection-start-column="39" selection-end-line="207" selection-end-column="39" />
+            <state relative-caret-position="176">
+              <caret line="214" column="35" lean-forward="true" selection-start-line="210" selection-end-line="221" selection-end-column="56" />
               <folding>
                 <element signature="e#0#29#0" expanded="true" />
               </folding>
@@ -75,7 +59,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/WebScraperInfoForOnePerson.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="266">
+            <state relative-caret-position="630">
               <caret line="40" column="16" selection-start-line="40" selection-start-column="16" selection-end-line="40" selection-end-column="81" />
               <folding>
                 <element signature="e#0#29#0" expanded="true" />
@@ -87,7 +71,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/WebScraper.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="234">
+            <state relative-caret-position="792">
               <caret line="48" column="32" selection-start-line="48" selection-start-column="32" selection-end-line="48" selection-end-column="32" />
               <folding>
                 <element signature="e#0#29#0" expanded="true" />
@@ -143,36 +127,36 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>,</find>
-      <find>;</find>
-      <find>formate_input_text</find>
-      <find>Gießen</find>
-      <find>gieß</find>
-      <find>class=&quot;r&quot;</find>
-      <find>https://www.google.com/search?q=%22Marco+asdfs%22+%22fdas%22</find>
-      <find>www.google.com/search?q=%22Marco+asdfs%22+%22fdas%22</find>
-      <find>class=&quot;fl</find>
-      <find>gather_infor</find>
-      <find>formate</find>
-      <find>person_object</find>
-      <find>type</find>
-      <find>Lufthansa</find>
-      <find>Ravensburg</find>
-      <find>TRUE</find>
-      <find>TRUEE</find>
-      <find>class=&quot;g&quot;</find>
-      <find>Page 2</find>
-      <find>Page 1</find>
-      <find>class=&quot;fl&quot;</find>
-      <find>get_Emai</find>
-      <find>Private</find>
-      <find>Account</find>
       <find>Account</find>
       <find>Account is private</find>
       <find>MarcoLang</find>
       <find>Dieses Konto</find>
       <find>print(h</find>
       <find>followers</find>
+      <find>Abonnenten</find>
+      <find>lenagercke</find>
+      <find>Alle</find>
+      <find>Alle Vorschl</find>
+      <find>isgrp</find>
+      <find>grie</find>
+      <find>kerstin</find>
+      <find>marcbartra</find>
+      <find>_2de</find>
+      <find>vivian</find>
+      <find>/norrona/</find>
+      <find>/instagram/</find>
+      <find>/stewel92/</find>
+      <find>li</find>
+      <find>lenagerck</find>
+      <find>92dr</find>
+      <find>92dre</find>
+      <find>FOLLOWER</find>
+      <find>rhpdm</find>
+      <find>&lt;h1</find>
+      <find>lamarcong</find>
+      <find>fußball</find>
+      <find>same hobbie</find>
+      <find>same h</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -210,9 +194,10 @@
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="y" value="-2" />
-    <option name="width" value="1920" />
-    <option name="height" value="1082" />
+    <option name="x" value="-52" />
+    <option name="y" value="27" />
+    <option name="width" value="1707" />
+    <option name="height" value="728" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -405,14 +390,15 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="-2" width="1920" height="1082" extended-state="6" />
+    <frame x="0" y="25" width="1920" height="998" extended-state="6" />
+    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.14727855" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.0416222" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Find" order="1" weight="0.2990556" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49893278" weight="0.36096537" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.29804373" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.49893278" visible="true" weight="0.32796317" />
       <window_info anchor="bottom" id="Cvs" order="3" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="4" weight="0.4" />
       <window_info anchor="bottom" id="Debug" order="5" weight="0.31269675" />
@@ -569,9 +555,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/hobbies.csv">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
     <entry file="file://$PROJECT_DIR$/Identiy_Person_Class.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="108">
@@ -589,10 +572,57 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/Scrapy_Selenium.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="252">
+          <caret line="24" column="52" selection-start-line="24" selection-start-column="52" selection-end-line="24" selection-end-column="52" />
+          <folding>
+            <element signature="e#0#43#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Gather_Information_Class.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1368">
+          <caret line="81" column="47" selection-start-line="81" selection-start-column="47" selection-end-line="81" selection-end-column="47" />
+          <folding>
+            <element signature="e#0#10#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Create_Search_Link_Class.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1386">
+          <caret line="77" column="36" selection-start-line="77" selection-start-column="36" selection-end-line="77" selection-end-column="36" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/test.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="144">
           <caret line="8" column="53" selection-start-line="8" selection-start-column="53" selection-end-line="8" selection-end-column="53" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/WebScraperInfoForOnePerson.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="630">
+          <caret line="40" column="16" selection-start-line="40" selection-start-column="16" selection-end-line="40" selection-end-column="81" />
+          <folding>
+            <element signature="e#0#29#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/WebScraper.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="792">
+          <caret line="48" column="32" selection-start-line="48" selection-start-column="32" selection-end-line="48" selection-end-column="32" />
+          <folding>
+            <element signature="e#0#29#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -626,57 +656,17 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Create_Search_Link_Class.py">
+    <entry file="file://$PROJECT_DIR$/hobbies.csv">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="77" column="36" selection-start-line="77" selection-start-column="36" selection-end-line="77" selection-end-column="36" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Gather_Information_Class.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="85">
-          <caret line="81" column="47" selection-start-line="81" selection-start-column="47" selection-end-line="81" selection-end-column="47" />
-          <folding>
-            <element signature="e#0#10#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Scrapy_Selenium.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="67">
-          <caret line="53" column="8" selection-start-line="53" selection-start-column="8" selection-end-line="53" selection-end-column="8" />
-          <folding>
-            <element signature="e#0#43#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/WebScraper.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="234">
-          <caret line="48" column="32" selection-start-line="48" selection-start-column="32" selection-end-line="48" selection-end-column="32" />
-          <folding>
-            <element signature="e#0#29#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/WebScraperInfoForOnePerson.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="266">
-          <caret line="40" column="16" selection-start-line="40" selection-start-column="16" selection-end-line="40" selection-end-column="81" />
-          <folding>
-            <element signature="e#0#29#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="165">
+          <caret line="420" column="7" selection-start-line="420" selection-end-line="420" selection-end-column="7" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Social_Media_Class.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="432">
-          <caret line="207" column="39" lean-forward="true" selection-start-line="207" selection-start-column="39" selection-end-line="207" selection-end-column="39" />
+        <state relative-caret-position="176">
+          <caret line="214" column="35" lean-forward="true" selection-start-line="210" selection-end-line="221" selection-end-column="56" />
           <folding>
             <element signature="e#0#29#0" expanded="true" />
           </folding>

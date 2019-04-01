@@ -4,6 +4,7 @@ import time
 from selenium.webdriver.common.by import By
 import Keyword_Extraction_Class
 import Gather_Information_Class
+import random
 from selenium import webdriver
 import Handle_Google_Results_Class
 # Mechanize cannot execute javascript and send asynchronous requests, but Selenium can do it;If you want to scrap a
@@ -26,7 +27,7 @@ class Person(object):
         self.universities = []
         self.email = []
         self.locations = []
-        self.contacts_information = []
+        self.contact_information = []
 
 class SocialMedia:
     def __init__(self):
@@ -47,7 +48,7 @@ class SocialMedia:
         self.browser = webdriver.Chrome('/home/marco/Downloads/chromedriver')
         self.browser.implicitly_wait(10)
         self.url = ""
-        self.contacts_of_victim = []
+        self.links_to_contacts = []
         self.instagram_login = False
         self.facebook_login = False
         self.twitter_login = False
@@ -157,7 +158,7 @@ class SocialMedia:
         html_of_search = self.browser.page_source
         html_soup = BeautifulSoup(html_of_search, "html.parser")
         if html_soup.find_all(text="Dieses Konto ist privat"):
-            print("Dieses Konto is privat!!!")
+            print("Dieses Konto ist privat!!!")
             # Just for testing
             self.get_contacts_private_account(self.instagram_key, )
         else:
@@ -192,23 +193,40 @@ class SocialMedia:
 
     def get_contacts_public_account(self):
         print("get_contacts_public_account()")
+        self.person_object.hobbies.append("fußball")
         html_of_search = self.browser.page_source
         html_soup = BeautifulSoup(html_of_search, "html.parser")
         username = html_soup.find("h1")
-        follower_tag = html_soup.find("a", attrs={"href": re.compile("/.*(/followers/)")})
-        print("Follower TAG",follower_tag)
-        self.browser.find_element_by_class_name(follower_tag.attrs["class"][0]).click()
-        #TODO get information
-        #url = "https://www.instagram.com/"+username.text+"/followers/"
-        #self.browser.get(url)
-        #print(url)
+        follower_atag = html_soup.find("a", attrs={"href": re.compile("/.*(/followers/)")})
+        information_tags = self.browser.find_elements_by_class_name(follower_atag.attrs["class"][0])
+        information_tags[2].click()
         time.sleep(2)
         html_of_search = self.browser.page_source
         html_soup = BeautifulSoup(html_of_search, "html.parser")
-        print(self.browser.current_url)
-        print(html_soup)
-        time.sleep(20)
-
+        print(html_soup.prettify())
+        #for link in html_soup.find_all("a",attrs={"class": re.compile("(FPmhX notranslate _0imsa)|(_2dbep qNELH kIKUG)")}):
+        for link in html_soup.find_all("a", attrs={"class": re.compile("(FPmhX notranslate _0imsa)")}):
+            print(link.attrs["href"])
+        # Find the followers page
+        dialog = self.browser.find_element_by_xpath('/html/body/div[2]/div/div[2]')        # find number of followers
+        allfoll = int(self.browser.find_element_by_xpath("//li[2]/a/span").text)
+        # scroll down the page
+        print("FOLLOWER",allfoll)
+        print("RANGE:",int(allfoll / 6))
+        for i in range(int(allfoll / 6)):
+            if i == 0:
+                self.browser.execute_script("arguments[0].scrollTop = arguments[0].scrollHeight/5", dialog)
+                time.sleep(2)
+            else:
+                self.browser.execute_script("arguments[0].scrollTop = arguments[0].scrollHeight", dialog)
+            time.sleep(random.randint(500, 1000) / 1000)
+            #print("Extract friends %", round((i / (allfoll / 2) * 100), 2), "from", "%100")
+        html_of_search= self.browser.page_source
+        html_soup = BeautifulSoup(html_of_search, "html.parser")
+        for link in html_soup.find_all("a", attrs={"class": re.compile("(FPmhX notranslate _0imsa)")}):
+            print(link.attrs["href"])
+            self.links_to_contacts.append(link.attrs["href"])
+        self.get_contacts_information()
 
     def get_contacts_private_account(self, key):
         if key == self.instagram_key:
@@ -217,44 +235,70 @@ class SocialMedia:
                     html_of_search = self.browser.page_source
                     html_soup = BeautifulSoup(html_of_search, "html.parser")
                     for div in html_soup.find_all("div", attrs={"class":"_41KYi LQtnO"}):
-                            for a_tag in div.find_all("a", attrs={'href': re.compile("/[a-z0-9.\-]/*")}):
+                            for a_tag in div.find_all("a", attrs={'href': re.compile("/[a-z0-9.\-_]/*")}):
                                 #print(a_tag.attrs["href"])
-                                if a_tag.attrs["href"] not in self.contacts_of_victim:
-                                    self.contacts_of_victim.append(a_tag.attrs["href"])
-                                    print(self.contacts_of_victim)
+                                if a_tag.attrs["href"] not in self.links_to_contacts:
+                                    self.links_to_contacts.append(a_tag.attrs["href"])
+                                    print(self.links_to_contacts)
                     self.browser.find_element_by_xpath("//*[@class='Szr5J  _6CZji']").click()
             except Exception as e:
                 print("no more links")
                 print(e)
 
-            for contact_link in self.contacts_of_victim:
-                print(contact_link)
-                url = "https://www.instagram.com" + contact_link
-                self.browser.get(url)
-                html_of_search = self.browser.page_source
-                html_soup = BeautifulSoup(html_of_search, "html.parser")
-                sections = html_soup.find_all("section")
-                print(sections[1].text)
+    def get_contacts_information(self):
+        for contact_link in self.links_to_contacts:
+            print(contact_link)
+            url = "https://www.instagram.com" + contact_link
+            self.browser.get(url)
+            html_of_search = self.browser.page_source
+            html_soup = BeautifulSoup(html_of_search, "html.parser")
+            #Section or whole HTML???
+            sections = html_soup.find_all("section")
+            print(sections[1].text)
 
-                """url = "https://www.instagram.com/michi0595"
-                self.browser.get(url)
-                #time.sleep(2)
-                html_of_search = self.browser.page_source
-                html_soup = BeautifulSoup(html_of_search, "html.parser")
-                sections = html_soup.find_all("section")
-                print(sections[1].text)"""
+            keyword_extraction_class = Keyword_Extraction_Class.KeywordExtraction()
+            formatted_text = keyword_extraction_class.formate_input_text(sections[1].text)
+            keywords = keyword_extraction_class.create_keywords(formatted_text)
+            gather_information_class = Gather_Information_Class.GatherInformation()
+            hobbies_of_contact = gather_information_class.compare_keywords_with_hobbies(keywords)
+            locations_of_contact = gather_information_class.compare_keywords_with_locations(keywords)
+            universities_of_contact = gather_information_class.compare_keywords_with_universities(keywords)
+            occupations_of_contact = gather_information_class.compare_keywords_with_occupations(keywords)
 
-                keyword_extraction_class = Keyword_Extraction_Class.KeywordExtraction()
-                formatted_text = keyword_extraction_class.formate_input_text(sections[1].text)
-                keywords = keyword_extraction_class.create_keywords(formatted_text)
-                gather_information_class = Gather_Information_Class.GatherInformation()
-                self.person_object.contacts_information.extend(gather_information_class.compare_keywords_with_hobbies(keywords))
-                self.person_object.contacts_information.extend(gather_information_class.compare_keywords_with_locations(keywords))
-                self.person_object.contacts_information.extend(gather_information_class.compare_keywords_with_universities(keywords))
-                self.person_object.contacts_information.extend(gather_information_class.compare_keywords_with_occupations(keywords))
+            if self.compare_contact_information(html_soup,hobbies_of_contact,locations_of_contact,universities_of_contact,occupations_of_contact):
+                break
+        print(self.person_object.contact_information)
 
-        print(self.person_object.contacts_information)
-
+    def compare_contact_information(self,html_soup, hobbies_of_contact,locations_of_contact,universities_of_contact,
+                                    occupations_of_contact):
+        if self.person_object.place_of_residence in locations_of_contact:
+            print("Same Location: ", self.person_object.place_of_residence)
+            contact_name = html_soup.find("h1", attrs={"class": "rhpdm"}).text
+            self.person_object.contact_information.append(contact_name)
+            self.person_object.contact_information.append(self.person_object.place_of_residence)
+            return True
+        for hobbie in self.person_object.hobbies:
+            if hobbie in hobbies_of_contact:
+                print("Same Hobbie")
+                contact_name = html_soup.find("h1", attrs={"class": "rhpdm"}).text
+                self.person_object.contact_information.append(contact_name)
+                self.person_object.contact_information.append(hobbie)
+                return True
+        for university in self.person_object.universities:
+            if university in universities_of_contact:
+                print("Same University")
+                contact_name = html_soup.find("h1", attrs={"class": "rhpdm"}).text
+                self.person_object.contact_information.append(contact_name)
+                self.person_object.contact_information.append(university)
+                return True
+        for occupation in self.person_object.occupation:
+            if occupation in occupations_of_contact:
+                print("Same University")
+                contact_name = html_soup.find("h1", attrs={"class": "rhpdm"}).text
+                self.person_object.contact_information.append(contact_name)
+                self.person_object.contact_information.append(occupation)
+                return True
+        return False
     def search_linkedin(self):
         print("in search linkedin")
         links_to_person = []

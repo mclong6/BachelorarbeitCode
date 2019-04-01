@@ -13,9 +13,9 @@ import re
 
 class Person(object):
     def __init__(self):
-        self.first_name = input("Vorname: ").replace(" ", "%22")
-        self.second_name = input("Nachname: ").replace(" ", "%22")
-        self.place_of_residence = input("Wohnort: ").replace(" ", "%22")
+        self.first_name = input("Vorname: ").replace(" ", "%22").lower()
+        self.second_name = input("Nachname: ").replace(" ", "%22").lower()
+        self.place_of_residence = input("Wohnort: ").replace(" ", "%22").lower()
         self.year_of_birth = input("Genaues Geburtsjahr: ").replace(" ", "%22")
         self.estimated_year_of_birth = input("Geschätztes Geburtsjahr: ").replace(" ", "%22")
         self.institution = input("Institution: ").replace(" ", "%22")
