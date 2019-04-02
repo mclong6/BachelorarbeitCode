@@ -8,6 +8,7 @@ import Keyword_Extraction_Class
 import Gather_Information_Class
 import Social_Media_Class
 import Handle_Google_Results_Class
+import csv
 import re
 
 
@@ -48,10 +49,11 @@ class QuotesSpider(scrapy.Spider):
         self.person_object = Person()
 
     def start_requests(self):
+        self.compare_place_of_residence_with_database()
         #For link-creation
         #TODO new Information should be used in google search
-        social_media = Social_Media_Class.SocialMedia()
-        self.transfer_information(social_media.handle_social_media(self.person_object))
+        #social_media = Social_Media_Class.SocialMedia()
+        #self.transfer_information(social_media.handle_social_media(self.person_object))
         create_search_link = Create_Search_Link_Class.CreateSearchLink()
         search_url_list = create_search_link.get_search_links(self.person_object)
         print("URL-LIST: ", search_url_list)
@@ -100,6 +102,26 @@ class QuotesSpider(scrapy.Spider):
         self.person_object.contacts_information = social_media_person.contacts_information
         self.person_object.founded_mails = social_media_person.email
         self.person_object.hobbies = social_media_person.hobbies
+
+    def compare_place_of_residence_with_database(self):
+        database_word_list_location= []
+        place_of_residence_in_database = False
+        if self.person_object.place_of_residence is not "":
+            with open('location.csv', 'r') as csvFile:
+                # with open('hobbies.csv', 'r') as csvFile:
+                csv_reader = csv.reader(csvFile)
+                for row in csv_reader:
+                    database_word_list_location.append(row[0].lower())
+                for element in database_word_list_location:
+                    # if element in word:
+                    if element == self.person_object.place_of_residence:
+                        place_of_residence_in_database = True
+            csvFile.close()
+            if not place_of_residence_in_database:
+                with open("location.csv", "a")as csvFile:
+                    writer = csv.writer(csvFile)
+                    writer.writerow([self.person_object.place_of_residence])
+                csvFile.close()
 
 
 

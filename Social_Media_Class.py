@@ -208,17 +208,17 @@ class SocialMedia:
         for link in html_soup.find_all("a", attrs={"class": re.compile("(FPmhX notranslate _0imsa)")}):
             print(link.attrs["href"])
         # Find the followers page
-        dialog = self.browser.find_element_by_xpath('/html/body/div[2]/div/div[2]')        # find number of followers
+        pop_up = self.browser.find_element_by_xpath('/html/body/div[2]/div/div[2]')        # find number of followers
         allfoll = int(self.browser.find_element_by_xpath("//li[2]/a/span").text)
         # scroll down the page
         print("FOLLOWER",allfoll)
         print("RANGE:",int(allfoll / 6))
         for i in range(int(allfoll / 6)):
             if i == 0:
-                self.browser.execute_script("arguments[0].scrollTop = arguments[0].scrollHeight/5", dialog)
+                self.browser.execute_script("arguments[0].scrollTop = arguments[0].scrollHeight/5", pop_up)
                 time.sleep(2)
             else:
-                self.browser.execute_script("arguments[0].scrollTop = arguments[0].scrollHeight", dialog)
+                self.browser.execute_script("arguments[0].scrollTop = arguments[0].scrollHeight", pop_up)
             time.sleep(random.randint(500, 1000) / 1000)
             #print("Extract friends %", round((i / (allfoll / 2) * 100), 2), "from", "%100")
         html_of_search= self.browser.page_source
