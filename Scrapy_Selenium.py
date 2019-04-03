@@ -47,6 +47,7 @@ class QuotesSpider(scrapy.Spider):
         self.facebook_key = 2
         self.twitter_key = 3
         self.person_object = Person()
+        self.count = 0
 
     def start_requests(self):
         self.compare_place_of_residence_with_database()
@@ -57,45 +58,69 @@ class QuotesSpider(scrapy.Spider):
         create_search_link = Create_Search_Link_Class.CreateSearchLink()
         search_url_list = create_search_link.get_search_links(self.person_object)
         print("URL-LIST: ", search_url_list)
+
+
         """search_url_list = ['https://www.google.com/search?q="Marco+Lang"+"Tettnang"+"1995"',
                 'https://www.schwaebische.de/landkreis/bodenseekreis/tettnang_artikel,-junge-union-will-partty-bus-\
                 verwirklichen-_arid,10701303.html']"""
         for url in search_url_list:
-            print(url)
+            print("Search for URL: ",url)
             yield SeleniumRequest(url=url, callback=self.parse, wait_time=10)
 
     def parse(self, response):
         handle_google_results_class = Handle_Google_Results_Class.HandleGoogleResults()
         links_to_scrape_list = handle_google_results_class.handle_google_results(response)
-
+        print(links_to_scrape_list)
         # For testing
-        test_links = ['https://www.instagram.com/']  # ['http://www.internetlivestats.com/total-number-of-websites/']
-        # for link in links_to_scrape: # for real use
-        for link in test_links:
-            yield SeleniumRequest(url=link, callback=self.gather_information, wait_time=10)
+        social_media = Social_Media_Class.SocialMedia()
+        for link in links_to_scrape_list:
+            test = re.compile(r'.*((instagram)|(twitter)|(linkedin)).*')
+            if test.match(link):
+                social_media.handle_social_media_url(link)
+            else:
+                yield SeleniumRequest(url=link, callback=self.gather_information, wait_time=10)
 
     def gather_information(self, response):
+        print("IN GATHER INFORMATION", self.count)
+        print(response.url)
+        self.count = self.count +1
+
         if isinstance(response, str):
             obj = BeautifulSoup(response, "html.parser")
         else:
-            obj = BeautifulSoup(response.text, "html.parser")
-        keyword_extraction_class = Keyword_Extraction_Class.KeywordExtraction()
-        formatted_string = keyword_extraction_class.formate_input_text(obj.text)
-        keywords = keyword_extraction_class.create_keywords(formatted_string)
+            try:
+                obj = BeautifulSoup(response.text, "html.parser")
+            except:
+                return
+        #Look for attributs like firstname, secondname and place_of_residence
 
-        gather_information_class = Gather_Information_Class.GatherInformation()
-        gather_information_class.get_years(obj.text)
-        self.person_object.hobbies.extend(gather_information_class.compare_keywords_with_hobbies(keywords))
-        self.person_object.locations.extend(gather_information_class.compare_keywords_with_locations(keywords))
-        self.person_object.universities.extend(gather_information_class.compare_keywords_with_universities(keywords))
-        self.person_object.occupation.extend(gather_information_class.compare_keywords_with_occupations(keywords))
-        self.person_object.founded_mails.extend(gather_information_class.get_email(obj.body.text, self.person_object.first_name, self.person_object.second_name))
+        string = self.person_object.first_name+" "+self.person_object.second_name+" "
+        print("User", string)
+        if string in str(obj.text).lower():
+            if self.person_object.place_of_residence in str(obj.text.lower()):
+                print("ALLLLLLLLLES GEFUNDEN")
 
-        print("names", self.person_object.first_name)
-        print("instiution",self.person_object.universities)
-        print("locations",self.person_object.locations)
+                keyword_extraction_class = Keyword_Extraction_Class.KeywordExtraction()
+                formatted_string = keyword_extraction_class.formate_input_text(obj.text)
+                keywords = keyword_extraction_class.create_keywords(formatted_string)
+
+                gather_information_class = Gather_Information_Class.GatherInformation()
+                gather_information_class.get_years(obj.text)
+                self.person_object.hobbies.extend(gather_information_class.compare_keywords_with_hobbies(keywords))
+                self.person_object.locations.extend(gather_information_class.compare_keywords_with_locations(keywords))
+                self.person_object.universities.extend(gather_information_class.compare_keywords_with_universities(keywords))
+                self.person_object.occupation.extend(gather_information_class.compare_keywords_with_occupations(keywords))
+                self.person_object.founded_mails.extend(gather_information_class.get_email(obj.body.text, self.person_object.first_name, self.person_object.second_name))
+
+                print("names", self.person_object.first_name)
+                print("instiution",self.person_object.universities)
+                print("locations",self.person_object.locations)
 
     def transfer_information(self, social_media_person):
+        if self.person_object.first_name == "":
+            self.person_object.first_name = social_media_person.first_name
+        if self.person_object.second_name == "":
+            self.person_object.second_name= social_media_person.second_name
         self.person_object.occupation = social_media_person.occupation
         self.person_object.locations = social_media_person.locations
         self.person_object.universities = social_media_person.universities

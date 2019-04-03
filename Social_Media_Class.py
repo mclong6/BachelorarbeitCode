@@ -27,7 +27,7 @@ class Person(object):
         self.universities = []
         self.email = []
         self.locations = []
-        self.contact_information = []
+        self.contacts_information = []
 
 class SocialMedia:
     def __init__(self):
@@ -53,6 +53,90 @@ class SocialMedia:
         self.facebook_login = False
         self.twitter_login = False
         self.person_object = Person()
+
+    def handle_social_media(self, person):
+        print("handle_social_media()")
+        self.transfer_information(person)
+        if self.person_object.first_name and self.person_object.second_name and self.person_object.place_of_residence:
+            self.search_linkedin()
+            self.search_xing()
+        if self.person_object.instagram_name:
+            self.login_to_any_page(self.instagram_key)
+            self.instagram_login = True
+            if not self.check_person_information():
+                self.handle_instagram(False)
+            else:
+                self.handle_instagram(True)
+        if self.person_object.twitter_name:
+            self.login_to_any_page(self.twitter_key)
+            self.twitter_login = True
+            if not self.check_person_information():
+                self.handle_twitter(False)
+            else:
+                self.handle_twitter(True)
+        #if self.person_object.facebook_name:
+            #self.handle_facebook()
+        return self.person_object
+
+    def transfer_information(self, social_media_person):
+        self.person_object.first_name = social_media_person.first_name
+        self.person_object.second_name = social_media_person.second_name
+        self.person_object.place_of_residence = social_media_person.place_of_residence
+        self.person_object.institution = social_media_person.institution
+        self.person_object.year_of_birth = social_media_person.year_of_birth
+        self.person_object.estimated_year_of_birth = social_media_person.estimated_year_of_birth
+        self.person_object.twitter_name=social_media_person.twitter_name
+        self.person_object.facebook_name = social_media_person.facebook_name
+        self.person_object.instagram_name = social_media_person.instagram_name
+
+    def search_linkedin(self):
+        print("in search linkedin")
+        links_to_person = []
+        self.login_to_any_page(self.linkedin_key)
+        search_link_list = self.create_search_links(self.linkedin_key)
+        print(search_link_list[0])
+        self.browser.get(search_link_list[0])
+        html_of_search = self.browser.page_source
+        html_soup = BeautifulSoup(html_of_search, "html.parser")
+        #links = html_soup.find_all("a",{"id": re.compile("(ember)[0-9]*")})
+        links = html_soup.find_all("a", {"href": re.compile("(/in/)[(w)]*")})
+        for link in links:
+            if link.attrs["href"] not in links_to_person:
+                links_to_person.append(link.attrs["href"])
+        print(links_to_person)
+        #TODO Create Alogrithmus to know which person is the vitim
+        if len(links_to_person) == 1:
+            url = "https://www.linkedin.com"+links_to_person[0]
+            self.handle_social_media_url(url)
+        #TODO delet Ravensurg-Weingarten if it is wrong
+            """if self.person_object.locations[1] == "weingarten" and self.person_object.locations[0] == "ravensburg":
+                print("TRUEEEEEEEEEE")
+            else:
+                del self.person_object.locations[self.person_object.locations.index("weingarten")]
+                del self.person_object.locations[self.person_object.locations.index("ravensburg")]"""
+
+            print("Locations: ",self.person_object.locations)
+
+    def search_xing(self):
+        links_to_person = []
+        self.login_to_any_page(self.xing_key)
+        search_link_list = self.create_search_links(self.xing_key)
+        print(search_link_list[0])
+        time.sleep(2)
+        self.browser.get(search_link_list[0])
+
+        html_of_search = self.browser.page_source
+        html_soup = BeautifulSoup(html_of_search, "html.parser")
+        # links = html_soup.find_all("a",{"id": re.compile("(ember)[0-9]*")})
+        links = html_soup.find_all("a", {"href": re.compile("(/profile/).*/.*")})
+        for link in links:
+            if link.attrs["href"] not in links_to_person:
+                links_to_person.append(link.attrs["href"])
+        print(links_to_person)
+        # TODO Create Alogrithmus to know which person is the vitim
+        if len(links_to_person) == 1:
+            url = "https://www.xing.com" + links_to_person[0]
+            self.handle_social_media_url(url)
 
     def login_to_any_page(self, key):
         if key == self.instagram_key or key == self.linkedin_key:
@@ -101,53 +185,8 @@ class SocialMedia:
             self.browser.find_element_by_name(input_username.attrs["name"]).send_keys(self.username)
             self.browser.find_element_by_name(input_password.attrs["name"]).send_keys(self.password + "\n")
 
-    def handle_social_media(self, person):
-        self.transfer_information(person)
-        print(self.person_object.first_name,self.person_object.second_name,self.person_object.place_of_residence)
-        print("handle_social_media()")
-        if self.person_object.instagram_name:
-            self.login_to_any_page(self.instagram_key)
-            self.instagram_login = True
-            self.handle_instagram()
-            #self.get_contacts_private_account(self.instagram_key)
-        if self.person_object.twitter_name:
-            self.login_to_any_page(self.twitter_key)
-            self.twitter_login = True
-            self.handle_twitter()
-        if self.person_object.facebook_name:
-            self.handle_facebook()
-
-        self.search_linkedin()
-        self.search_xing()
-
-        print("university",self.person_object.universities)
-
-        return self.person_object
-
-    def transfer_information(self, social_media_person):
-        self.person_object.first_name = social_media_person.first_name
-        self.person_object.second_name = social_media_person.second_name
-        self.person_object.place_of_residence = social_media_person.place_of_residence
-        self.person_object.institution = social_media_person.institution
-        self.person_object.year_of_birth = social_media_person.year_of_birth
-        self.person_object.estimated_year_of_birth = social_media_person.estimated_year_of_birth
-        self.person_object.twitter_name=social_media_person.twitter_name
-        self.person_object.facebook_name = social_media_person.facebook_name
-        self.person_object.instagram_name = social_media_person.instagram_name
-
-    def handle_twitter(self):
-        print("handle_twitter()")
-        search_url_list = self.create_search_links(self.twitter_key)
-        self.handle_social_media_url(search_url_list[0])
-
-    def handle_facebook(self):
-        print("handle_facebook()")
-        search_link_list = self.create_search_links(self.facebook_key)
-        for url in search_link_list:
-            self.handle_social_media_url(url)
-
-    def handle_instagram(self):
-        print("handle_instagram()")
+    def handle_instagram(self, is_name_known):
+        print("handle_instagram()", is_name_known)
         search_url_list = self.create_search_links(self.instagram_key)
         url_to_profil = search_url_list[0]
         url_to_further_information = search_url_list[1]
@@ -157,6 +196,17 @@ class SocialMedia:
         #is accunt private or not
         html_of_search = self.browser.page_source
         html_soup = BeautifulSoup(html_of_search, "html.parser")
+        #To get personen first and second name, only username is given
+        if not is_name_known:
+            person_name = str(html_soup.find("h1", attrs={"class": "rhpdm"}).text).lower().split()
+            if len(person_name)>1:
+                self.person_object.first_name = person_name[0]
+                self.person_object.second_name = person_name[1]
+            else:
+                self.person_object.first_name = person_name[0]
+        print(self.person_object.first_name,self.person_object.second_name)
+
+        #To find out if it is a private account or not
         if html_soup.find_all(text="Dieses Konto ist privat"):
             print("Dieses Konto ist privat!!!")
             # Just for testing
@@ -173,7 +223,30 @@ class SocialMedia:
         for link in links_to_scrape:
             self.handle_social_media_url(link)
 
+    def handle_twitter(self, is_name_known):
+        print("handle_twitter()")
+        search_url_list = self.create_search_links(self.twitter_key)
+        self.handle_social_media_url(search_url_list[0])
+        html_of_search = self.browser.page_source
+        html_soup = BeautifulSoup(html_of_search, "html.parser")
+        #To get personen first and second name, only username is given
+        if not is_name_known:
+            person_name = str(html_soup.find("a", attrs={"class": "ProfileHeaderCard-nameLink u-textInheritColor js-nav"}).text).lower().split()
+            if len(person_name) > 1:
+                self.person_object.first_name = person_name[0]
+                self.person_object.second_name = person_name[1]
+            else:
+                self.person_object.first_name = person_name[0]
+        print("HandleTWITTER:",self.person_object.first_name, self.person_object.second_name)
+
+    def handle_facebook(self):
+        print("handle_facebook()")
+        search_link_list = self.create_search_links(self.facebook_key)
+        for url in search_link_list:
+            self.handle_social_media_url(url)
+
     def handle_social_media_url(self, url):
+        url = url.split("%",1)[0]
         print(url)
         self.browser.get(url)
         time.sleep(2)
@@ -191,9 +264,15 @@ class SocialMedia:
         self.person_object.universities.extend(gather_information_class.compare_keywords_with_universities(keywords))
         self.person_object.occupation.extend(gather_information_class.compare_keywords_with_occupations(keywords))
 
+    def check_person_information(self):
+        is_name = False
+        if self.person_object.first_name and self.person_object.second_name:
+            is_name = True
+        return is_name
+
     def get_contacts_public_account(self):
         print("get_contacts_public_account()")
-        self.person_object.hobbies.append("fußball")
+        #self.person_object.hobbies.append("fußball")
         html_of_search = self.browser.page_source
         html_soup = BeautifulSoup(html_of_search, "html.parser")
         username = html_soup.find("h1")
@@ -207,20 +286,20 @@ class SocialMedia:
         #for link in html_soup.find_all("a",attrs={"class": re.compile("(FPmhX notranslate _0imsa)|(_2dbep qNELH kIKUG)")}):
         for link in html_soup.find_all("a", attrs={"class": re.compile("(FPmhX notranslate _0imsa)")}):
             print(link.attrs["href"])
-        # Find the followers page
+        # Find the pop-up window
         pop_up = self.browser.find_element_by_xpath('/html/body/div[2]/div/div[2]')        # find number of followers
-        allfoll = int(self.browser.find_element_by_xpath("//li[2]/a/span").text)
+        all_following = int(self.browser.find_element_by_xpath("//li[2]/a/span").text)
         # scroll down the page
-        print("FOLLOWER",allfoll)
-        print("RANGE:",int(allfoll / 6))
-        for i in range(int(allfoll / 6)):
+        print("FOLLOWER",all_following)
+        print("RANGE:",int(all_following / 6))
+        for i in range(int(all_following / 6)):
             if i == 0:
                 self.browser.execute_script("arguments[0].scrollTop = arguments[0].scrollHeight/5", pop_up)
                 time.sleep(2)
             else:
                 self.browser.execute_script("arguments[0].scrollTop = arguments[0].scrollHeight", pop_up)
             time.sleep(random.randint(500, 1000) / 1000)
-            #print("Extract friends %", round((i / (allfoll / 2) * 100), 2), "from", "%100")
+            #print("Extract friends %", round((i / (all_following / 2) * 100), 2), "from", "%100")
         html_of_search= self.browser.page_source
         html_soup = BeautifulSoup(html_of_search, "html.parser")
         for link in html_soup.find_all("a", attrs={"class": re.compile("(FPmhX notranslate _0imsa)")}):
@@ -267,85 +346,39 @@ class SocialMedia:
 
             if self.compare_contact_information(html_soup,hobbies_of_contact,locations_of_contact,universities_of_contact,occupations_of_contact):
                 break
-        print(self.person_object.contact_information)
+        print(self.person_object.contacts_information)
 
     def compare_contact_information(self,html_soup, hobbies_of_contact,locations_of_contact,universities_of_contact,
                                     occupations_of_contact):
         if self.person_object.place_of_residence in locations_of_contact:
             print("Same Location: ", self.person_object.place_of_residence)
             contact_name = html_soup.find("h1", attrs={"class": "rhpdm"}).text
-            self.person_object.contact_information.append(contact_name)
-            self.person_object.contact_information.append(self.person_object.place_of_residence)
+            self.person_object.contacts_information.append(contact_name)
+            self.person_object.contacts_information.append(self.person_object.place_of_residence)
             return True
         for hobbie in self.person_object.hobbies:
             if hobbie in hobbies_of_contact:
                 print("Same Hobbie")
                 contact_name = html_soup.find("h1", attrs={"class": "rhpdm"}).text
-                self.person_object.contact_information.append(contact_name)
-                self.person_object.contact_information.append(hobbie)
+                self.person_object.contacts_information.append(contact_name)
+                self.person_object.contacts_information.append(hobbie)
                 return True
         for university in self.person_object.universities:
             if university in universities_of_contact:
                 print("Same University")
                 contact_name = html_soup.find("h1", attrs={"class": "rhpdm"}).text
-                self.person_object.contact_information.append(contact_name)
-                self.person_object.contact_information.append(university)
+                self.person_object.contacts_information.append(contact_name)
+                self.person_object.contacts_information.append(university)
                 return True
         for occupation in self.person_object.occupation:
             if occupation in occupations_of_contact:
                 print("Same University")
                 contact_name = html_soup.find("h1", attrs={"class": "rhpdm"}).text
-                self.person_object.contact_information.append(contact_name)
-                self.person_object.contact_information.append(occupation)
+                self.person_object.contacts_information.append(contact_name)
+                self.person_object.contacts_information.append(occupation)
                 return True
         return False
-    def search_linkedin(self):
-        print("in search linkedin")
-        links_to_person = []
-        self.login_to_any_page(self.linkedin_key)
-        search_link_list = self.create_search_links(self.linkedin_key)
-        print(search_link_list[0])
-        self.browser.get(search_link_list[0])
-        html_of_search = self.browser.page_source
-        html_soup = BeautifulSoup(html_of_search, "html.parser")
-        #links = html_soup.find_all("a",{"id": re.compile("(ember)[0-9]*")})
-        links = html_soup.find_all("a", {"href": re.compile("(/in/)[(w)]*")})
-        for link in links:
-            if link.attrs["href"] not in links_to_person:
-                links_to_person.append(link.attrs["href"])
-        print(links_to_person)
-        #TODO Create Alogrithmus to know which person is the vitim
-        if len(links_to_person) == 1:
-            url = "https://www.linkedin.com"+links_to_person[0]
-            self.handle_social_media_url(url)
-        #TODO delet Ravensurg-Weingarten if it is wrong
-            """if self.person_object.locations[1] == "weingarten" and self.person_object.locations[0] == "ravensburg":
-                print("TRUEEEEEEEEEE")
-            else:
-                del self.person_object.locations[self.person_object.locations.index("weingarten")]
-                del self.person_object.locations[self.person_object.locations.index("ravensburg")]"""
 
-            print("Locations: ",self.person_object.locations)
-    def search_xing(self):
-        links_to_person = []
-        self.login_to_any_page(self.xing_key)
-        search_link_list = self.create_search_links(self.xing_key)
-        print(search_link_list[0])
-        time.sleep(2)
-        self.browser.get(search_link_list[0])
-
-        html_of_search = self.browser.page_source
-        html_soup = BeautifulSoup(html_of_search, "html.parser")
-        # links = html_soup.find_all("a",{"id": re.compile("(ember)[0-9]*")})
-        links = html_soup.find_all("a", {"href": re.compile("(/profile/).*/.*")})
-        for link in links:
-            if link.attrs["href"] not in links_to_person:
-                links_to_person.append(link.attrs["href"])
-        print(links_to_person)
-        # TODO Create Alogrithmus to know which person is the vitim
-        if len(links_to_person) == 1:
-            url = "https://www.xing.com" + links_to_person[0]
-            self.handle_social_media_url(url)
 
     def create_search_links(self, key):
         search_url_list = []

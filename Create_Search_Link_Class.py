@@ -23,21 +23,7 @@ class CreateSearchLink:
         self.location_institution_key = 8
         self.location_year_institution_key = 9
         self.search_link_list = []
-        #self.person_object = self.Person()
 
-    """def enter_information(self):
-        self.person_object.first_name = input("Vorname: ").replace(" ","%22")
-        self.person_object.second_name = input("Nachname: ").replace(" ","%22")
-        self.person_object.location = input("Wohnort: ").replace(" ","%22")
-        self.person_object.year_of_birth = input("Genaues Geburtsjahr: ").replace(" ","%22")
-        self.person_object.estimated_year_of_birth = input("Geschätztes Geburtsjahr: ").replace(" ","%22")
-        self.person_object.institution = input("Institution: ").replace(" ","%22")
-        # self.person_object.instagram_name = input("Instagram Benutzername: ")
-        # self.person_object.facebook_name = input("Facebook Benutzername: ")
-        # self.person_object.twitter_name = input("Twitter Benutzername")
-
-        return self.person_object
-"""
     def get_search_links(self, person_object):
         if person_object.input_email is not "":
             self.build_search_string(self.email_key,person_object)

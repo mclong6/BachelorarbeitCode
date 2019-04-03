@@ -6,4 +6,5 @@ def compare_email_with_name(firstname, secondname, mail):
     percentage_limit = 0.4
     print(SequenceMatcher(None, formatted_name, local_part_of_mailaddress).ratio())
 
-compare_email_with_name("Max","Mustermann","MusterMax@gmx.com")
+#compare_email_with_name("Max","Mustermann","MusterMax@gmx.com")
+

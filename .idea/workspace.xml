@@ -3,8 +3,13 @@
   <component name="ChangeListManager">
     <list default="true" id="b421c976-057a-4f3e-86fb-441c5258da44" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Create_Search_Link_Class.py" beforeDir="false" afterPath="$PROJECT_DIR$/Create_Search_Link_Class.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Handle_Google_Results_Class.py" beforeDir="false" afterPath="$PROJECT_DIR$/Handle_Google_Results_Class.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Scrapy_Selenium.py" beforeDir="false" afterPath="$PROJECT_DIR$/Scrapy_Selenium.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Social_Media_Class.py" beforeDir="false" afterPath="$PROJECT_DIR$/Social_Media_Class.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/location.csv" beforeDir="false" afterPath="$PROJECT_DIR$/location.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/occupation.csv" beforeDir="false" afterPath="$PROJECT_DIR$/occupation.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test.py" beforeDir="false" afterPath="$PROJECT_DIR$/test.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -14,23 +19,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Gather_Information_Class.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="306">
-              <caret line="23" column="5" lean-forward="true" selection-start-line="23" selection-start-column="4" selection-end-line="37" selection-end-column="28" />
-              <folding>
-                <element signature="e#0#10#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Scrapy_Selenium.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="320">
-              <caret line="114" column="59" lean-forward="true" selection-start-line="114" selection-start-column="59" selection-end-line="114" selection-end-column="59" />
+            <state relative-caret-position="58">
+              <caret line="92" column="19" lean-forward="true" selection-start-line="92" selection-start-column="19" selection-end-line="92" selection-end-column="19" />
               <folding>
                 <element signature="e#0#43#0" expanded="true" />
               </folding>
@@ -38,29 +31,20 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/location.csv">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/occupation.csv">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="575">
-              <caret line="11031" column="13" lean-forward="true" selection-start-line="11031" selection-start-column="13" selection-end-line="11031" selection-end-column="13" />
+            <state relative-caret-position="182">
+              <caret line="103" column="14" lean-forward="true" selection-start-line="103" selection-start-column="14" selection-end-line="103" selection-end-column="14" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Create_Search_Link_Class.py">
+        <entry file="file://$PROJECT_DIR$/Handle_Google_Results_Class.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1386">
-              <caret line="77" column="36" selection-start-line="77" selection-start-column="36" selection-end-line="77" selection-end-column="36" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Social_Media_Class.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="3067">
-              <caret line="222" column="92" selection-start-line="222" selection-start-column="92" selection-end-line="222" selection-end-column="92" />
+            <state relative-caret-position="133">
+              <caret line="18" column="75" lean-forward="true" selection-start-line="18" selection-start-column="75" selection-end-line="18" selection-end-column="91" />
               <folding>
                 <element signature="e#0#29#0" expanded="true" />
               </folding>
@@ -69,12 +53,33 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/WebScraper.py">
+        <entry file="file://$PROJECT_DIR$/Create_Search_Link_Class.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="288">
-              <caret line="85" column="28" lean-forward="true" selection-start-line="85" selection-start-column="28" selection-end-line="88" selection-end-column="39" />
+            <state relative-caret-position="-644">
+              <caret line="27" selection-start-line="27" selection-end-line="27" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Social_Media_Class.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="122">
+              <caret line="248" column="33" selection-start-line="248" selection-start-column="33" selection-end-line="248" selection-end-column="33" />
               <folding>
                 <element signature="e#0#29#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Gather_Information_Class.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="216">
+              <caret line="23" column="51" lean-forward="true" selection-start-line="23" selection-start-column="51" selection-end-line="23" selection-end-column="51" />
+              <folding>
+                <element signature="e#0#10#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -91,36 +96,36 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>Account is private</find>
-      <find>MarcoLang</find>
-      <find>Dieses Konto</find>
-      <find>print(h</find>
-      <find>followers</find>
-      <find>Abonnenten</find>
-      <find>lenagercke</find>
-      <find>Alle</find>
-      <find>Alle Vorschl</find>
-      <find>isgrp</find>
-      <find>grie</find>
-      <find>kerstin</find>
-      <find>marcbartra</find>
-      <find>_2de</find>
-      <find>vivian</find>
-      <find>/norrona/</find>
-      <find>/instagram/</find>
-      <find>/stewel92/</find>
-      <find>li</find>
-      <find>lenagerck</find>
       <find>92dr</find>
       <find>92dre</find>
       <find>FOLLOWER</find>
-      <find>rhpdm</find>
       <find>&lt;h1</find>
       <find>lamarcong</find>
       <find>fußball</find>
       <find>same hobbie</find>
       <find>same h</find>
       <find>csv</find>
+      <find>rhpdm</find>
+      <find>handle_social_media</find>
+      <find>location</find>
+      <find>transfer</find>
+      <find>locations</find>
+      <find>print(person_object.second_name)</find>
+      <find>self.person_object.second_name</find>
+      <find>contac</find>
+      <find>div class=&quot;g&quot;</find>
+      <find>Marco Lang</find>
+      <find>marco lang</find>
+      <find>Alllllllll</find>
+      <find>section</find>
+      <find>In gather information</find>
+      <find>In gather INformation</find>
+      <find>Gather</find>
+      <find>handle_google_results</find>
+      <find>dasoertlich</find>
+      <find>url</find>
+      <find>handle_social_media_url</find>
+      <find>Prokurist</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -147,22 +152,23 @@
         <option value="$PROJECT_DIR$/Create_Email_Content_Class.py" />
         <option value="$PROJECT_DIR$/Identiy_Person_Class.py" />
         <option value="$PROJECT_DIR$/Keyword_Extraction_Class.py" />
-        <option value="$PROJECT_DIR$/Handle_Google_Results_Class.py" />
         <option value="$PROJECT_DIR$/Send_Email.py" />
-        <option value="$PROJECT_DIR$/test.py" />
         <option value="$PROJECT_DIR$/Gather_Information_Class.py" />
-        <option value="$PROJECT_DIR$/Create_Search_Link_Class.py" />
-        <option value="$PROJECT_DIR$/Social_Media_Class.py" />
-        <option value="$PROJECT_DIR$/Scrapy_Selenium.py" />
         <option value="$PROJECT_DIR$/location.csv" />
+        <option value="$PROJECT_DIR$/test.py" />
+        <option value="$PROJECT_DIR$/Create_Search_Link_Class.py" />
+        <option value="$PROJECT_DIR$/Handle_Google_Results_Class.py" />
+        <option value="$PROJECT_DIR$/Social_Media_Class.py" />
+        <option value="$PROJECT_DIR$/occupation.csv" />
+        <option value="$PROJECT_DIR$/Scrapy_Selenium.py" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="1920" />
-    <option name="y" value="-2" />
-    <option name="width" value="1920" />
-    <option name="height" value="1082" />
+    <option name="x" value="2770" />
+    <option name="y" value="27" />
+    <option name="width" value="960" />
+    <option name="height" value="996" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -357,12 +363,12 @@
   <component name="ToolWindowManager">
     <frame x="1920" y="25" width="1920" height="998" extended-state="6" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.13127" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.33191034" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.29804373" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49893278" weight="0.32796317" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49893278" weight="0.45224395" />
       <window_info anchor="bottom" id="Cvs" order="3" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="4" weight="0.4" />
       <window_info anchor="bottom" id="Debug" order="5" weight="0.31269675" />
@@ -469,9 +475,6 @@
     <entry file="file://$PROJECT_DIR$/vereinskürzel.csv">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/occupation.csv">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
     <entry file="file://$PROJECT_DIR$/test.txt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-900" />
@@ -550,16 +553,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Handle_Google_Results_Class.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="216">
-          <caret line="13" column="27" selection-start-line="13" selection-start-column="27" selection-end-line="13" selection-end-column="27" />
-          <folding>
-            <element signature="e#0#29#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Send_Email.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="414">
@@ -567,13 +560,6 @@
           <folding>
             <element signature="e#2#16#0" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/test.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="144">
-          <caret line="8" column="53" selection-start-line="8" selection-start-column="53" selection-end-line="8" selection-end-column="53" />
         </state>
       </provider>
     </entry>
@@ -587,37 +573,68 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Social_Media_Class.py">
+    <entry file="file://$PROJECT_DIR$/test.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3067">
-          <caret line="222" column="92" selection-start-line="222" selection-start-column="92" selection-end-line="222" selection-end-column="92" />
+        <state relative-caret-position="180">
+          <caret line="10" selection-start-line="10" selection-end-line="10" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/location.csv">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="575">
+          <caret line="11031" column="13" selection-start-line="11031" selection-start-column="13" selection-end-line="11031" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/WebScraper.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="778">
+          <caret line="85" column="28" selection-start-line="85" selection-start-column="28" selection-end-line="88" selection-end-column="39" />
           <folding>
             <element signature="e#0#29#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Create_Search_Link_Class.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1386">
-          <caret line="77" column="36" selection-start-line="77" selection-start-column="36" selection-end-line="77" selection-end-column="36" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Gather_Information_Class.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="23" column="5" lean-forward="true" selection-start-line="23" selection-start-column="4" selection-end-line="37" selection-end-column="28" />
+        <state relative-caret-position="216">
+          <caret line="23" column="51" lean-forward="true" selection-start-line="23" selection-start-column="51" selection-end-line="23" selection-end-column="51" />
           <folding>
             <element signature="e#0#10#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/WebScraper.py">
+    <entry file="file://$PROJECT_DIR$/Create_Search_Link_Class.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="288">
-          <caret line="85" column="28" lean-forward="true" selection-start-line="85" selection-start-column="28" selection-end-line="88" selection-end-column="39" />
+        <state relative-caret-position="-644">
+          <caret line="27" selection-start-line="27" selection-end-line="27" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Social_Media_Class.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="122">
+          <caret line="248" column="33" selection-start-line="248" selection-start-column="33" selection-end-line="248" selection-end-column="33" />
+          <folding>
+            <element signature="e#0#29#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/occupation.csv">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="182">
+          <caret line="103" column="14" lean-forward="true" selection-start-line="103" selection-start-column="14" selection-end-line="103" selection-end-column="14" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Handle_Google_Results_Class.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="133">
+          <caret line="18" column="75" lean-forward="true" selection-start-line="18" selection-start-column="75" selection-end-line="18" selection-end-column="91" />
           <folding>
             <element signature="e#0#29#0" expanded="true" />
           </folding>
@@ -626,18 +643,11 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Scrapy_Selenium.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="320">
-          <caret line="114" column="59" lean-forward="true" selection-start-line="114" selection-start-column="59" selection-end-line="114" selection-end-column="59" />
+        <state relative-caret-position="58">
+          <caret line="92" column="19" lean-forward="true" selection-start-line="92" selection-start-column="19" selection-end-line="92" selection-end-column="19" />
           <folding>
             <element signature="e#0#43#0" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/location.csv">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="575">
-          <caret line="11031" column="13" lean-forward="true" selection-start-line="11031" selection-start-column="13" selection-end-line="11031" selection-end-column="13" />
         </state>
       </provider>
     </entry>
