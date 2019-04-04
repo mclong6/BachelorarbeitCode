@@ -12,14 +12,11 @@ class HandleGoogleResults:
         else:
             obj = BeautifulSoup(response.text, "html.parser")
         result_div_list = obj.find_all("div", attrs={"class": "g"})
-        print(result_div_list)
         for result_div in result_div_list:
-            a_tag = result_div.find("a", attrs={'href': re.compile("(/url).*")})
+            a_tag = result_div.find("a", attrs={'href': re.compile("(/url).*|(https).*")})
             # to remove /urlßq= from link, otherwise scrapy can't handle it
             formatted_url = str(a_tag.attrs['href']).replace("/url?q=", "").split("&",1)[0]
             links_to_scrape.append(formatted_url)
-            #print(a_tag.attrs['href'])
-            print(formatted_url)
         print("Links to scrape:", links_to_scrape)
 
         next_page_tags = obj.find_all("a", attrs={'class': "fl"})

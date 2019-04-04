@@ -59,10 +59,6 @@ class QuotesSpider(scrapy.Spider):
         search_url_list = create_search_link.get_search_links(self.person_object)
         print("URL-LIST: ", search_url_list)
 
-
-        """search_url_list = ['https://www.google.com/search?q="Marco+Lang"+"Tettnang"+"1995"',
-                'https://www.schwaebische.de/landkreis/bodenseekreis/tettnang_artikel,-junge-union-will-partty-bus-\
-                verwirklichen-_arid,10701303.html']"""
         for url in search_url_list:
             print("Search for URL: ",url)
             yield SeleniumRequest(url=url, callback=self.parse, wait_time=10)
@@ -81,10 +77,6 @@ class QuotesSpider(scrapy.Spider):
                 yield SeleniumRequest(url=link, callback=self.gather_information, wait_time=10)
 
     def gather_information(self, response):
-        print("IN GATHER INFORMATION", self.count)
-        print(response.url)
-        self.count = self.count +1
-
         if isinstance(response, str):
             obj = BeautifulSoup(response, "html.parser")
         else:
@@ -92,29 +84,41 @@ class QuotesSpider(scrapy.Spider):
                 obj = BeautifulSoup(response.text, "html.parser")
             except:
                 return
-        #Look for attributs like firstname, secondname and place_of_residence
+        #Look for attributs
+        if self.person_object.first_name and self.person_object.second_name:
+            person_name_string = self.person_object.first_name+" "+self.person_object.second_name
+            if person_name_string in str(obj.text).lower() or self.person_object.input_email:
+                if self.person_object.place_of_residence:
+                    self.get_data(self.person_object.place_of_residence, obj)
+                elif self.person_object.year_of_birth:
+                    self.get_data(self.person_object.year_of_birth, obj)
+                elif self.person_object.institution:
+                    self.get_data(self.person_object.institution, obj)
+        elif self.person_object.input_email:
+            self.get_data(self.person_object.input_email, obj)
 
-        string = self.person_object.first_name+" "+self.person_object.second_name+" "
-        print("User", string)
+        print("Vorname: ", self.person_object.first_name)
+        print("Nachname: ", self.person_object.second_name)
+        print("Wohnort:",self.person_object.place_of_residence)
+        print("Locations:",self.person_object.locations)
+        print("Occupations:",self.person_object.occupation)
+        print("Hobbies:", self.person_object.hobbies)
+        print("Institution:",self.person_object.institution)
+        print("E-Mail: ", self.person_object.founded_mails)
+
+    def get_data(self, string, obj):
         if string in str(obj.text).lower():
-            if self.person_object.place_of_residence in str(obj.text.lower()):
-                print("ALLLLLLLLLES GEFUNDEN")
+            keyword_extraction_class = Keyword_Extraction_Class.KeywordExtraction()
+            formatted_string = keyword_extraction_class.formate_input_text(obj.text)
+            keywords = keyword_extraction_class.create_keywords(formatted_string)
 
-                keyword_extraction_class = Keyword_Extraction_Class.KeywordExtraction()
-                formatted_string = keyword_extraction_class.formate_input_text(obj.text)
-                keywords = keyword_extraction_class.create_keywords(formatted_string)
-
-                gather_information_class = Gather_Information_Class.GatherInformation()
-                gather_information_class.get_years(obj.text)
-                self.person_object.hobbies.extend(gather_information_class.compare_keywords_with_hobbies(keywords))
-                self.person_object.locations.extend(gather_information_class.compare_keywords_with_locations(keywords))
-                self.person_object.universities.extend(gather_information_class.compare_keywords_with_universities(keywords))
-                self.person_object.occupation.extend(gather_information_class.compare_keywords_with_occupations(keywords))
-                self.person_object.founded_mails.extend(gather_information_class.get_email(obj.body.text, self.person_object.first_name, self.person_object.second_name))
-
-                print("names", self.person_object.first_name)
-                print("instiution",self.person_object.universities)
-                print("locations",self.person_object.locations)
+            gather_information_class = Gather_Information_Class.GatherInformation()
+            gather_information_class.get_years(obj.text)
+            self.person_object.hobbies.extend(gather_information_class.compare_keywords_with_hobbies(keywords))
+            self.person_object.locations.extend(gather_information_class.compare_keywords_with_locations(keywords))
+            self.person_object.universities.extend(gather_information_class.compare_keywords_with_universities(keywords))
+            self.person_object.occupation.extend(gather_information_class.compare_keywords_with_occupations(keywords))
+            self.person_object.founded_mails.extend(gather_information_class.get_email(obj.body.text, self.person_object.first_name, self.person_object.second_name))
 
     def transfer_information(self, social_media_person):
         if self.person_object.first_name == "":
