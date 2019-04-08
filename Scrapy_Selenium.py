@@ -8,6 +8,7 @@ import Keyword_Extraction_Class
 import Gather_Information_Class
 import Social_Media_Class
 import Handle_Google_Results_Class
+import Create_Phishing_Mail_Class
 import csv
 import re
 
@@ -19,7 +20,7 @@ class Person(object):
         self.place_of_residence = input("Wohnort: ").replace(" ", "%22").lower()
         self.year_of_birth = input("Genaues Geburtsjahr: ").replace(" ", "%22")
         self.estimated_year_of_birth = input("Geschätztes Geburtsjahr: ").replace(" ", "%22")
-        self.institution = input("Institution: ").replace(" ", "%22")
+        self.institution = input("Institution: ")
         self.instagram_name = input("Instagram Benutzername: ")
         self.facebook_name = input("Facebook Benutzername: ")
         self.twitter_name = input("Twitter Benutzername: ")
@@ -43,6 +44,11 @@ class QuotesSpider(scrapy.Spider):
             'scrapy_selenium.SeleniumMiddleware': 800
             }
         }
+        self.header = {"user-Agent":"Mozilla/5.0 (X11;Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Ubuntu "
+                                    "Chromium/73.0.3683.75 Chrome/73.0.3683.75 Safari/537.36",
+                        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8",
+                       "accept-encoding": "gzip, deflate, br"}
+
         self.instagram_key = 1
         self.facebook_key = 2
         self.twitter_key = 3
@@ -61,8 +67,7 @@ class QuotesSpider(scrapy.Spider):
 
         for url in search_url_list:
             print("Search for URL: ",url)
-            yield SeleniumRequest(url=url, callback=self.parse, wait_time=10)
-
+            yield SeleniumRequest(url=url,callback=self.parse, wait_time=10)
     def parse(self, response):
         handle_google_results_class = Handle_Google_Results_Class.HandleGoogleResults()
         links_to_scrape_list = handle_google_results_class.handle_google_results(response)
@@ -74,7 +79,7 @@ class QuotesSpider(scrapy.Spider):
             if test.match(link):
                 social_media.handle_social_media_url(link)
             else:
-                yield SeleniumRequest(url=link, callback=self.gather_information, wait_time=10)
+                yield SeleniumRequest(url=link, headers=self.header, callback=self.gather_information, wait_time=10)
 
     def gather_information(self, response):
         if isinstance(response, str):
@@ -100,12 +105,27 @@ class QuotesSpider(scrapy.Spider):
         print("Vorname: ", self.person_object.first_name)
         print("Nachname: ", self.person_object.second_name)
         print("Wohnort:",self.person_object.place_of_residence)
-        print("Locations:",self.person_object.locations)
+        print("Geburtsjahr:",self.person_object.year_of_birth)
+        print("Locations:",self.get_most_frequencies(self.person_object.locations))
         print("Occupations:",self.person_object.occupation)
-        print("Hobbies:", self.person_object.hobbies)
+        print("Hobbies:", self.get_most_frequencies(self.person_object.hobbies))
         print("Institution:",self.person_object.institution)
         print("E-Mail: ", self.person_object.founded_mails)
+        create_phishing_mail_class = Create_Phishing_Mail_Class.CreatePhishingMail()
 
+        create_phishing_mail_class.create_phishing_mail(self.person_object)
+
+
+    def get_most_frequencies(self,list):
+        print("Final List",list)
+        counter = 0
+        element_with_most_frequency = ""
+        for i in list:
+            current_frequency = list.count(i)
+            if (current_frequency > counter):
+                counter = current_frequency
+                element_with_most_frequency = i
+        return element_with_most_frequency
     def get_data(self, string, obj):
         if string in str(obj.text).lower():
             keyword_extraction_class = Keyword_Extraction_Class.KeywordExtraction()
@@ -113,12 +133,17 @@ class QuotesSpider(scrapy.Spider):
             keywords = keyword_extraction_class.create_keywords(formatted_string)
 
             gather_information_class = Gather_Information_Class.GatherInformation()
-            gather_information_class.get_years(obj.text)
-            self.person_object.hobbies.extend(gather_information_class.compare_keywords_with_hobbies(keywords))
+            if not self.person_object.year_of_birth:
+                year = gather_information_class.get_years(keywords)
+                if year != -1:
+                    self.person_object.year_of_birth = year
+            test = gather_information_class.compare_keywords_with_hobbies(keywords)
+            if test != -1:
+                self.person_object.hobbies.append(test)
             self.person_object.locations.extend(gather_information_class.compare_keywords_with_locations(keywords))
             self.person_object.universities.extend(gather_information_class.compare_keywords_with_universities(keywords))
             self.person_object.occupation.extend(gather_information_class.compare_keywords_with_occupations(keywords))
-            self.person_object.founded_mails.extend(gather_information_class.get_email(obj.body.text, self.person_object.first_name, self.person_object.second_name))
+            self.person_object.founded_mails.extend(gather_information_class.get_email(obj.text, self.person_object.first_name, self.person_object.second_name))
 
     def transfer_information(self, social_media_person):
         if self.person_object.first_name == "":

@@ -8,3 +8,6 @@ def compare_email_with_name(firstname, secondname, mail):
 
 #compare_email_with_name("Max","Mustermann","MusterMax@gmx.com")
 
+string = "hallodasisteinversuch"
+test = string[::-1]
+print(test)

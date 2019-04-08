@@ -28,6 +28,7 @@ class KeywordExtraction:
         # is it possible to ignore <script>??
         formatted_string = h.handle(input_string)
         formatted_string = formatted_string.replace("\n", " ")
+        formatted_string = formatted_string.replace("ß","ss")
 
         formatted_string = re.sub(r'[><!"|?&#/$()\'\-,.}{;:*+_[\]=]', ' ', formatted_string)
         formatted_string = re.sub(r"([A-Z])*([A-Z])", r"\1 \2", formatted_string)
