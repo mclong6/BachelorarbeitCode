@@ -7,7 +7,7 @@ class CreatePhishingMail:
     def __init__(self):
         print("Initialize CreatePhishingMail")
         self.destination_adress = []
-        self.email_text = ""
+        self.email_attributes = ""
 
     def create_phishing_mail(self, person):
         if not person.input_email:
@@ -19,10 +19,11 @@ class CreatePhishingMail:
         else:
             self.destination_adress.append(person.input_email)
         create_email_text_class = Create_Email_Text_Class.CreateEmailText()
-        self.email_text = create_email_text_class.create_email_text(person)
+        self.email_attributes = create_email_text_class.create_email_text(person)
 
         print(self.destination_adress)
-        print(self.email_text)
+        print("SUBJECT: ",self.email_attributes[0])
+        print("BODY: ", self.email_attributes[1])
 
 
 '''

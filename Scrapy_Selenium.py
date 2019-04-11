@@ -54,6 +54,8 @@ class QuotesSpider(scrapy.Spider):
         self.twitter_key = 3
         self.person_object = Person()
         self.count = 0
+        self.counter = 1
+        self.length_for_counter = 0
 
     def start_requests(self):
         self.compare_place_of_residence_with_database()
@@ -68,12 +70,28 @@ class QuotesSpider(scrapy.Spider):
         for url in search_url_list:
             print("Search for URL: ",url)
             yield SeleniumRequest(url=url,callback=self.parse, wait_time=10)
+
+        print("IN IF COUNTER")
+        print("Vorname: ", self.person_object.first_name)
+        print("Nachname: ", self.person_object.second_name)
+        print("Wohnort:", self.person_object.place_of_residence)
+        print("Geburtsjahr:", self.person_object.year_of_birth)
+        print("Locations:", self.get_most_frequencies1(self.person_object.locations))
+        print("Occupations:", self.get_most_frequencies1(self.person_object.occupation))
+        print("Hobbies:", self.get_most_frequencies1(self.person_object.hobbies))
+        print("Institution:", self.person_object.institution)
+        print("E-Mail: ", self.person_object.founded_mails)
+        create_phishing_mail_class = Create_Phishing_Mail_Class.CreatePhishingMail()
+
+        create_phishing_mail_class.create_phishing_mail(self.person_object)
+
     def parse(self, response):
         handle_google_results_class = Handle_Google_Results_Class.HandleGoogleResults()
         links_to_scrape_list = handle_google_results_class.handle_google_results(response)
         print(links_to_scrape_list)
         # For testing
         social_media = Social_Media_Class.SocialMedia()
+        self.length_for_counter = len(links_to_scrape_list)
         for link in links_to_scrape_list:
             test = re.compile(r'.*((instagram)|(twitter)|(linkedin)).*')
             if test.match(link):
@@ -82,6 +100,7 @@ class QuotesSpider(scrapy.Spider):
                 yield SeleniumRequest(url=link, headers=self.header, callback=self.gather_information, wait_time=10)
 
     def gather_information(self, response):
+        self.counter += 1
         if isinstance(response, str):
             obj = BeautifulSoup(response, "html.parser")
         else:
@@ -101,19 +120,10 @@ class QuotesSpider(scrapy.Spider):
                     self.get_data(self.person_object.institution, obj)
         elif self.person_object.input_email:
             self.get_data(self.person_object.input_email, obj)
-
-        print("Vorname: ", self.person_object.first_name)
-        print("Nachname: ", self.person_object.second_name)
-        print("Wohnort:",self.person_object.place_of_residence)
-        print("Geburtsjahr:",self.person_object.year_of_birth)
-        print("Locations:",self.get_most_frequencies(self.person_object.locations))
-        print("Occupations:",self.person_object.occupation)
-        print("Hobbies:", self.get_most_frequencies(self.person_object.hobbies))
-        print("Institution:",self.person_object.institution)
-        print("E-Mail: ", self.person_object.founded_mails)
-        create_phishing_mail_class = Create_Phishing_Mail_Class.CreatePhishingMail()
-
-        create_phishing_mail_class.create_phishing_mail(self.person_object)
+        print(self.counter)
+        print(self.length_for_counter)
+        if self.counter == self.length_for_counter:
+           print("in if")
 
 
     def get_most_frequencies(self,list):
@@ -126,7 +136,9 @@ class QuotesSpider(scrapy.Spider):
                 counter = current_frequency
                 element_with_most_frequency = i
         return element_with_most_frequency
+
     def get_data(self, string, obj):
+        #check for the correct website
         if string in str(obj.text).lower():
             keyword_extraction_class = Keyword_Extraction_Class.KeywordExtraction()
             formatted_string = keyword_extraction_class.formate_input_text(obj.text)
@@ -137,13 +149,71 @@ class QuotesSpider(scrapy.Spider):
                 year = gather_information_class.get_years(keywords)
                 if year != -1:
                     self.person_object.year_of_birth = year
-            test = gather_information_class.compare_keywords_with_hobbies(keywords)
-            if test != -1:
-                self.person_object.hobbies.append(test)
-            self.person_object.locations.extend(gather_information_class.compare_keywords_with_locations(keywords))
+            current_hobbies = gather_information_class.compare_keywords_with_hobbies(keywords)
+            if current_hobbies != -1:
+                self.person_object.hobbies.append(current_hobbies)
+            self.person_object.locations.append(gather_information_class.compare_keywords_with_locations(keywords))
             self.person_object.universities.extend(gather_information_class.compare_keywords_with_universities(keywords))
-            self.person_object.occupation.extend(gather_information_class.compare_keywords_with_occupations(keywords))
+            current_occupations = gather_information_class.compare_keywords_with_occupations(keywords)
+            if current_occupations != -1:
+                self.person_object.occupation.append(current_occupations)
             self.person_object.founded_mails.extend(gather_information_class.get_email(obj.text, self.person_object.first_name, self.person_object.second_name))
+
+    def get_most_frequencies1(self,list):
+        list3 = []
+
+        for i in range(0,len(list)):
+            list2 = []
+            for k in range(0,len(list[i])):
+                list1 = []
+                frequency = list[i].count(list[i][k])
+                score = frequency/len(list[i])
+                list1.append(list[i][k])
+                list1.append(score)
+                #for l in range(0,len(list_with_counted_words)):
+                   # print("IN FOR")
+                if len(list2) == 0:
+                    list2.append(list1)
+                else:
+                    in_list = True
+                    for l in range(0,len(list2)):
+                        if list1[0] in list2[l][0]:
+                            in_list = False
+                    if in_list:
+                        list2.append(list1)
+            list3.append(list2)
+        print(list3)
+        final_list = []
+        for i in range(0,len(list3)):
+            for k in range(0,len(list3[i])):
+                if i < len(list3)-1:
+                    for m in range(i+1,len(list3)):
+                        for n in range(0,len(list3[m])):
+                            if list3[i][k][0] == list3[m][n][0]:
+                                test = []
+                                print("SAME FOUND", list3[i][k][0])
+                                list3[i][k][1] = list3[i][k][1] + list3[m][n][1]
+                                #test.append(list3[i][k][0])
+                                #test.append(score)
+                                if list3[i][k] not in final_list:
+                                    final_list.append(list3[i][k])
+                            else:
+                                if not list3[i][k] in final_list:
+                                    final_list.append(list3[i][k])
+                else:
+                    if not list3[i][k] in final_list:
+                        final_list.append(list3[i][k])
+        print("final list",final_list)
+        score = 0
+        element_with_highest_score = ""
+        for i in final_list:
+            current_score = i[1]
+            if (current_score > score):
+                score = current_score
+                element_with_highest_score = i[0]
+        print("Element with highest score: ",element_with_highest_score, score)
+
+        return element_with_highest_score
 
     def transfer_information(self, social_media_person):
         if self.person_object.first_name == "":
