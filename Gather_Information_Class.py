@@ -13,11 +13,11 @@ class GatherInformation:
         self.database_word_list_hobbies = []
         self.database_word_list_location = []
         self.database_word_list_occupation = []
-        self.database_word_list_universities = []
+        self.database_word_list_institutions = []
         self.location = []
         self.hobbies = []
         self.occupation = []
-        self.university = []
+        self.institution = []
         self.whitespace_wt = WhitespaceTokenizer()
         self.emails = []
     # TODO ADD something like Jodel,Whatsapp,Snapchat ....
@@ -95,20 +95,24 @@ class GatherInformation:
         else:
             return -1
 
-    def compare_keywords_with_universities(self, keywords):
-        with open('universities.csv', 'r') as csvFile:
+    def compare_keywords_with_institutions(self, keywords):
+        with open('institutions.csv', 'r') as csvFile:
             # with open('hobbies.csv', 'r') as csvFile:
             csv_reader = csv.reader(csvFile)
             for row in csv_reader:
-                self.database_word_list_universities.append(row[0].lower())
+                self.database_word_list_institutions.append(row[0].lower())
             for word in keywords:
-                for element in self.database_word_list_universities:
+                for element in self.database_word_list_institutions:
                     #if element in word:
+
                     if element == word:
-                        if word not in self.university:
-                            self.university.append(element)
-        print("Universities: ",self.university)
-        return self.university
+                        print("ELEMENNNT",element)
+                        #if word not in self.university:
+                        self.institution.append(element)
+        if self.institution:
+            return self.institution
+        else:
+            return -1
 
     def compare_keywords_with_clubs(self,keywords):
         # TODO Vereinskürzel hinzufügen
@@ -130,7 +134,10 @@ class GatherInformation:
                 print("Email found:",mail_regex.group(1))
                 self.compare_email_with_name(firstname, secondname, mail_regex.group(1))
         print("Correct Emails: ", self.emails)
-        return self.emails
+        if self.emails:
+            return self.emails
+        else:
+            return -1
 
     def get_years(self, keywords):
         regex_string = "(geburtsdatum)|(alter)|(geboren)|(geburtsort)|(geburtstag)|(born)|(birth)"

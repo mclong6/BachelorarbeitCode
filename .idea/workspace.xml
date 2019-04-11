@@ -3,11 +3,11 @@
   <component name="ChangeListManager">
     <list default="true" id="b421c976-057a-4f3e-86fb-441c5258da44" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Create_Email_Text_Class.py" beforeDir="false" afterPath="$PROJECT_DIR$/Create_Email_Text_Class.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Create_Phishing_Mail_Class.py" beforeDir="false" afterPath="$PROJECT_DIR$/Create_Phishing_Mail_Class.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Gather_Information_Class.py" beforeDir="false" afterPath="$PROJECT_DIR$/Gather_Information_Class.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Scrapy_Selenium.py" beforeDir="false" afterPath="$PROJECT_DIR$/Scrapy_Selenium.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Social_Media_Class.py" beforeDir="false" afterPath="$PROJECT_DIR$/Social_Media_Class.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/location.csv" beforeDir="false" afterPath="$PROJECT_DIR$/location.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/universities.csv" beforeDir="false" afterPath="$PROJECT_DIR$/institutions.csv" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -20,8 +20,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Scrapy_Selenium.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="54">
-              <caret line="51" column="30" lean-forward="true" selection-start-line="51" selection-start-column="30" selection-end-line="51" selection-end-column="30" />
+            <state relative-caret-position="174">
+              <caret line="261" column="25" lean-forward="true" selection-start-line="261" selection-start-column="25" selection-end-line="261" selection-end-column="25" />
               <folding>
                 <element signature="e#0#43#0" expanded="true" />
               </folding>
@@ -32,8 +32,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Social_Media_Class.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="4122">
-              <caret line="283" column="64" lean-forward="true" selection-start-line="283" selection-start-column="64" selection-end-line="283" selection-end-column="64" />
+            <state relative-caret-position="-2278">
+              <caret line="272" column="22" lean-forward="true" selection-start-line="272" selection-start-column="22" selection-end-line="272" selection-end-column="22" />
               <folding>
                 <element signature="e#0#29#0" expanded="true" />
               </folding>
@@ -53,8 +53,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Gather_Information_Class.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="397">
-              <caret line="95" column="21" selection-start-line="95" selection-start-column="21" selection-end-line="95" selection-end-column="21" />
+            <state relative-caret-position="242">
+              <caret line="139" column="21" lean-forward="true" selection-start-line="139" selection-start-column="21" selection-end-line="139" selection-end-column="21" />
               <folding>
                 <element signature="e#0#10#0" expanded="true" />
               </folding>
@@ -136,13 +136,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>born</find>
-      <find>2016</find>
-      <find>gebruiker</find>
-      <find>bad</find>
-      <find>get_yea</find>
-      <find>mittweida</find>
-      <find>hochschule ravensburg</find>
       <find>E-mail</find>
       <find>mauser</find>
       <find>get_em</find>
@@ -164,11 +157,19 @@
       <find>self.occupation</find>
       <find>occupation</find>
       <find>person_object</find>
-      <find>self.person_object</find>
       <find>self.</find>
+      <find>self.person_object</find>
+      <find>IF cou</find>
+      <find>transfer</find>
+      <find>institution</find>
+      <find>mittweid</find>
+      <find>ELEMENN</find>
+      <find>founded_mails</find>
+      <find>insti</find>
     </findStrings>
     <replaceStrings>
       <replace />
+      <replace>person_object</replace>
     </replaceStrings>
   </component>
   <component name="Git.Settings">
@@ -203,14 +204,14 @@
         <option value="$PROJECT_DIR$/Keyword_Extraction_Class.py" />
         <option value="$PROJECT_DIR$/location.csv" />
         <option value="$PROJECT_DIR$/Create_Phishing_Mail_Class.py" />
-        <option value="$PROJECT_DIR$/Gather_Information_Class.py" />
         <option value="$PROJECT_DIR$/Create_Email_Text_Class.py" />
         <option value="$PROJECT_DIR$/Social_Media_Class.py" />
+        <option value="$PROJECT_DIR$/Gather_Information_Class.py" />
         <option value="$PROJECT_DIR$/Scrapy_Selenium.py" />
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
+  <component name="ProjectFrameBounds" extendedState="4">
     <option name="y" value="25" />
     <option name="width" value="960" />
     <option name="height" value="998" />
@@ -407,10 +408,10 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="25" width="1920" height="998" extended-state="6" />
+    <frame x="0" y="25" width="960" height="998" extended-state="4" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.20971185" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.42997813" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -431,25 +432,25 @@
       <window_info anchor="right" id="R Packages" order="4" weight="0.24179432" />
     </layout>
     <layout-to-restore>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.15688367" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.20971185" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Find" order="1" weight="0.2990556" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49893278" visible="true" weight="0.36201468" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.29804373" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.49893278" visible="true" weight="0.37629458" />
       <window_info anchor="bottom" id="Cvs" order="3" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="4" weight="0.4" />
-      <window_info anchor="bottom" id="Debug" order="5" weight="0.31300345" />
-      <window_info anchor="bottom" id="TODO" order="6" weight="0.3557188" />
-      <window_info anchor="bottom" id="Version Control" order="7" weight="0.32843652" />
+      <window_info anchor="bottom" id="Debug" order="5" weight="0.3118527" />
+      <window_info anchor="bottom" id="TODO" order="6" weight="0.35558113" />
+      <window_info anchor="bottom" id="Version Control" order="7" weight="0.31760645" />
       <window_info anchor="bottom" id="Event Log" order="8" sideWeight="0.5010672" side_tool="true" weight="0.35327962" />
-      <window_info anchor="bottom" id="Terminal" order="9" weight="0.20566632" />
-      <window_info anchor="bottom" id="Python Console" order="10" weight="0.32843652" />
+      <window_info anchor="bottom" id="Terminal" order="9" weight="0.20483314" />
+      <window_info anchor="bottom" id="Python Console" order="10" weight="0.32681242" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
-      <window_info anchor="right" id="R Graphics" order="3" />
-      <window_info anchor="right" id="R Packages" order="4" />
+      <window_info anchor="right" id="R Graphics" order="3" weight="0.32977587" />
+      <window_info anchor="right" id="R Packages" order="4" weight="0.24179432" />
     </layout-to-restore>
   </component>
   <component name="XDebuggerManager">
@@ -620,7 +621,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/universities.csv">
+    <entry file="file://$PROJECT_DIR$/institutions.csv">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="773">
           <caret line="249" column="26" selection-start-line="249" selection-end-line="250" />
@@ -678,16 +679,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Gather_Information_Class.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="397">
-          <caret line="95" column="21" selection-start-line="95" selection-start-column="21" selection-end-line="95" selection-end-column="21" />
-          <folding>
-            <element signature="e#0#10#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Create_Email_Text_Class.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1494">
@@ -697,18 +688,28 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Social_Media_Class.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="4122">
-          <caret line="283" column="64" lean-forward="true" selection-start-line="283" selection-start-column="64" selection-end-line="283" selection-end-column="64" />
+        <state relative-caret-position="-2278">
+          <caret line="272" column="22" lean-forward="true" selection-start-line="272" selection-start-column="22" selection-end-line="272" selection-end-column="22" />
           <folding>
             <element signature="e#0#29#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/Gather_Information_Class.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="242">
+          <caret line="139" column="21" lean-forward="true" selection-start-line="139" selection-start-column="21" selection-end-line="139" selection-end-column="21" />
+          <folding>
+            <element signature="e#0#10#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/Scrapy_Selenium.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="54">
-          <caret line="51" column="30" lean-forward="true" selection-start-line="51" selection-start-column="30" selection-end-line="51" selection-end-column="30" />
+        <state relative-caret-position="174">
+          <caret line="261" column="25" lean-forward="true" selection-start-line="261" selection-start-column="25" selection-end-line="261" selection-end-column="25" />
           <folding>
             <element signature="e#0#43#0" expanded="true" />
           </folding>

@@ -28,6 +28,7 @@ class Person(object):
         self.email = []
         self.locations = []
         self.contacts_information = []
+        self.institution_founded = []
 
 class SocialMedia:
     def __init__(self):
@@ -88,6 +89,7 @@ class SocialMedia:
         self.person_object.twitter_name=social_media_person.twitter_name
         self.person_object.facebook_name = social_media_person.facebook_name
         self.person_object.instagram_name = social_media_person.instagram_name
+        self.person_object.institution_founded = social_media_person.institution_founded
 
     def search_linkedin(self):
         print("in search linkedin")
@@ -259,10 +261,10 @@ class SocialMedia:
         formatted_text = keyword_extraction_class.formate_input_text(text)
         keywords = keyword_extraction_class.create_keywords(formatted_text)
         gather_information_class = Gather_Information_Class.GatherInformation()
-        self.person_object.hobbies.extend(gather_information_class.compare_keywords_with_hobbies(keywords))
-        self.person_object.locations.extend(gather_information_class.compare_keywords_with_locations(keywords))
-        self.person_object.universities.extend(gather_information_class.compare_keywords_with_universities(keywords))
-        self.person_object.occupation.extend(gather_information_class.compare_keywords_with_occupations(keywords))
+        self.person_object.hobbies.append(gather_information_class.compare_keywords_with_hobbies(keywords))
+        self.person_object.locations.append(gather_information_class.compare_keywords_with_locations(keywords))
+        self.person_object.institution_founded.append(gather_information_class.compare_keywords_with_institutions(keywords))
+        self.person_object.occupation.append(gather_information_class.compare_keywords_with_occupations(keywords))
 
     def check_person_information(self):
         is_name = False
@@ -341,7 +343,7 @@ class SocialMedia:
             gather_information_class = Gather_Information_Class.GatherInformation()
             hobbies_of_contact = gather_information_class.compare_keywords_with_hobbies(keywords)
             locations_of_contact = gather_information_class.compare_keywords_with_locations(keywords)
-            universities_of_contact = gather_information_class.compare_keywords_with_universities(keywords)
+            universities_of_contact = gather_information_class.compare_keywords_with_institutions(keywords)
             occupations_of_contact = gather_information_class.compare_keywords_with_occupations(keywords)
 
             if self.compare_contact_information(html_soup,hobbies_of_contact,locations_of_contact,universities_of_contact,occupations_of_contact):
