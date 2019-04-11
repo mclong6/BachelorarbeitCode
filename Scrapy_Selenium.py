@@ -138,13 +138,14 @@ class QuotesSpider(scrapy.Spider):
                 person_object.hobbies.append(current_hobbies)
             person_object.locations.append(gather_information_class.compare_keywords_with_locations(keywords))
 
-            current_institution = gather_information_class.compare_keywords_with_institutions(keywords)
+            current_institution = gather_information_class.compare_keywords_with_institutions(obj.text)
             if current_institution != -1:
                 person_object.institution_founded.append(current_institution)
 
             current_occupations = gather_information_class.compare_keywords_with_occupations(keywords)
             if current_occupations != -1:
                 person_object.occupation.append(current_occupations)
+
             current_mails = gather_information_class.get_email(obj.text, person_object.first_name, person_object.second_name)
             if current_mails != -1:
                 person_object.founded_mails.append(current_mails)

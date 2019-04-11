@@ -14,7 +14,7 @@ class CreateEmailAddresses:
         self.email_list = []
         #TODO more provider
         self.provider_list = ["web.de", "gmail.com", "gmx.de", "t-online.de", "freenet.de"]
-
+        #TODO UMLAUTE ändern!!!
     def create_email_addresses(self, person):
         self.firstname = person.first_name.replace("%22", "")
         self.secondname = str(person.second_name).replace("%22", "")

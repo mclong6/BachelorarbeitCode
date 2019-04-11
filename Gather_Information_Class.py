@@ -95,7 +95,7 @@ class GatherInformation:
         else:
             return -1
 
-    def compare_keywords_with_institutions(self, keywords):
+    """def compare_keywords_with_institutions(self, keywords):
         with open('institutions.csv', 'r') as csvFile:
             # with open('hobbies.csv', 'r') as csvFile:
             csv_reader = csv.reader(csvFile)
@@ -113,7 +113,24 @@ class GatherInformation:
             return self.institution
         else:
             return -1
-
+    """
+    def compare_keywords_with_institutions(self, html_string):
+        text = str(html_string).lower()
+        with open('institutions.csv', 'r') as csvFile:
+            # with open('hobbies.csv', 'r') as csvFile:
+            csv_reader = csv.reader(csvFile)
+            for row in csv_reader:
+                self.database_word_list_institutions.append(row[0].lower())
+            for element in self.database_word_list_institutions:
+                    #if element in word:
+                if element in text:
+                    print("ELEMENNNT",element)
+                    #if word not in self.university:
+                    self.institution.append(element)
+        if self.institution:
+            return self.institution
+        else:
+            return -1
     def compare_keywords_with_clubs(self,keywords):
         # TODO Vereinskürzel hinzufügen
         print("compare_keywords_with_clubs")
