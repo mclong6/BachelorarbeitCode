@@ -16,8 +16,8 @@ class CreateEmailAddresses:
         self.provider_list = ["web.de", "gmail.com", "gmx.de", "t-online.de", "freenet.de"]
         #TODO UMLAUTE ändern!!!
     def create_email_addresses(self, person):
-        self.firstname = person.first_name.replace("%22", "")
-        self.secondname = str(person.second_name).replace("%22", "")
+        self.firstname = person.first_name.replace("%22", "").replace("ä", "ae").replace("ö", "oe").replace("ü", "ue")
+        self.secondname = str(person.second_name).replace("%22", "").replace("ä", "ae").replace("ö", "oe").replace("ü", "ue")
         self.year_of_birth = person.year_of_birth
         self.shortform_birthdate = str(person.year_of_birth)[-2:]
         # if all attributes are known
