@@ -13,7 +13,7 @@ class CreateEmailText:
         person.first_name = str(person.first_name).replace("%22", "")
         person.second_name = str(person.second_name).replace("%22", "")
 
-        if person.universities or person.institution or person.occupation:
+        if person.institution_founded or person.institution or person.occupation:
             self.professional_text(person)
         else:
             self.private_text(person)
@@ -24,78 +24,104 @@ class CreateEmailText:
 
     def professional_text(self,person):
         if person.second_name != "":
-            if person.universities:
-                self.university_text(person)
+            if person.institution_founded:
+                self.institution_text(person, True)
             elif person.institution:
-                self.institution_text(person)
+                self.institution_text(person, False)
+
             else:
                 self.occupation_text(person)
         else:
             self.occupation_text(person)
 
-    def university_text(self, person):
-        if person.occupation != []:
-            if person.occupation[0] == "student":
-                self.subject = "Rückmeldung - "+ person.universities[0]
-                self.text = "Hallo Herr"+person.second_name+",\nSie müssen sich erneut zurückmelden.\n Um den Vorgang zu beschleunigen," \
-                                                       "klicken Sie bitte auf den folgenden Link.\n" \
-                                                       "LINK\n\nMif freundlichen Grüßen\n\n" \
-                                                       "Dein Team der "+person.universities[0]
-            elif person.occupation[0]=="professor":
-                self.subject = "Feedback zur Ausarbeitung"
-                self.text = "Hallo Herr Professor" + person.second_name + ",\nwie besprochen habe ich meine vorläufige Ausarbeitung überarbeitet." \
-                                                           "Könnten Sie diese erneut überprüfen und mir ein Feedback geben?" \
-                                                           "\n\nMif freundlichen Grüßen\n\n" \
-                                                           "Max Mustermann"
+    def institution_text(self, person, key):
+        if key:
+            institution = person.institution_founded
         else:
-            self.subject = "Netzwerkfehler - "+person.universities
-            self.text = "Hallo Herr" + person.second_name + ",\nleider gab es Probleme mit dem Netzwerk der"+person.universities+"" \
-                                                        ". Aus diesem Grund befindet sich in dieser Mail ein Link zur Überprüfung." \
-                                                        " Bitte klicken Sie einmal auf folgenden Link um den erfolgreichen Erhalt dieser E-Mail zu bestätigen. \n" \
-                                                       "LINK\n\nMif freundlichen Grüßen\n\n" \
-                                                       "Dein Team der " + person.universities[0]
-
-    def institution_text(self, person):
+            institution = person.institution
+        institution = str(institution).capitalize()
+        person.second_name = str(person.second_name).capitalize()
+        person.first_name = str (person.second_name).capitalize()
         if person.second_name != "":
-            if person.occupation != []:
-                self.subject = person.occupation+" bei der Institution " + person.institution
-                self.text = "Hallo Herr "+person.second_name+",\nAls "+person.occupation+" bei der Institution"+person.institution+"," \
-                         "stehen Ihnen nun alle Möglichkeiten offen. Sehen Sie sich die neuen Möglichkeiten unter folgendem Link an.\n" \
-                        "LINK\n\nMif freundlichen Grüßen\n\nDein Team der "+person.institution
-            else:
-                self.subject = "Strafrechtliche Verfolgung - "+person.institution
-                self.text = "Hallo Herr "+person.second_name+",\nes gibt eine strafrechtliche Verfolgung der Firma "+person.institution+"." \
-                         "Bitte melden Sie sich bei der folgenden Adresse mit Vor- und Nachnamen an, für eine rechtliche Befragung." \
-                        "\n\nMif freundlichen Grüßen\n\nIhr Karriere-Team"
-        else:
-            self.subject = person.institution+" baut seine Netzwerkstruktur um"
-            self.text = "Hallo"+person.first_name+",\nwir bauen unsere Netzwerkstruktur um. Bitte registrieren Sie sich unter der folgenden Webseite," \
-                                                 "damit wir Sie in das neue System aufnehmen können.\n" \
-                                                 "LINK!!!\n\nMit freundlichen Grüßen\n" \
-                                                 "Ihr IT-Team"
+                if person.occupation != "":
+                    person.occupation = str(person.occupation).capitalize()
+                    if person.occupation == "Student":
+                        self.subject = "Rückmeldung - " + institution
+                        self.text = "Hallo Herr" + person.second_name + ",\nSie müssen sich erneut zurückmelden.\n Um den Vorgang zu beschleunigen," \
+                                                                        "klicken Sie bitte auf den folgenden Link.\n" \
+                                                                        "https://badlink.com\n\nMif freundlichen Grüßen\n\n" \
+                                                                        "Dein Team der " + institution
+                    elif person.occupation == "Professor":
+                        self.subject = "Feedback zur Ausarbeitung"
+                        self.text = "Hallo Herr Professor " + person.second_name + ",\nwie besprochen befindet sich im Anhang meine vorläufige Ausarbeitung. " \
+                                                                                  "Könnten Sie diese erneut überprüfen und mir ein Feedback geben?" \
+                                                                                  "\n\nMif freundlichen Grüßen\n\n" \
+                                                                                  "Max Mustermann"
+                    else:
+                        self.subject = person.occupation+" bei der " + institution
+                        self.text = "Hallo Herr "+person.second_name+",\nAls "+ person.occupation+" bei der "+institution+"," \
+                                 "stehen Ihnen nun alle Möglichkeiten offen. Sehen Sie sich die neuen Möglichkeiten unter folgendem Link an.\n" \
+                                "https://badlink.com\n\nMif freundlichen Grüßen\n\nIhr Team der "+institution
+                else:
+                    self.subject = institution + " - Netzwerkänderungen"
+                    self.text = "Hallo" + person.second_namee + ",\nwir bauen unsere Netzwerkstruktur um. Bitte registrieren Sie sich unter der folgenden Webseite," \
+                                                                "damit wir Sie in das neue System aufnehmen können.\n" \
+                                                                "https://badlink.com\n\nMit freundlichen Grüßen\n\n" \
+                                                                "Ihr IT-Team der " + person.institution
+
 
     def occupation_text(self, person):
+        person.occupation = str(person.occupation).capitalize()
+        person.second_name = str (person.second_name).capitalize()
         self.subject = person.occupation+" gesucht!"
-        self.text = "Hallo "+person.first_name+",\nwir, die Hochschule Ravensburg-Weingarten suchen einen kompetenten"+person.occupation+"." \
-               "Sieh unter folgendem Link, mit welchen Gehältern wir neue Mitarbeiter annwerben.\nLINK\n\n"+ \
-                "Dein Team der Hochschule Ravensburg-Weingarten"
-        return self.text
-
+        self.text = "Hallo Herr "+person.second_name+",\nwir,  die ZF Friedrichshafen AG suchen einen kompetenten "+person.occupation+"." \
+               "Im Anhang befindet sich die Stellenauschreibung mit allen Anforderungen und den vorstellbaren Gehaltsstufen.\n\n" \
+                "Ihr Karriere Team der ZF Friedrichshafen AG"
 
     def private_text(self, person):
-        if person.contacts_information:
-            self.text = self.contacts_information_text(person)
+        if person.first_name != "" and person.second_name != "":
+            if person.contacts_information:
+                self.contacts_information_text(person)
+            elif person.hobbies != "":
+                self.hobby_text(person)
+            elif person.year_of_birth!= "":
+                self.year_of_birth_text(person)
+            elif person.locations != "":
+                self.locations_text(person)
 
     def contacts_information_text(self,person):
         splitted_string_name = str(person.contacts_information[0]).split()
         if len(person.contacts_information)>=2:
+            self.subject = "Fragen bzgl. "+ person.contacts_information[1]
             if len(splitted_string_name)>=2:
-                text = "Hallo "+person.first_name+",\nhier ist "+splitted_string_name[0]+". Ich schreib dir wegen dem "+ \
-                   person.contacts_information[1]+".\n\nGrüße,\n\n" + person.contacts_information[0]
+                self.text = "Hi "+person.first_name+",\nhier ist "+splitted_string_name[0]+". Bezüglich  "+ \
+                   person.contacts_information[1]+" hätte ich noch ein paar fragen an dich...\n" \
+                                                  "Könntest du zufällig in den Anhang schauen und bewerten was ich da so rausgesucht habe?" \
+                                                  ".\n\nGrüße,\n\n" + person.contacts_information[0]
             else:
-                text = "Hallo "+person.first_name+",\nhier ist "+person.contacts_information[0]+". Ich schreib dir wegen dem "+ \
-                   person.contacts_information[1]+".\n\nGrüße,\n\n" + person.contacts_information[0]
+                self.text = "Hi" + person.first_name + ",\nhier ist " + splitted_string_name[0] + ". Bezüglich  " + \
+                       person.contacts_information[1] + " hätte ich noch ein paar fragen an dich...\n" \
+                                                        "Könntest du zufällig in den Anhang schauen und bewerten was ich da so rausgesucht habe?" \
+                                                        ".\n\nGrüße,\n\n" + person.contacts_information[0]
+    def hobby_text(self,person):
+        self.subject = "Verbessere deine Technik im "+person.hobbies
+        self.text = "Hi "+person.first_name+",\n damit du deine Leistung im"+person.hobbies+" verbessern kannst, musst du unbedingt" \
+                                                                                            "die Techniken deiner Vorbilder anschauen!\n" \
+                                                                                            "Im Anhang befindet sich eine kleine Übersicht.\n\n" \
+                                                                                            "Dein Team der deutschen Förderung"
+    def year_of_birth_text(self,person):
+        if person.location != "":
+            self.subject = "Jahrgang "+person.year_of_birth+" - "+person.locations
+            self.text = "Hi"+ person.first_name+",\n dieses Jahr findet in "+person.locations+" ein Treffen für alle Personen, die "+person.year_of_birth+"" \
+                        " geboren sind, statt. Im Anhang befindet sich eine Liste mit den Leuten die bereits zugesagt haben.\n\n" \
+                        "Dein Orga-Team "+person.locations
         else:
-            text = "Hallo " + person.first_name + ", Ich schreib dir wegen dem Problem von gestern.\nViele Grüße,\n\n"
-        return text
-
+            self.subject = "Jahrgang " + person.year_of_birth
+            self.text = "Hi" + person.first_name + ",\n dieses Jahr findet ein Treffen für alle Personen, die " + person.year_of_birth + "" \
+                        " geboren sind, statt. Im Anhang befindet sich eine Liste mit den Leuten die bereits zugesagt haben.\n\n" \
+                        "Dein Orga-Team"
+    def locations_text(self,person):
+        self.subject = "Streetfood-Festival in "+person.locations
+        self.text = "Hi "+ person.first_name+"dieses Jahr findet das erste STREETFOOD-FESTIVAL in "+person.locations+ "" \
+                    " statt. Im Anhang befindet sich der Plan, auf dem alles weitere erklärt wird.\n" \
+                    "Wir freuen uns auf dich!\n\nDein Streefood-Team aus "+person.locations

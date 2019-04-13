@@ -52,6 +52,7 @@ class GatherInformation:
                         self.hobbies.append(element)
         #print("Hobbies: ", self.hobbies)
         #most_often_hobby = self.get_most_frequencies(self.hobbies)
+        print("Hobbies: ",self.hobbies)
         if self.hobbies:
             return self.hobbies
         return -1
@@ -95,25 +96,6 @@ class GatherInformation:
         else:
             return -1
 
-    """def compare_keywords_with_institutions(self, keywords):
-        with open('institutions.csv', 'r') as csvFile:
-            # with open('hobbies.csv', 'r') as csvFile:
-            csv_reader = csv.reader(csvFile)
-            for row in csv_reader:
-                self.database_word_list_institutions.append(row[0].lower())
-            for word in keywords:
-                for element in self.database_word_list_institutions:
-                    #if element in word:
-
-                    if element == word:
-                        print("ELEMENNNT",element)
-                        #if word not in self.university:
-                        self.institution.append(element)
-        if self.institution:
-            return self.institution
-        else:
-            return -1
-    """
     def compare_keywords_with_institutions(self, html_string):
         text = str(html_string).lower()
         with open('institutions.csv', 'r') as csvFile:

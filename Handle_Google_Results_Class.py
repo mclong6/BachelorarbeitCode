@@ -14,7 +14,6 @@ class HandleGoogleResults:
         result_div_list = obj.find_all("div", attrs={"class": "g"})
 
         for result_div in result_div_list:
-            print(result_div)
             a_tag = result_div.find("a", attrs={'href': re.compile("(/url).*|(http).*")})
             if a_tag:
                 # to remove /urlßq= from link, otherwise scrapy can't handle it

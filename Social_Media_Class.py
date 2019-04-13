@@ -24,11 +24,11 @@ class Person(object):
         self.twitter_name = ""
         self.occupation = []
         self.hobbies = []
-        self.universities = []
         self.email = []
         self.locations = []
         self.contacts_information = []
         self.institution_founded = []
+        self.founded_mails = []
 
 class SocialMedia:
     def __init__(self):
@@ -47,7 +47,7 @@ class SocialMedia:
         self.linkedin_login_page = "https://www.linkedin.com/uas/login"
         self.twitter_login_page = "https://twitter.com/login"
         self.browser = webdriver.Chrome('/home/marco/Downloads/chromedriver')
-        self.browser.implicitly_wait(10)
+        self.browser.implicitly_wait(5)
         self.url = ""
         self.links_to_contacts = []
         self.instagram_login = False
@@ -106,7 +106,6 @@ class SocialMedia:
             if link.attrs["href"] not in links_to_person:
                 links_to_person.append(link.attrs["href"])
         print(links_to_person)
-        #TODO Create Alogrithmus to know which person is the vitim
         if len(links_to_person) == 1:
             url = "https://www.linkedin.com"+links_to_person[0]
             self.handle_social_media_url(url)
@@ -258,6 +257,41 @@ class SocialMedia:
 
     def gather_information(self, text):
         keyword_extraction_class = Keyword_Extraction_Class.KeywordExtraction()
+        formatted_string = keyword_extraction_class.formate_input_text(text)
+        keywords = keyword_extraction_class.create_keywords(formatted_string)
+
+        gather_information_class = Gather_Information_Class.GatherInformation()
+        if not self.person_object.year_of_birth:
+            year = gather_information_class.get_years(keywords)
+            if year != -1:
+                self.person_object.year_of_birth = year
+
+        current_hobbies = gather_information_class.compare_keywords_with_hobbies(keywords)
+        if current_hobbies != -1:
+            self.person_object.hobbies.append(current_hobbies)
+        self.person_object.locations.append(gather_information_class.compare_keywords_with_locations(keywords))
+
+        current_institution = gather_information_class.compare_keywords_with_institutions(text)
+        if current_institution != -1:
+            self.person_object.institution_founded.append(current_institution)
+
+        current_occupations = gather_information_class.compare_keywords_with_occupations(keywords)
+        if current_occupations != -1:
+            self.person_object.occupation.append(current_occupations)
+
+        current_mails = gather_information_class.get_email(text, self.person_object.first_name,
+                                                           self.person_object.second_name)
+        if current_mails != -1:
+            self.person_object.founded_mails.append(current_mails)
+
+
+
+
+
+
+
+
+        keyword_extraction_class = Keyword_Extraction_Class.KeywordExtraction()
         formatted_text = keyword_extraction_class.formate_input_text(text)
         keywords = keyword_extraction_class.create_keywords(formatted_text)
         gather_information_class = Gather_Information_Class.GatherInformation()
@@ -289,7 +323,9 @@ class SocialMedia:
         for link in html_soup.find_all("a", attrs={"class": re.compile("(FPmhX notranslate _0imsa)")}):
             print(link.attrs["href"])
         # Find the pop-up window
-        pop_up = self.browser.find_element_by_xpath('/html/body/div[2]/div/div[2]')        # find number of followers
+        #pop_up = self.browser.find_element_by_xpath('/html/body/div[2]/div/div[2]')        # find number of followers
+        pop_up = self.browser.find_element_by_class_name("isgrP")
+        print(pop_up)
         all_following = int(self.browser.find_element_by_xpath("//li[2]/a/span").text)
         # scroll down the page
         print("FOLLOWER",all_following)
@@ -334,23 +370,24 @@ class SocialMedia:
             html_of_search = self.browser.page_source
             html_soup = BeautifulSoup(html_of_search, "html.parser")
             #Section or whole HTML???
-            sections = html_soup.find_all("section")
-            print(sections[1].text)
+            div = html_soup.find("div",{"class":"-vDIg"})
+            #print(sections[1].text)
+
 
             keyword_extraction_class = Keyword_Extraction_Class.KeywordExtraction()
-            formatted_text = keyword_extraction_class.formate_input_text(sections[1].text)
+            formatted_text = keyword_extraction_class.formate_input_text(div.text)
             keywords = keyword_extraction_class.create_keywords(formatted_text)
             gather_information_class = Gather_Information_Class.GatherInformation()
             hobbies_of_contact = gather_information_class.compare_keywords_with_hobbies(keywords)
             locations_of_contact = gather_information_class.compare_keywords_with_locations(keywords)
-            universities_of_contact = gather_information_class.compare_keywords_with_institutions(keywords)
+            institution_of_contact = gather_information_class.compare_keywords_with_institutions(keywords)
             occupations_of_contact = gather_information_class.compare_keywords_with_occupations(keywords)
 
-            if self.compare_contact_information(html_soup,hobbies_of_contact,locations_of_contact,universities_of_contact,occupations_of_contact):
+            if self.compare_contact_information(html_soup,hobbies_of_contact,locations_of_contact,institution_of_contact,occupations_of_contact):
                 break
         print(self.person_object.contacts_information)
 
-    def compare_contact_information(self,html_soup, hobbies_of_contact,locations_of_contact,universities_of_contact,
+    def compare_contact_information(self, html_soup, hobbies_of_contact, locations_of_contact, institution_of_contact,
                                     occupations_of_contact):
         if self.person_object.place_of_residence in locations_of_contact:
             print("Same Location: ", self.person_object.place_of_residence)
@@ -358,27 +395,35 @@ class SocialMedia:
             self.person_object.contacts_information.append(contact_name)
             self.person_object.contacts_information.append(self.person_object.place_of_residence)
             return True
-        for hobbie in self.person_object.hobbies:
-            if hobbie in hobbies_of_contact:
-                print("Same Hobbie")
-                contact_name = html_soup.find("h1", attrs={"class": "rhpdm"}).text
-                self.person_object.contacts_information.append(contact_name)
-                self.person_object.contacts_information.append(hobbie)
-                return True
-        for university in self.person_object.universities:
-            if university in universities_of_contact:
-                print("Same University")
-                contact_name = html_soup.find("h1", attrs={"class": "rhpdm"}).text
-                self.person_object.contacts_information.append(contact_name)
-                self.person_object.contacts_information.append(university)
-                return True
-        for occupation in self.person_object.occupation:
-            if occupation in occupations_of_contact:
-                print("Same University")
-                contact_name = html_soup.find("h1", attrs={"class": "rhpdm"}).text
-                self.person_object.contacts_information.append(contact_name)
-                self.person_object.contacts_information.append(occupation)
-                return True
+        if self.person_object.hobbies != -1:
+            print("Person Hobby: ", self.person_object.hobbies)
+            for hobbie in self.person_object.hobbies:
+                print("Hobby of contact: ",hobbies_of_contact)
+                if hobbies_of_contact != -1:
+                    if hobbie in hobbies_of_contact:
+                        print("Same Hobbie")
+                        contact_name = html_soup.find("h1", attrs={"class": "rhpdm"}).text
+                        self.person_object.contacts_information.append(contact_name)
+                        self.person_object.contacts_information.append(hobbie)
+                        return True
+        if self.person_object.institution != -1:
+            for institution in self.person_object.institution:
+                if institution_of_contact != -1:
+                    if institution in institution_of_contact:
+                        print("Same Institution")
+                        contact_name = html_soup.find("h1", attrs={"class": "rhpdm"}).text
+                        self.person_object.contacts_information.append(contact_name)
+                        self.person_object.contacts_information.append(institution)
+                        return True
+        if self.person_object.occupation != -1:
+            for occupation in self.person_object.occupation:
+                if occupations_of_contact != -1:
+                    if occupation in occupations_of_contact:
+                        print("Same Occupation")
+                        contact_name = html_soup.find("h1", attrs={"class": "rhpdm"}).text
+                        self.person_object.contacts_information.append(contact_name)
+                        self.person_object.contacts_information.append(occupation)
+                        return True
         return False
 
 
