@@ -4,22 +4,24 @@ import smtplib
 from email.mime import multipart
 from email.mime import text
 
-senderEmail = 'bachelorarbeit2@gmx.de'
-empfangsEmail = 'marcolang95@web.de'
+source_email = 'bachelorarbeit2@gmx.de'
+destination_email = 'marcolang95@web.de'
 password = 'bachelorarbeit2'
+subject = 'Deine Pflanze verdurstet'
+email_text = 'Diese Email kommt von PYTHON'
 
 msg = multipart.MIMEMultipart()
-msg['From'] = senderEmail
-msg['To'] = empfangsEmail
-msg['Subject'] = 'Deine Pflanze verdurstet'
+msg['From'] = source_email
+msg['To'] = destination_email
+msg['Subject'] = subject
 
-emailText = 'Diese Email kommt von PYTHON'
+emailText = email_text
 msg.attach(text.MIMEText(emailText, 'html'))
 
-server = smtplib.SMTP('mail.gmx.net', 587) # Die Server Daten
+server = smtplib.SMTP('mail.gmx.net', 587)
 server.ehlo()
 server.starttls()
-server.login(senderEmail, password) # Das Passwort
+server.login(source_email, password)
 text = msg.as_string()
-server.sendmail(senderEmail, empfangsEmail, text)
+server.sendmail(source_email, destination_email, text)
 server.quit()

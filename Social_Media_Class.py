@@ -290,7 +290,7 @@ class SocialMedia:
 
 
 
-
+        """
         keyword_extraction_class = Keyword_Extraction_Class.KeywordExtraction()
         formatted_text = keyword_extraction_class.formate_input_text(text)
         keywords = keyword_extraction_class.create_keywords(formatted_text)
@@ -299,7 +299,7 @@ class SocialMedia:
         self.person_object.locations.append(gather_information_class.compare_keywords_with_locations(keywords))
         self.person_object.institution_founded.append(gather_information_class.compare_keywords_with_institutions(keywords))
         self.person_object.occupation.append(gather_information_class.compare_keywords_with_occupations(keywords))
-
+        """
     def check_person_information(self):
         is_name = False
         if self.person_object.first_name and self.person_object.second_name:
@@ -396,16 +396,19 @@ class SocialMedia:
             self.person_object.contacts_information.append(self.person_object.place_of_residence)
             return True
         if self.person_object.hobbies != -1:
-            print("Person Hobby: ", self.person_object.hobbies)
-            for hobbie in self.person_object.hobbies:
-                print("Hobby of contact: ",hobbies_of_contact)
-                if hobbies_of_contact != -1:
-                    if hobbie in hobbies_of_contact:
-                        print("Same Hobbie")
-                        contact_name = html_soup.find("h1", attrs={"class": "rhpdm"}).text
-                        self.person_object.contacts_information.append(contact_name)
-                        self.person_object.contacts_information.append(hobbie)
-                        return True
+            for hobbies in self.person_object.hobbies:
+                for hobby in hobbies:
+                    if hobbies_of_contact != -1:
+                        print("person: ", hobby)
+                        print(hobbies_of_contact)
+                        if hobby in hobbies_of_contact:
+                            print("person: ",hobby)
+                            print(hobbies_of_contact)
+                            print("Same Hobbie")
+                            contact_name = html_soup.find("h1", attrs={"class": "rhpdm"}).text
+                            self.person_object.contacts_information.append(contact_name)
+                            self.person_object.contacts_information.append(hobby)
+                            return True
         if self.person_object.institution != -1:
             for institution in self.person_object.institution:
                 if institution_of_contact != -1:

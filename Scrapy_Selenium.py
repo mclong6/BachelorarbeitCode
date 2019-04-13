@@ -280,6 +280,7 @@ print("Occupations:", person_object.occupation)
 print("Hobbies:", person_object.hobbies)
 print("Institution gefunden:", person_object.institution_founded)
 print("E-Mail: ", person_object.founded_mails)
+print("Kontaktinformation: ", person_object.contacts_information)
 
 create_phishing_mail_class = Create_Phishing_Mail_Class.CreatePhishingMail()
 create_phishing_mail_class.create_phishing_mail(person_object)
