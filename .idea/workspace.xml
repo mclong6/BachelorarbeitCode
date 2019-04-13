@@ -2,8 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b421c976-057a-4f3e-86fb-441c5258da44" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/Scrapy_Selenium.py" beforeDir="false" afterPath="$PROJECT_DIR$/Scrapy_Selenium.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Send_Email.py" beforeDir="false" afterPath="$PROJECT_DIR$/Send_Email.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Social_Media_Class.py" beforeDir="false" afterPath="$PROJECT_DIR$/Social_Media_Class.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -14,11 +12,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Scrapy_Selenium.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="356">
-              <caret line="275" column="51" lean-forward="true" selection-start-line="275" selection-start-column="51" selection-end-line="275" selection-end-column="51" />
+            <state relative-caret-position="122">
+              <caret line="268" column="40" lean-forward="true" selection-start-line="268" selection-start-column="40" selection-end-line="268" selection-end-column="40" />
               <folding>
                 <element signature="e#0#43#0" expanded="true" />
               </folding>
@@ -47,11 +45,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Social_Media_Class.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="100">
-              <caret line="386" column="21" lean-forward="true" selection-start-line="386" selection-start-column="21" selection-end-line="386" selection-end-column="21" />
+            <state relative-caret-position="194">
+              <caret line="422" column="61" lean-forward="true" selection-start-line="422" selection-start-column="61" selection-end-line="422" selection-end-column="61" />
               <folding>
                 <element signature="e#0#29#0" expanded="true" />
               </folding>
@@ -205,8 +203,8 @@
         <option value="$PROJECT_DIR$/hobbies.csv" />
         <option value="$PROJECT_DIR$/Create_Email_Text_Class.py" />
         <option value="$PROJECT_DIR$/Send_Email.py" />
-        <option value="$PROJECT_DIR$/Social_Media_Class.py" />
         <option value="$PROJECT_DIR$/Scrapy_Selenium.py" />
+        <option value="$PROJECT_DIR$/Social_Media_Class.py" />
       </list>
     </option>
   </component>
@@ -701,22 +699,22 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Social_Media_Class.py">
+    <entry file="file://$PROJECT_DIR$/Scrapy_Selenium.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="100">
-          <caret line="386" column="21" lean-forward="true" selection-start-line="386" selection-start-column="21" selection-end-line="386" selection-end-column="21" />
+        <state relative-caret-position="122">
+          <caret line="268" column="40" lean-forward="true" selection-start-line="268" selection-start-column="40" selection-end-line="268" selection-end-column="40" />
           <folding>
-            <element signature="e#0#29#0" expanded="true" />
+            <element signature="e#0#43#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Scrapy_Selenium.py">
+    <entry file="file://$PROJECT_DIR$/Social_Media_Class.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="356">
-          <caret line="275" column="51" lean-forward="true" selection-start-line="275" selection-start-column="51" selection-end-line="275" selection-end-column="51" />
+        <state relative-caret-position="194">
+          <caret line="422" column="61" lean-forward="true" selection-start-line="422" selection-start-column="61" selection-end-line="422" selection-end-column="61" />
           <folding>
-            <element signature="e#0#43#0" expanded="true" />
+            <element signature="e#0#29#0" expanded="true" />
           </folding>
         </state>
       </provider>

@@ -410,23 +410,25 @@ class SocialMedia:
                             self.person_object.contacts_information.append(hobby)
                             return True
         if self.person_object.institution != -1:
-            for institution in self.person_object.institution:
-                if institution_of_contact != -1:
-                    if institution in institution_of_contact:
-                        print("Same Institution")
-                        contact_name = html_soup.find("h1", attrs={"class": "rhpdm"}).text
-                        self.person_object.contacts_information.append(contact_name)
-                        self.person_object.contacts_information.append(institution)
-                        return True
+            for institutions in self.person_object.institution:
+                for institution in institutions:
+                    if institution_of_contact != -1:
+                        if institution in institution_of_contact:
+                            print("Same Institution")
+                            contact_name = html_soup.find("h1", attrs={"class": "rhpdm"}).text
+                            self.person_object.contacts_information.append(contact_name)
+                            self.person_object.contacts_information.append(institution)
+                            return True
         if self.person_object.occupation != -1:
-            for occupation in self.person_object.occupation:
-                if occupations_of_contact != -1:
-                    if occupation in occupations_of_contact:
-                        print("Same Occupation")
-                        contact_name = html_soup.find("h1", attrs={"class": "rhpdm"}).text
-                        self.person_object.contacts_information.append(contact_name)
-                        self.person_object.contacts_information.append(occupation)
-                        return True
+            for occupations in self.person_object.occupation:
+                for occupation in occupations:
+                    if occupations_of_contact != -1:
+                        if occupation in occupations_of_contact:
+                            print("Same Occupation")
+                            contact_name = html_soup.find("h1", attrs={"class": "rhpdm"}).text
+                            self.person_object.contacts_information.append(contact_name)
+                            self.person_object.contacts_information.append(occupation)
+                            return True
         return False
 
 
