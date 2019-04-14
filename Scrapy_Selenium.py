@@ -101,9 +101,7 @@ class QuotesSpider(scrapy.Spider):
         if person_object.first_name and person_object.second_name:
             person_name_string = person_object.first_name+" "+person_object.second_name
             if person_name_string in str(obj.text).lower() or person_object.input_email:
-                print("in IF")
                 if person_object.place_of_residence:
-                    print("in if")
                     self.get_data(person_object.place_of_residence, obj)
                 elif person_object.year_of_birth:
                     self.get_data(person_object.year_of_birth, obj)
@@ -144,6 +142,7 @@ class QuotesSpider(scrapy.Spider):
             current_institution = gather_information_class.compare_keywords_with_institutions(obj.text)
             if current_institution != -1:
                 person_object.institution_founded.append(current_institution)
+                print(person_object.institution_founded)
 
             current_occupations = gather_information_class.compare_keywords_with_occupations(keywords)
             if current_occupations != -1:
@@ -216,43 +215,41 @@ class ChooseInformation:
                             if in_list:
                                 list2.append(list1)
                     list3.append(list2)
-                print(list3)
-                final_list = []
-                for i in range(0, len(list3)):
-                    for k in range(0, len(list3[i])):
-                        if i < len(list3) - 1:
-                            for m in range(i + 1, len(list3)):
-                                for n in range(0, len(list3[m])):
-                                    if list3[i][k][0] == list3[m][n][0]:
-                                        test = []
-                                        print("SAME FOUND", list3[i][k][0])
-                                        list3[i][k][1] = (list3[i][k][1] + list3[m][n][1])/len(list3)
-                                        # test.append(list3[i][k][0])
-                                        # test.append(score)
-                                        if list3[i][k] not in final_list:
-                                            list3[i][k][1] =list3[i][k][1]/len(list3)
-                                            final_list.append(list3[i][k])
-                                    else:
-                                        if not list3[i][k] in final_list:
-                                            list3[i][k][1] = list3[i][k][1] / len(list3)
-                                            final_list.append(list3[i][k])
-                                            final_list.append(list3[i][k])
-                        else:
-                            if not list3[i][k] in final_list:
-                                list3[i][k][1] = list3[i][k][1] / len(list3)
-                                final_list.append(list3[i][k])
-                                final_list.append(list3[i][k])
-                print("final list", final_list)
-                score = 0
-                element_with_highest_score = ""
-                for i in final_list:
-                    current_score = i[1]
-                    if current_score > score:
-                        score = current_score
-                        element_with_highest_score = i[0]
-                print("Element with highest score: ", element_with_highest_score, score)
+            final_list = []
+            for i in range(0, len(list3)):
+                for k in range(0, len(list3[i])):
+                    if i < len(list3) - 1:
+                        for m in range(i + 1, len(list3)):
+                            for n in range(0, len(list3[m])):
+                                if list3[i][k][0] == list3[m][n][0]:
+                                    test = []
+                                    list3[i][k][1] = (list3[i][k][1] + list3[m][n][1])/len(list3)
+                                    # test.append(list3[i][k][0])
+                                    # test.append(score)
+                                    if list3[i][k] not in final_list:
+                                        list3[i][k][1] =list3[i][k][1]/len(list3)
+                                        final_list.append(list3[i][k])
+                                else:
+                                    if not list3[i][k] in final_list:
+                                        list3[i][k][1] = list3[i][k][1] / len(list3)
+                                        final_list.append(list3[i][k])
+                                        final_list.append(list3[i][k])
+                    else:
+                        if not list3[i][k] in final_list:
+                            list3[i][k][1] = list3[i][k][1] / len(list3)
+                            final_list.append(list3[i][k])
+                            final_list.append(list3[i][k])
+            score = 0
+            element_with_highest_score = ""
+            for i in final_list:
+                current_score = i[1]
+                if current_score > score:
+                    score = current_score
+                    element_with_highest_score = i[0]
+            print("Liste mit Elementen und Scores: ", final_list)
+            print("Element mit höchstem Score in Liste: ", element_with_highest_score, score)
 
-                return element_with_highest_score
+            return element_with_highest_score
         else:
             return ""
 

@@ -120,7 +120,8 @@ class GatherInformation:
     def compare_email_with_name(self, firstname, secondname, mail):
         formatted_name = firstname.lower()+secondname.lower()
         local_part_of_mailaddress = mail.split("@")[0].lower()
-        percentage_limit = 0.4
+        percentage_limit = 0.5
+        print(SequenceMatcher(None, formatted_name, local_part_of_mailaddress).ratio())
         if SequenceMatcher(None, formatted_name, local_part_of_mailaddress).ratio()>= percentage_limit:
             formatted_mail = mail.replace("(at)","@")
             self.emails.append(formatted_mail)

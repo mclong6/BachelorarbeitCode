@@ -8,15 +8,20 @@ class CreateEmailText:
         self.email_attributes =[]
 
     def create_email_text(self, person):
-
-        print("CREATE_EMAIL_TEXT")
-        person.first_name = str(person.first_name).replace("%22", "")
-        person.second_name = str(person.second_name).replace("%22", "")
-
-        if person.institution_founded or person.institution or person.occupation:
-            self.professional_text(person)
+        if person.first_name != "" and person.second_name != "":
+            print("CREATE_EMAIL_TEXT")
+            person.first_name = str(person.first_name).replace("%22", "")
+            person.second_name = str(person.second_name).replace("%22", "")
+            if person.contacts_information:
+                if person.contacts_information:
+                    self.contacts_information_text(person)
+            elif person.institution_founded or person.institution or person.occupation:
+                self.professional_text(person)
+            else:
+                self.private_text(person)
         else:
-            self.private_text(person)
+            self.subject = "Random Subject"
+            self.subject
 
         self.email_attributes.append(self.subject)
         self.email_attributes.append(self.text)
@@ -79,15 +84,12 @@ class CreateEmailText:
                 "Ihr Karriere Team der ZF Friedrichshafen AG"
 
     def private_text(self, person):
-        if person.first_name != "" and person.second_name != "":
-            if person.contacts_information:
-                self.contacts_information_text(person)
-            elif person.hobbies != "":
-                self.hobby_text(person)
-            elif person.year_of_birth!= "":
-                self.year_of_birth_text(person)
-            elif person.locations != "":
-                self.locations_text(person)
+        if person.year_of_birth!= "":
+            self.year_of_birth_text(person)
+        elif person.hobbies != "":
+            self.hobby_text(person)
+        elif person.locations != "":
+            self.locations_text(person)
 
     def contacts_information_text(self,person):
         splitted_string_name = str(person.contacts_information[0]).split()
@@ -99,7 +101,7 @@ class CreateEmailText:
                                                   "Könntest du zufällig in den Anhang schauen und bewerten was ich da so rausgesucht habe?" \
                                                   ".\n\nGrüße,\n\n" + person.contacts_information[0]
             else:
-                self.text = "Hi" + person.first_name + ",\nhier ist " + splitted_string_name[0] + ". Bezüglich  " + \
+                self.text = "Hi" + person.first_name + ",\nhier ist " + splitted_string_name[0] + ". Bezüglich " + \
                        person.contacts_information[1] + " hätte ich noch ein paar fragen an dich...\n" \
                                                         "Könntest du zufällig in den Anhang schauen und bewerten was ich da so rausgesucht habe?" \
                                                         ".\n\nGrüße,\n\n" + person.contacts_information[0]
