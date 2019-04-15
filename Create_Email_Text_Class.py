@@ -99,6 +99,7 @@ class CreateEmailText:
 
     def contacts_information_text(self,person):
         splitted_string_name = str(person.contacts_information[0]).split()
+        person.contacts_information[1] = str(person.contacts_information[1]).capitalize()
         if len(person.contacts_information)>=2:
             self.subject = "Fragen bzgl. "+ person.contacts_information[1]
             if len(splitted_string_name)>=2:
