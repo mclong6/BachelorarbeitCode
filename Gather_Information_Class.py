@@ -2,9 +2,6 @@ import csv
 from nltk import WhitespaceTokenizer
 import re
 from difflib import SequenceMatcher
-import datetime
-import pattern3
-import numpy
 
 
 class GatherInformation:
@@ -25,40 +22,31 @@ class GatherInformation:
     def compare_keywords_with_locations(self, keywords):
         print(keywords)
         with open('location.csv', 'r') as csvFile:
-            # with open('hobbies.csv', 'r') as csvFile:
             csv_reader = csv.reader(csvFile)
             for row in csv_reader:
                 self.database_word_list_location.append(row[0].lower())
             for word in keywords:
                 for element in self.database_word_list_location:
-                    #if element in word:
                     if element == word:
-                        #if word not in self.location:
                         self.location.append(element)
         print("Location: ", self.location)
         return self.location
 
     def compare_keywords_with_hobbies(self, keywords):
         with open('hobbies.csv', 'r') as csvFile:
-            # with open('hobbies.csv', 'r') as csvFile:
             csv_reader = csv.reader(csvFile)
             for row in csv_reader:
                 self.database_word_list_hobbies.append(row[0].lower())
             for word in keywords:
                 for element in self.database_word_list_hobbies:
-                    #if element in word:
                     if element == word:
-                        #if word not in self.hobbies:
                         self.hobbies.append(element)
-        #print("Hobbies: ", self.hobbies)
-        #most_often_hobby = self.get_most_frequencies(self.hobbies)
         print("Hobbies: ",self.hobbies)
         if self.hobbies:
             return self.hobbies
         return -1
 
     def get_most_frequencies(self,list):
-        #print("HOBBY-LIST:",list)
         if list:
             if len(list)>=2:
                 print("IN IF",list)
@@ -76,20 +64,14 @@ class GatherInformation:
             return -1
 
     def compare_keywords_with_occupations(self, keywords):
-        with open('occupation.csv', 'r') as csvFile:
-            # with open('hobbies.csv', 'r') as csvFile:
+        with open('occupations.csv', 'r') as csvFile:
             csv_reader = csv.reader(csvFile)
             for row in csv_reader:
                 self.database_word_list_occupation.append(row[0].lower())
             for word in keywords:
                 for element in self.database_word_list_occupation:
-                    #if element in word:
                     if element == word:
-                        #if word not in self.occupation:
                         self.occupation.append(element)
-        #most_often_occupation = self.get_most_frequencies(self.occupation)
-        #print("Occupation: ", self.occupation)
-        #print("mostoftenoccupation:", most_often_occupation)
         #return most_often_occupation
         if self.occupation:
             return self.occupation
@@ -99,23 +81,17 @@ class GatherInformation:
     def compare_keywords_with_institutions(self, html_string):
         text = str(html_string).lower()
         with open('institutions.csv', 'r') as csvFile:
-            # with open('hobbies.csv', 'r') as csvFile:
             csv_reader = csv.reader(csvFile)
             for row in csv_reader:
                 self.database_word_list_institutions.append(row[0].lower())
             for element in self.database_word_list_institutions:
                     #if element in word:
                 if element in text:
-                    print("ELEMENNNT",element)
-                    #if word not in self.university:
                     self.institution.append(element)
         if self.institution:
             return self.institution
         else:
             return -1
-    def compare_keywords_with_clubs(self,keywords):
-        # TODO Vereinskürzel hinzufügen
-        print("compare_keywords_with_clubs")
 
     def compare_email_with_name(self, firstname, secondname, mail):
         formatted_name = firstname.lower()+secondname.lower()
@@ -140,7 +116,7 @@ class GatherInformation:
             return -1
 
     def get_years(self, keywords):
-        regex_string = "(geburtsdatum)|(alter)|(geboren)|(geburtsort)|(geburtstag)|(born)|(birth)"
+        regex_string = "(geburtsdatum)|(alter)|(geboren)|(geburtsort)|(born)|(birth)"
         all_years_in_text = []
         year_lenth = 4
         for element in keywords:

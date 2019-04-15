@@ -17,6 +17,7 @@ class Person(object):
     def __init__(self):
         self.first_name = input("Vorname: ").replace(" ", "%22").lower()
         self.second_name = input("Nachname: ").replace(" ", "%22").lower()
+        self.sex = input("Geschlecht m/w: ").replace(" ", "%22").lower()
         self.place_of_residence = input("Wohnort: ").replace(" ", "%22").lower()
         self.year_of_birth = input("Genaues Geburtsjahr: ").replace(" ", "%22")
         self.estimated_year_of_birth = input("Geschätztes Geburtsjahr: ").replace(" ", "%22")
@@ -28,10 +29,11 @@ class Person(object):
         self.occupation = []
         self.hobbies = []
         self.universities = []
-        self.institution_founded = []
-        self.founded_mails = []
+        self.institutions_found = []
+        self.mails_found = []
         self.locations = []
         self.contacts_information = []
+        self.visited_links = []
 
 
 class QuotesSpider(scrapy.Spider):
@@ -81,12 +83,15 @@ class QuotesSpider(scrapy.Spider):
         # For testing
         self.length_for_counter = len(links_to_scrape_list)
         for link in links_to_scrape_list:
-            """test = re.compile(r'.*((instagram)|(twitter)|(linkedin)).*')
-            if test.match(link):
-                self.social_media.handle_social_media_url(link)
+            if link in person_object.visited_links:
+                print("Already visited!")
             else:
-                yield SeleniumRequest(url=link, headers=self.header, callback=self.gather_information, wait_time=10)"""
-            yield SeleniumRequest(url=link, headers=self.header, callback=self.gather_information, wait_time=5)
+                test = re.compile(r'.*((instagram)|(twitter)|(linkedin)).*')
+                if test.match(link):
+                    self.social_media.handle_social_media_url(link)
+                else:
+                    yield SeleniumRequest(url=link, headers=self.header, callback=self.gather_information, wait_time=10)
+                    person_object.visited_links.append(link)
 
     def gather_information(self, response):
         self.counter += 1
@@ -141,8 +146,8 @@ class QuotesSpider(scrapy.Spider):
 
             current_institution = gather_information_class.compare_keywords_with_institutions(obj.text)
             if current_institution != -1:
-                person_object.institution_founded.append(current_institution)
-                print(person_object.institution_founded)
+                person_object.institutions_found.append(current_institution)
+                print(person_object.institutions_found)
 
             current_occupations = gather_information_class.compare_keywords_with_occupations(keywords)
             if current_occupations != -1:
@@ -150,7 +155,7 @@ class QuotesSpider(scrapy.Spider):
 
             current_mails = gather_information_class.get_email(obj.text, person_object.first_name, person_object.second_name)
             if current_mails != -1:
-                person_object.founded_mails.append(current_mails)
+                person_object.mails_found.append(current_mails)
 
     def transfer_information(self, social_media_person):
         if person_object.first_name == "":
@@ -159,11 +164,12 @@ class QuotesSpider(scrapy.Spider):
             person_object.second_name= social_media_person.second_name
         person_object.occupation = social_media_person.occupation
         person_object.locations = social_media_person.locations
-        person_object.institution_founded = social_media_person.institution_founded
+        person_object.institutions_found = social_media_person.institutions_found
         person_object.contacts_information = social_media_person.contacts_information
-        person_object.founded_mails = social_media_person.email
+        person_object.mails_found = social_media_person.email
         person_object.hobbies = social_media_person.hobbies
-        person_object.founded_mails = social_media_person.founded_mails
+        person_object.mails_found = social_media_person.mails_found
+        person_object.visited_links = social_media_person.visited_links
 
     def compare_place_of_residence_with_database(self):
         database_word_list_location= []
@@ -195,7 +201,6 @@ class ChooseInformation:
         if list:
             for i in range(0, len(list)):
                 list2 = []
-                print(list[i])
                 if list[i]:
                     for k in range(0, len(list[i])):
                         list1 = []
@@ -215,6 +220,8 @@ class ChooseInformation:
                             if in_list:
                                 list2.append(list1)
                     list3.append(list2)
+                    print("List2",list2)
+            print("LIST3Before: ",list3)
             final_list = []
             for i in range(0, len(list3)):
                 for k in range(0, len(list3[i])):
@@ -223,22 +230,20 @@ class ChooseInformation:
                             for n in range(0, len(list3[m])):
                                 if list3[i][k][0] == list3[m][n][0]:
                                     test = []
-                                    list3[i][k][1] = (list3[i][k][1] + list3[m][n][1])/len(list3)
+                                    list3[i][k][1] = (list3[i][k][1] + list3[m][n][1])
                                     # test.append(list3[i][k][0])
                                     # test.append(score)
                                     if list3[i][k] not in final_list:
-                                        list3[i][k][1] =list3[i][k][1]/len(list3)
                                         final_list.append(list3[i][k])
                                 else:
-                                    if not list3[i][k] in final_list:
-                                        list3[i][k][1] = list3[i][k][1] / len(list3)
-                                        final_list.append(list3[i][k])
+                                    if list3[i][k] not in final_list:
                                         final_list.append(list3[i][k])
                     else:
-                        if not list3[i][k] in final_list:
-                            list3[i][k][1] = list3[i][k][1] / len(list3)
+                        if list3[i][k] not in final_list:
                             final_list.append(list3[i][k])
-                            final_list.append(list3[i][k])
+
+            for i in range(0,len(final_list)):
+                final_list[i][1] = final_list[i][1] / len(list3)
             score = 0
             element_with_highest_score = ""
             for i in final_list:
@@ -246,6 +251,8 @@ class ChooseInformation:
                 if current_score > score:
                     score = current_score
                     element_with_highest_score = i[0]
+            print("Length",len(list3))
+            print("List 3: ",list3)
             print("Liste mit Elementen und Scores: ", final_list)
             print("Element mit höchstem Score in Liste: ", element_with_highest_score, score)
 
@@ -267,7 +274,7 @@ choose_information = ChooseInformation()
 person_object.locations = choose_information.get_highest_score(person_object.locations)
 person_object.occupation = choose_information.get_highest_score(person_object.occupation)
 person_object.hobbies = choose_information.get_highest_score(person_object.hobbies)
-person_object.institution_founded = choose_information.get_highest_score(person_object.institution_founded)
+person_object.institutions_found = choose_information.get_highest_score(person_object.institutions_found)
 print("Vorname: ", person_object.first_name)
 print("Nachname: ", person_object.second_name)
 print("Wohnort:", person_object.place_of_residence)
@@ -275,9 +282,10 @@ print("Geburtsjahr:", person_object.year_of_birth)
 print("Location:", person_object.locations )
 print("Occupations:", person_object.occupation)
 print("Hobbies:", person_object.hobbies)
-print("Institution gefunden:", person_object.institution_founded)
-print("E-Mail: ", person_object.founded_mails)
+print("Institution gefunden:", person_object.institutions_found)
+print("E-Mail: ", person_object.mails_found)
 print("Kontaktinformation: ", person_object.contacts_information)
+print("Links visited: ",person_object.visited_links)
 
 create_phishing_mail_class = Create_Phishing_Mail_Class.CreatePhishingMail()
 create_phishing_mail_class.create_phishing_mail(person_object)

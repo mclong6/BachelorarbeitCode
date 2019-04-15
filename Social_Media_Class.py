@@ -27,8 +27,9 @@ class Person(object):
         self.email = []
         self.locations = []
         self.contacts_information = []
-        self.institution_founded = []
-        self.founded_mails = []
+        self.institutions_found = []
+        self.mails_found = []
+        self.visited_links = []
 
 class SocialMedia:
     def __init__(self):
@@ -89,55 +90,54 @@ class SocialMedia:
         self.person_object.twitter_name=social_media_person.twitter_name
         self.person_object.facebook_name = social_media_person.facebook_name
         self.person_object.instagram_name = social_media_person.instagram_name
-        self.person_object.institution_founded = social_media_person.institution_founded
+        self.person_object.institutions_found = social_media_person.institutions_found
+        self.person_object.visited_links = social_media_person.visited_links
 
     def search_linkedin(self):
         print("in search linkedin")
         links_to_person = []
         self.login_to_any_page(self.linkedin_key)
         search_link_list = self.create_search_links(self.linkedin_key)
-        print(search_link_list[0])
-        self.browser.get(search_link_list[0])
-        html_of_search = self.browser.page_source
-        html_soup = BeautifulSoup(html_of_search, "html.parser")
-        #links = html_soup.find_all("a",{"id": re.compile("(ember)[0-9]*")})
-        links = html_soup.find_all("a", {"href": re.compile("(/in/)[(w)]*")})
-        for link in links:
-            if link.attrs["href"] not in links_to_person:
-                links_to_person.append(link.attrs["href"])
-        print(links_to_person)
-        if len(links_to_person) == 1:
-            url = "https://www.linkedin.com"+links_to_person[0]
-            self.handle_social_media_url(url)
-        #TODO delet Ravensurg-Weingarten if it is wrong
-            """if self.person_object.locations[1] == "weingarten" and self.person_object.locations[0] == "ravensburg":
-                print("TRUEEEEEEEEEE")
-            else:
-                del self.person_object.locations[self.person_object.locations.index("weingarten")]
-                del self.person_object.locations[self.person_object.locations.index("ravensburg")]"""
-
-            print("Locations: ",self.person_object.locations)
+        if search_link_list[0] in self.person_object.visited_links:
+            print("link alreadey visited!")
+        else:
+            self.browser.get(search_link_list[0])
+            html_of_search = self.browser.page_source
+            html_soup = BeautifulSoup(html_of_search, "html.parser")
+            #links = html_soup.find_all("a",{"id": re.compile("(ember)[0-9]*")})
+            links = html_soup.find_all("a", {"href": re.compile("(/in/)[(w)]*")})
+            for link in links:
+                if link.attrs["href"] not in links_to_person:
+                    links_to_person.append(link.attrs["href"])
+            print(links_to_person)
+            if len(links_to_person) == 1:
+                url = "https://www.linkedin.com"+links_to_person[0]
+                self.handle_social_media_url(url)
+            self.person_object.visited_links.append(search_link_list[0])
 
     def search_xing(self):
         links_to_person = []
         self.login_to_any_page(self.xing_key)
         search_link_list = self.create_search_links(self.xing_key)
-        print(search_link_list[0])
-        time.sleep(2)
-        self.browser.get(search_link_list[0])
+        if search_link_list[0] in self.person_object.visited_links:
+            print("link alreadey visited!")
+        else:
+            time.sleep(2)
+            self.browser.get(search_link_list[0])
 
-        html_of_search = self.browser.page_source
-        html_soup = BeautifulSoup(html_of_search, "html.parser")
-        # links = html_soup.find_all("a",{"id": re.compile("(ember)[0-9]*")})
-        links = html_soup.find_all("a", {"href": re.compile("(/profile/).*/.*")})
-        for link in links:
-            if link.attrs["href"] not in links_to_person:
-                links_to_person.append(link.attrs["href"])
-        print(links_to_person)
-        # TODO Create Alogrithmus to know which person is the vitim
-        if len(links_to_person) == 1:
-            url = "https://www.xing.com" + links_to_person[0]
-            self.handle_social_media_url(url)
+            html_of_search = self.browser.page_source
+            html_soup = BeautifulSoup(html_of_search, "html.parser")
+            # links = html_soup.find_all("a",{"id": re.compile("(ember)[0-9]*")})
+            links = html_soup.find_all("a", {"href": re.compile("(/profile/).*/.*")})
+            for link in links:
+                if link.attrs["href"] not in links_to_person:
+                    links_to_person.append(link.attrs["href"])
+            print(links_to_person)
+            # TODO Create Alogrithmus to know which person is the vitim
+            if len(links_to_person) == 1:
+                url = "https://www.xing.com" + links_to_person[0]
+                self.handle_social_media_url(url)
+            self.person_object.visited_links.append(search_link_list[0])
 
     def login_to_any_page(self, key):
         if key == self.instagram_key or key == self.linkedin_key:
@@ -205,7 +205,7 @@ class SocialMedia:
                 self.person_object.second_name = person_name[1]
             else:
                 self.person_object.first_name = person_name[0]
-        print(self.person_object.first_name,self.person_object.second_name)
+        print("Found Names: ",self.person_object.first_name,self.person_object.second_name)
 
         #To find out if it is a private account or not
         if html_soup.find_all(text="Dieses Konto ist privat"):
@@ -249,11 +249,15 @@ class SocialMedia:
     def handle_social_media_url(self, url):
         url = url.split("%",1)[0]
         print(url)
-        self.browser.get(url)
-        time.sleep(2)
-        html_of_search = self.browser.page_source
-        html_soup = BeautifulSoup(html_of_search, "html.parser")
-        self.gather_information(html_soup.text)
+        if url in self.person_object.visited_links:
+            print("link already visited")
+        else:
+            self.browser.get(url)
+            time.sleep(2)
+            html_of_search = self.browser.page_source
+            html_soup = BeautifulSoup(html_of_search, "html.parser")
+            self.gather_information(html_soup.text)
+            self.person_object.visited_links.append(url)
 
     def gather_information(self, text):
         keyword_extraction_class = Keyword_Extraction_Class.KeywordExtraction()
@@ -273,7 +277,7 @@ class SocialMedia:
 
         current_institution = gather_information_class.compare_keywords_with_institutions(text)
         if current_institution != -1:
-            self.person_object.institution_founded.append(current_institution)
+            self.person_object.institutions_found.append(current_institution)
 
         current_occupations = gather_information_class.compare_keywords_with_occupations(keywords)
         if current_occupations != -1:
@@ -282,7 +286,7 @@ class SocialMedia:
         current_mails = gather_information_class.get_email(text, self.person_object.first_name,
                                                            self.person_object.second_name)
         if current_mails != -1:
-            self.person_object.founded_mails.append(current_mails)
+            self.person_object.mails_found.append(current_mails)
 
 
 
@@ -297,7 +301,7 @@ class SocialMedia:
         gather_information_class = Gather_Information_Class.GatherInformation()
         self.person_object.hobbies.append(gather_information_class.compare_keywords_with_hobbies(keywords))
         self.person_object.locations.append(gather_information_class.compare_keywords_with_locations(keywords))
-        self.person_object.institution_founded.append(gather_information_class.compare_keywords_with_institutions(keywords))
+        self.person_object.institutions_found.append(gather_information_class.compare_keywords_with_institutions(keywords))
         self.person_object.occupation.append(gather_information_class.compare_keywords_with_occupations(keywords))
         """
     def check_person_information(self):
@@ -361,31 +365,33 @@ class SocialMedia:
             except Exception as e:
                 print("no more links")
                 print(e)
+            self.get_contacts_information()
 
     def get_contacts_information(self):
-        for contact_link in self.links_to_contacts:
-            print(contact_link)
-            url = "https://www.instagram.com" + contact_link
-            self.browser.get(url)
-            html_of_search = self.browser.page_source
-            html_soup = BeautifulSoup(html_of_search, "html.parser")
-            #Section or whole HTML???
-            div = html_soup.find("div",{"class":"-vDIg"})
-            #print(sections[1].text)
+        if self.links_to_contacts:
+            for contact_link in self.links_to_contacts:
+                print(contact_link)
+                url = "https://www.instagram.com" + contact_link
+                self.browser.get(url)
+                html_of_search = self.browser.page_source
+                html_soup = BeautifulSoup(html_of_search, "html.parser")
+                #Section or whole HTML???
+                div = html_soup.find("div",{"class":"-vDIg"})
+                #print(sections[1].text)
 
 
-            keyword_extraction_class = Keyword_Extraction_Class.KeywordExtraction()
-            formatted_text = keyword_extraction_class.formate_input_text(div.text)
-            keywords = keyword_extraction_class.create_keywords(formatted_text)
-            gather_information_class = Gather_Information_Class.GatherInformation()
-            hobbies_of_contact = gather_information_class.compare_keywords_with_hobbies(keywords)
-            locations_of_contact = gather_information_class.compare_keywords_with_locations(keywords)
-            institution_of_contact = gather_information_class.compare_keywords_with_institutions(keywords)
-            occupations_of_contact = gather_information_class.compare_keywords_with_occupations(keywords)
+                keyword_extraction_class = Keyword_Extraction_Class.KeywordExtraction()
+                formatted_text = keyword_extraction_class.formate_input_text(div.text)
+                keywords = keyword_extraction_class.create_keywords(formatted_text)
+                gather_information_class = Gather_Information_Class.GatherInformation()
+                hobbies_of_contact = gather_information_class.compare_keywords_with_hobbies(keywords)
+                locations_of_contact = gather_information_class.compare_keywords_with_locations(keywords)
+                institution_of_contact = gather_information_class.compare_keywords_with_institutions(keywords)
+                occupations_of_contact = gather_information_class.compare_keywords_with_occupations(keywords)
 
-            if self.compare_contact_information(html_soup,hobbies_of_contact,locations_of_contact,institution_of_contact,occupations_of_contact):
-                break
-        print(self.person_object.contacts_information)
+                if self.compare_contact_information(html_soup,hobbies_of_contact,locations_of_contact,institution_of_contact,occupations_of_contact):
+                    break
+            print(self.person_object.contacts_information)
 
     def compare_contact_information(self, html_soup, hobbies_of_contact, locations_of_contact, institution_of_contact,
                                     occupations_of_contact):

@@ -56,9 +56,9 @@ class KeywordExtraction:
         # handling company names
         # TODO create trigramms and Tetragrams, maybe Pentagramms
         # Maybe only bigramms, seperated query
-        bigramms = list(ngrams(self.keywords, 2))
+        """bigramms = list(ngrams(self.keywords, 2))
         formatted_bigramms = [" ".join(ngram) for ngram in bigramms]
-        self.keywords = self.keywords + formatted_bigramms
+        self.keywords = self.keywords + formatted_bigramms"""
 
 
 

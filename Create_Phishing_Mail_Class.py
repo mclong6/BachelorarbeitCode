@@ -11,11 +11,11 @@ class CreatePhishingMail:
 
     def create_phishing_mail(self, person):
         if not person.input_email:
-            if not person.founded_mails:
+            if not person.mails_found:
                 create_email_adresses_class = Create_Email_Addresses_Class.CreateEmailAddresses()
                 self.destination_adress = create_email_adresses_class.create_email_addresses(person)
             else:
-                self.destination_adress = person.founded_mails
+                self.destination_adress = person.mails_found
         else:
             self.destination_adress.append(person.input_email)
         create_email_text_class = Create_Email_Text_Class.CreateEmailText()
@@ -42,7 +42,7 @@ class Person(object):
         self.occupation = []
         self.hobbies = []
         self.universities = ["FH-Weingarten"]
-        self.founded_mails = []
+        self.mails_found = []
         self.locations = []
         self.contacts_information = ["Lorenz Büffel", "singen"]
 
