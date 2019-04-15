@@ -68,10 +68,10 @@ class CreateEmailText:
                                                                                   "\n\nMif freundlichen Grüßen\n\n" \
                                                                                   "Max Mustermann"
                     else:
-                        self.subject = person.occupation+" bei der " + institution
-                        self.text = "Hallo "+self.salutation+" "+person.second_name+",\nals "+ person.occupation+" bei der "+institution+"," \
+                        self.subject = person.occupation+" bei der Institution" + institution
+                        self.text = "Hallo "+self.salutation+" "+person.second_name+",\nals "+ person.occupation+" bei der Institution "+institution+"," \
                                  " stehen Ihnen nun alle Möglichkeiten offen. Sehen Sie sich die neuen Möglichkeiten unter folgendem Link an.\n" \
-                                "https://badlink.com\n\nMit freundlichen Grüßen\n\nIhr Karriere-Team der "+institution
+                                "https://badlink.com\n\nMit freundlichen Grüßen\n\nIhr Karriere-Team der Institution "+institution
                 else:
                     self.subject = institution + " - Netzwerkänderungen"
                     self.text = "Hallo "+self.salutation+" " + person.second_name + ",\nwir bauen unsere Netzwerkstruktur um. Bitte registrieren Sie sich unter der folgenden Webseite," \
