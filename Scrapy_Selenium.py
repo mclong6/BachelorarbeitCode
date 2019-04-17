@@ -11,6 +11,7 @@ import Handle_Google_Results_Class
 import Create_Phishing_Mail_Class
 import csv
 import re
+import numpy
 
 
 class Person(object):
@@ -74,7 +75,7 @@ class QuotesSpider(scrapy.Spider):
 
         for url in search_url_list:
             print("Search for URL: ",url)
-            yield SeleniumRequest(url=url,callback=self.parse, wait_time=5)
+            yield SeleniumRequest(url=url, callback=self.parse, wait_time=5)
 
     def parse(self, response):
         handle_google_results_class = Handle_Google_Results_Class.HandleGoogleResults()
@@ -196,7 +197,78 @@ class QuotesSpider(scrapy.Spider):
 
 # transfer information from user input
 class ChooseInformation:
+
     def get_highest_score(self, list):
+        instances = []
+        matrix = [[],[]]
+        number_of_websites  = len(list)
+        print("List",list, len(list))
+        if list:
+            #to get all instances
+            for i in range(0, len(list)):
+                #if len(list)> 1:
+                for k in range(0,len(list[i])):
+                    if list[i][k] not in instances:
+                        instances.append(list[i][k])
+                """else:
+                    if list[i] not in instances:
+                        instances.append(list[i])
+"""
+            print("instances", instances)
+
+            #create list3 with scores
+            list3 = []
+            for i in range(0, len(list)):
+                list2 = []
+                if list[i]:
+                    for k in range(0, len(list[i])):
+                        list1 = []
+                        frequency = list[i].count(list[i][k])
+                        score = frequency / len(list[i])
+                        list1.append(list[i][k])
+                        list1.append(score)
+                        # for l in range(0,len(list_with_counted_words)):
+                        # print("IN FOR")
+                        if len(list2) == 0:
+                            list2.append(list1)
+                        else:
+                            in_list = True
+                            for l in range(0, len(list2)):
+                                if list1[0] in list2[l][0]:
+                                    in_list = False
+                            if in_list:
+                                list2.append(list1)
+                    list3.append(list2)
+                    print("List2", list2)
+            print("LIST3: ", list3)
+
+            #create matrix with numpy
+            matrix = numpy.zeros(shape=(len(list3),len(instances)))
+            #fill matrix
+            for i in range(0,len(list3)):
+                for k in range(0,len(list3[i])):
+                    index = instances.index(list3[i][k][0])
+                    matrix[i][index] = (list3[i][k][1])
+
+            print(matrix)
+
+            score = 0
+            score_list = []
+            element_with_highest_score = ""
+            for k in range(0, numpy.size(matrix, 1)):
+                current_score = 0
+                for i in range(0,numpy.size(matrix,0)):
+                    print(instances[k])
+                    current_score = current_score + matrix[i][k]
+                print(current_score)
+                current_score = current_score / len(list3)
+                if current_score > score:
+                    score = current_score
+                    element_with_highest_score = instances[k]
+            print(score)
+            print(element_with_highest_score)
+            return element_with_highest_score
+        """    
         list3 = []
         if list:
             for i in range(0, len(list)):
@@ -260,6 +332,71 @@ class ChooseInformation:
         else:
             return ""
 
+    class ChooseInformation1:
+        def get_highest_score(self, list):
+            list3 = []
+            if list:
+                for i in range(0, len(list)):
+                    list2 = []
+                    if list[i]:
+                        for k in range(0, len(list[i])):
+                            list1 = []
+                            frequency = list[i].count(list[i][k])
+                            score = frequency / len(list[i])
+                            list1.append(list[i][k])
+                            list1.append(score)
+                            # for l in range(0,len(list_with_counted_words)):
+                            # print("IN FOR")
+                            if len(list2) == 0:
+                                list2.append(list1)
+                            else:
+                                in_list = True
+                                for l in range(0, len(list2)):
+                                    if list1[0] in list2[l][0]:
+                                        in_list = False
+                                if in_list:
+                                    list2.append(list1)
+                        list3.append(list2)
+                        print("List2", list2)
+                print("LIST3Before: ", list3)
+                final_list = []
+                for i in range(0, len(list3)):
+                    for k in range(0, len(list3[i])):
+                        if i < len(list3) - 1:
+                            for m in range(i + 1, len(list3)):
+                                for n in range(0, len(list3[m])):
+                                    if list3[i][k][0] == list3[m][n][0]:
+                                        test = []
+                                        list3[i][k][1] = (list3[i][k][1] + list3[m][n][1])
+                                        # test.append(list3[i][k][0])
+                                        # test.append(score)
+                                        if list3[i][k] not in final_list:
+                                            final_list.append(list3[i][k])
+                                    else:
+                                        if list3[i][k] not in final_list:
+                                            final_list.append(list3[i][k])
+                        else:
+                            if list3[i][k] not in final_list:
+                                final_list.append(list3[i][k])
+
+                for i in range(0, len(final_list)):
+                    final_list[i][1] = final_list[i][1] / len(list3)
+                score = 0
+                element_with_highest_score = ""
+                for i in final_list:
+                    current_score = i[1]
+                    if current_score > score:
+                        score = current_score
+                        element_with_highest_score = i[0]
+                print("Length", len(list3))
+                print("List 3: ", list3)
+                print("Liste mit Elementen und Scores: ", final_list)
+                print("Element mit höchstem Score in Liste: ", element_with_highest_score, score)
+
+                return element_with_highest_score
+            else:
+                return ""
+                """
 # Create Person object
 # create_search_link = Create_Search_Link_Class.CreateSearchLink()
 #person_object = Person()

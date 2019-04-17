@@ -90,11 +90,11 @@ class CreateEmailText:
                 "Ihr Karriere-Team der Bundesrepublik Deutschland"
 
     def private_text(self, person):
-        if person.year_of_birth!= "":
+        if person.year_of_birth != "":
             self.year_of_birth_text(person)
         elif person.hobbies != "":
             self.hobby_text(person)
-        elif person.locations != "":
+        elif person.locations != "" or person.place_of_residence != "":
             self.locations_text(person)
 
     def contacts_information_text(self,person):
@@ -119,18 +119,24 @@ class CreateEmailText:
                                                                                             "Im Anhang befindet sich eine kleine Übersicht.\n\n" \
                                                                                             "Dein Team der deutschen Förderung"
     def year_of_birth_text(self,person):
-        if person.locations != "":
-            self.subject = "Jahrgang "+person.year_of_birth+" - "+person.locations
-            self.text = "Hi"+ person.first_name+",\n dieses Jahr findet in "+person.locations+" ein Treffen für alle Personen, die "+person.year_of_birth+"" \
+        year_of_birth = str(person.year_of_birth)
+        print("YEAR", year_of_birth)
+        if person.locations:
+            self.subject = "Jahrgang "+year_of_birth+" - "+person.locations
+            self.text = "Hi"+ person.first_name+",\n dieses Jahr findet in "+person.locations+" ein Treffen für alle Personen, die "+year_of_birth+"" \
                         " geboren sind, statt. Im Anhang befindet sich eine Liste mit den Leuten die bereits zugesagt haben.\n\n" \
                         "Dein Orga-Team "+person.locations
         else:
-            self.subject = "Jahrgang " + person.year_of_birth
+            self.subject = "Jahrgang " + year_of_birth
             self.text = "Hi" + person.first_name + ",\n dieses Jahr findet ein Treffen für alle Personen, die " + person.year_of_birth + "" \
                         " geboren sind, statt. Im Anhang befindet sich eine Liste mit den Leuten die bereits zugesagt haben.\n\n" \
                         "Dein Orga-Team"
     def locations_text(self,person):
+        if person.locations != "":
+            location = person.locations
+        else:
+            location = person.place_of_residence
         self.subject = "Streetfood-Festival in "+person.locations
-        self.text = "Hi "+ person.first_name+"dieses Jahr findet das erste STREETFOOD-FESTIVAL in "+person.locations+ "" \
+        self.text = "Hi "+ person.first_name+"dieses Jahr findet das erste STREETFOOD-FESTIVAL in "+ location + "" \
                     " statt. Im Anhang befindet sich der Plan, auf dem alles weitere erklärt wird.\n" \
-                    "Wir freuen uns auf dich!\n\nDein Streefood-Team aus "+person.locations
+                    "Wir freuen uns auf dich!\n\nDein Streefood-Team aus "+location

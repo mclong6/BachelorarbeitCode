@@ -127,7 +127,7 @@ class GatherInformation:
         if all_years_in_text:
             print(all_years_in_text)
             for year in all_years_in_text:
-                vistited_elements = 0
+                vistited_elements = 1
                 max_number_of_visited_elements = 15
                 #  to get all occurances of this year
                 occurrences = [i for i, x in enumerate(keywords) if x == year]
