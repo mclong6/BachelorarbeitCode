@@ -24,7 +24,10 @@ class GatherInformation:
         with open('location.csv', 'r') as csvFile:
             csv_reader = csv.reader(csvFile)
             for row in csv_reader:
-                self.database_word_list_location.append(row[0].lower())
+                if len(row)<1:
+                    continue
+                else:
+                    self.database_word_list_location.append(row[0].lower())
             for word in keywords:
                 for element in self.database_word_list_location:
                     if element == word:
@@ -67,7 +70,10 @@ class GatherInformation:
         with open('occupations.csv', 'r') as csvFile:
             csv_reader = csv.reader(csvFile)
             for row in csv_reader:
-                self.database_word_list_occupation.append(row[0].lower())
+                if len(row)<1:
+                    continue
+                else:
+                    self.database_word_list_occupation.append(row[0].lower())
             for word in keywords:
                 for element in self.database_word_list_occupation:
                     if element == word:
@@ -79,11 +85,14 @@ class GatherInformation:
             return -1
 
     def compare_keywords_with_institutions(self, html_string):
-        text = str(html_string).lower()
+        text = str(html_string)
         with open('institutions.csv', 'r') as csvFile:
-            csv_reader = csv.reader(csvFile)
+            csv_reader = csv.reader(csvFile, delimiter=',', quotechar='"')
             for row in csv_reader:
-                self.database_word_list_institutions.append(row[0].lower())
+                if len(row)<1:
+                    continue
+                else:
+                    self.database_word_list_institutions.append(row[0])
             for element in self.database_word_list_institutions:
                     #if element in word:
                 if element in text:

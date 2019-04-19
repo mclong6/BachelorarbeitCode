@@ -37,10 +37,10 @@ class CreateEmailText:
             elif person.institution:
                 self.institution_text(person, False)
 
-            else:
+            elif person.occupation:
                 self.occupation_text(person)
-        else:
-            self.occupation_text(person)
+        """else:
+            self.occupation_text(person)"""
 
     def institution_text(self, person, key):
         if key:
@@ -52,7 +52,7 @@ class CreateEmailText:
         person.second_name = str(person.second_name).capitalize()
         person.first_name = str (person.second_name).capitalize()
         if person.second_name != "":
-                if person.occupation != "":
+                if person.occupation != None:
                     person.occupation = str(person.occupation).capitalize()
                     if person.occupation == "Student":
                         self.subject = "Rückmeldung - " + institution
@@ -77,7 +77,7 @@ class CreateEmailText:
                     self.text = "Hallo "+self.salutation+" " + person.second_name + ",\nwir bauen unsere Netzwerkstruktur um. Bitte registrieren Sie sich unter der folgenden Webseite," \
                                                                 "damit wir Sie in das neue System aufnehmen können.\n" \
                                                                 "https://badlink.com\n\nMit freundlichen Grüßen\n\n" \
-                                                                "Ihr IT-Team der " + institution
+                                                                "Ihr IT-Team der Institution" + institution
 
 
     def occupation_text(self, person):
@@ -90,9 +90,9 @@ class CreateEmailText:
                 "Ihr Karriere-Team der Bundesrepublik Deutschland"
 
     def private_text(self, person):
-        if person.year_of_birth != "":
+        if person.year_of_birth != None:
             self.year_of_birth_text(person)
-        elif person.hobbies != "":
+        elif person.hobbies != None:
             self.hobby_text(person)
         elif person.locations != "" or person.place_of_residence != "":
             self.locations_text(person)
@@ -123,12 +123,12 @@ class CreateEmailText:
         print("YEAR", year_of_birth)
         if person.locations:
             self.subject = "Jahrgang "+year_of_birth+" - "+person.locations
-            self.text = "Hi"+ person.first_name+",\n dieses Jahr findet in "+person.locations+" ein Treffen für alle Personen, die "+year_of_birth+"" \
+            self.text = "Hi "+ person.first_name+",\ndieses Jahr findet in "+person.locations+" ein Treffen für alle Personen, die "+year_of_birth+"" \
                         " geboren sind, statt. Im Anhang befindet sich eine Liste mit den Leuten die bereits zugesagt haben.\n\n" \
                         "Dein Orga-Team "+person.locations
         else:
             self.subject = "Jahrgang " + year_of_birth
-            self.text = "Hi" + person.first_name + ",\n dieses Jahr findet ein Treffen für alle Personen, die " + person.year_of_birth + "" \
+            self.text = "Hi " + person.first_name + ",\ndieses Jahr findet ein Treffen für alle Personen, die " + person.year_of_birth + "" \
                         " geboren sind, statt. Im Anhang befindet sich eine Liste mit den Leuten die bereits zugesagt haben.\n\n" \
                         "Dein Orga-Team"
     def locations_text(self,person):

@@ -1,5 +1,6 @@
 import Create_Email_Addresses_Class
 import Create_Email_Text_Class
+import Send_Email_Class
 
 
 class CreatePhishingMail:
@@ -20,8 +21,9 @@ class CreatePhishingMail:
             self.destination_adress.append(person.input_email)
         create_email_text_class = Create_Email_Text_Class.CreateEmailText()
         self.email_attributes = create_email_text_class.create_email_text(person)
+        send_email_class = Send_Email_Class.SendEmailClass()
+        send_email_class.send_mail(self.email_attributes[0],self.email_attributes[1])
 
-        print(self.destination_adress)
         print("SUBJECT: ",self.email_attributes[0])
         print("BODY: ", self.email_attributes[1])
 

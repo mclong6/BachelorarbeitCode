@@ -12,6 +12,7 @@ import Create_Phishing_Mail_Class
 import csv
 import re
 import numpy
+from collections import Counter
 
 
 class Person(object):
@@ -21,7 +22,6 @@ class Person(object):
         self.sex = input("Geschlecht m/w: ").replace(" ", "%22").lower()
         self.place_of_residence = input("Wohnort: ").replace(" ", "%22").lower()
         self.year_of_birth = input("Genaues Geburtsjahr: ").replace(" ", "%22")
-        self.estimated_year_of_birth = input("Geschätztes Geburtsjahr: ").replace(" ", "%22")
         self.institution = input("Institution: ")
         self.instagram_name = input("Instagram Benutzername: ")
         self.facebook_name = input("Facebook Benutzername: ")
@@ -198,7 +198,10 @@ class QuotesSpider(scrapy.Spider):
 # transfer information from user input
 class ChooseInformation:
 
-    def get_highest_score(self, list):
+    def get_highest_score(self, list,key):
+        if key == key_other:
+            for i in range(0, len(list)):
+                list[i].sort(key=Counter(list[i]).get, reverse=True)
         instances = []
         matrix = [[],[]]
         number_of_websites  = len(list)
@@ -214,7 +217,9 @@ class ChooseInformation:
                     if list[i] not in instances:
                         instances.append(list[i])
 """
-            print("instances", instances)
+            if key == key_institution:
+                instances.sort(key=len, reverse=True)
+                print("instances", instances)
 
             #create list3 with scores
             list3 = []
@@ -406,15 +411,17 @@ process = CrawlerProcess({
 })
 process.crawl(QuotesSpider)
 process.start()
-
+key_institution = 1
+key_other = 2
 choose_information = ChooseInformation()
-person_object.locations = choose_information.get_highest_score(person_object.locations)
-person_object.occupation = choose_information.get_highest_score(person_object.occupation)
-person_object.hobbies = choose_information.get_highest_score(person_object.hobbies)
-person_object.institutions_found = choose_information.get_highest_score(person_object.institutions_found)
+person_object.locations = choose_information.get_highest_score(person_object.locations,key_other)
+person_object.occupation = choose_information.get_highest_score(person_object.occupation,key_other)
+person_object.hobbies = choose_information.get_highest_score(person_object.hobbies,key_other)
+person_object.institutions_found = choose_information.get_highest_score(person_object.institutions_found,key_institution)
+
 print("Vorname: ", person_object.first_name)
 print("Nachname: ", person_object.second_name)
-print("Wohnort:", person_object.place_of_residence)
+print("Wohnort/Standort:", person_object.place_of_residence)
 print("Geburtsjahr:", person_object.year_of_birth)
 print("Location:", person_object.locations )
 print("Occupations:", person_object.occupation)

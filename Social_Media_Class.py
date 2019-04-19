@@ -17,7 +17,6 @@ class Person(object):
         self.second_name = ""
         self.place_of_residence = ""
         self.year_of_birth = ""
-        self.estimated_year_of_birth = ""
         self.institution = ""
         self.instagram_name = ""
         self.facebook_name = ""
@@ -86,7 +85,6 @@ class SocialMedia:
         self.person_object.place_of_residence = social_media_person.place_of_residence
         self.person_object.institution = social_media_person.institution
         self.person_object.year_of_birth = social_media_person.year_of_birth
-        self.person_object.estimated_year_of_birth = social_media_person.estimated_year_of_birth
         self.person_object.twitter_name=social_media_person.twitter_name
         self.person_object.facebook_name = social_media_person.facebook_name
         self.person_object.instagram_name = social_media_person.instagram_name
@@ -109,7 +107,6 @@ class SocialMedia:
             for link in links:
                 if link.attrs["href"] not in links_to_person:
                     links_to_person.append(link.attrs["href"])
-            print(links_to_person)
             if len(links_to_person) == 1:
                 url = "https://www.linkedin.com"+links_to_person[0]
                 self.handle_social_media_url(url)
