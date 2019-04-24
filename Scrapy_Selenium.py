@@ -20,7 +20,7 @@ class Person(object):
         self.first_name = input("Vorname: ").replace(" ", "%22").lower()
         self.second_name = input("Nachname: ").replace(" ", "%22").lower()
         self.sex = input("Geschlecht m/w: ").replace(" ", "%22").lower()
-        self.place_of_residence = input("Wohnort: ").replace(" ", "%22").lower()
+        self.place_of_residence = input("Wohnort/Standort: ").replace(" ", "%22").lower()
         self.year_of_birth = input("Genaues Geburtsjahr: ").replace(" ", "%22")
         self.institution = input("Institution: ")
         self.instagram_name = input("Instagram Benutzername: ")
@@ -199,6 +199,7 @@ class QuotesSpider(scrapy.Spider):
 class ChooseInformation:
 
     def get_highest_score(self, list,key):
+        print("List unsorted:", list)
         if key == key_other:
             for i in range(0, len(list)):
                 list[i].sort(key=Counter(list[i]).get, reverse=True)
@@ -217,6 +218,7 @@ class ChooseInformation:
                     if list[i] not in instances:
                         instances.append(list[i])
 """
+            #because shorter institution_names could be inside another name
             if key == key_institution:
                 instances.sort(key=len, reverse=True)
                 print("instances", instances)
@@ -260,12 +262,13 @@ class ChooseInformation:
             score = 0
             score_list = []
             element_with_highest_score = ""
+            #every column
             for k in range(0, numpy.size(matrix, 1)):
+                # current_score = sum of elements of a column
                 current_score = 0
+                #every row
                 for i in range(0,numpy.size(matrix,0)):
-                    print(instances[k])
                     current_score = current_score + matrix[i][k]
-                print(current_score)
                 current_score = current_score / len(list3)
                 if current_score > score:
                     score = current_score

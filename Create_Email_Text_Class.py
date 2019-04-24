@@ -64,7 +64,7 @@ class CreateEmailText:
                     elif person.occupation == "Professor":
                         self.subject = "Feedback zur Ausarbeitung"
                         self.text = "Hallo "+self.salutation+" Professor " + person.second_name + ",\nwie besprochen befindet sich im Anhang meine vorläufige Ausarbeitung.\n" \
-                                                                                  "Könnten Sie diese erneut überprüfen und mir ein Feedback geben?" \
+                                                                                  "Könnten Sie diese bitte erneut überprüfen und mir ein Feedback geben?" \
                                                                                   "\n\nMif freundlichen Grüßen\n\n" \
                                                                                   "Max Mustermann"
                     else:
@@ -104,13 +104,13 @@ class CreateEmailText:
             self.subject = "Fragen bzgl. "+ person.contacts_information[1]
             if len(splitted_string_name)>=2:
                 self.text = "Hi "+person.first_name+",\nhier ist "+splitted_string_name[0]+". Bezüglich  "+ \
-                   person.contacts_information[1]+" hätte ich noch ein paar fragen an dich...\n" \
-                                                  "Könntest du zufällig in den Anhang schauen und bewerten was ich da so rausgesucht habe?" \
+                   person.contacts_information[1]+" hätte ich noch ein paar Fragen an dich...\n" \
+                                                  "Könntest du vielleicht in den Anhang schauen und bewerten, was ich da so rausgesucht habe?" \
                                                   ".\n\nGrüße,\n\n" + person.contacts_information[0]
             else:
                 self.text = "Hi " + person.first_name + ",\nhier ist " + splitted_string_name[0] + ". Bezüglich " + \
-                       person.contacts_information[1] + " hätte ich noch ein paar fragen an dich...\n" \
-                                                        "Könntest du zufällig in den Anhang schauen und bewerten was ich da so rausgesucht habe?" \
+                       person.contacts_information[1] + " hätte ich noch ein paar Fragen an dich...\n" \
+                                                        "Könntest du vielleicht in den Anhang schauen und bewerten, was ich da so rausgesucht habe?" \
                                                         "\n\nGrüße,\n\n" + person.contacts_information[0]
     def hobby_text(self,person):
         self.subject = "Verbessere deine Technik im "+person.hobbies
