@@ -17,7 +17,6 @@ class GatherInformation:
         self.institution = []
         self.whitespace_wt = WhitespaceTokenizer()
         self.emails = []
-    # TODO ADD something like Jodel,Whatsapp,Snapchat ....
 
     def compare_keywords_with_locations(self, keywords):
         print(keywords)
@@ -94,7 +93,7 @@ class GatherInformation:
                 else:
                     self.database_word_list_institutions.append(row[0])
             for element in self.database_word_list_institutions:
-                    #if element in word:
+                    # if element in word:
                 if element in text:
                     self.institution.append(element)
         if self.institution:
@@ -109,7 +108,8 @@ class GatherInformation:
         print(SequenceMatcher(None, formatted_name, local_part_of_mailaddress).ratio())
         if SequenceMatcher(None, formatted_name, local_part_of_mailaddress).ratio()>= percentage_limit:
             formatted_mail = mail.replace("(at)","@")
-            self.emails.append(formatted_mail)
+            if formatted_mail not in self.emails:
+                self.emails.append(formatted_mail)
 
     def get_email(self, html_string, firstname, secondname):
         email_words = self.whitespace_wt.tokenize(html_string.lower())
@@ -127,9 +127,9 @@ class GatherInformation:
     def get_years(self, keywords):
         regex_string = "(geburtsdatum)|(alter)|(geboren)|(geburtsort)|(born)|(birth)"
         all_years_in_text = []
-        year_lenth = 4
+        year_length = 4
         for element in keywords:
-            if re.match(r"[0-9]{4}", element) and len(element) == year_lenth:
+            if re.match(r"[0-9]{4}", element) and len(element) == year_length:
                 if 1900 <= int(element) <= 2019 and not element in all_years_in_text:
                     all_years_in_text.append(element)
 
@@ -138,20 +138,18 @@ class GatherInformation:
             for year in all_years_in_text:
                 vistited_elements = 1
                 max_number_of_visited_elements = 15
-                #  to get all occurances of this year
+                #  to get all occurrences of this year
                 occurrences = [i for i, x in enumerate(keywords) if x == year]
                 for position_of_year in occurrences:
                     while (position_of_year+vistited_elements) < len(
                             keywords)-1 and vistited_elements <= max_number_of_visited_elements and position_of_year is not -1:
                         index_behind = position_of_year+ vistited_elements
                         index_front = position_of_year - vistited_elements
-                        if re.match(r""+regex_string, keywords[index_behind]):
-                            print("Behind: Geburtsjahr wurde gefunden", year)
-                            return year
-                        elif re.match(r""+regex_string, keywords[index_front]):
+                        if re.match(r""+regex_string, keywords[index_front]):
                             print("Front: Geburtsjahr wurde gefunden", year)
+                            return year
+                        elif re.match(r""+regex_string, keywords[index_behind]):
+                            print("Behind: Geburtsjahr wurde gefunden", year)
                             return year
                         vistited_elements += 1
         return -1
-        #print("Year of Webpage: ",average_year)
-        #return average_year

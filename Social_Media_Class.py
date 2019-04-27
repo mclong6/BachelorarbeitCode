@@ -1,16 +1,17 @@
 from bs4 import BeautifulSoup
 import re
 import time
-from selenium.webdriver.common.by import By
 import Keyword_Extraction_Class
 import Gather_Information_Class
 import random
 from selenium import webdriver
 import Handle_Google_Results_Class
+
 # Mechanize cannot execute javascript and send asynchronous requests, but Selenium can do it;If you want to scrap a
 # static website, Mechanize is better(provides friendly apis and quickly);If you want to scrap any SPA(like AngularJS,
 # ReactJS,VueJS) website, Selenium can help you;If you need to auto login, it depends the web page needs to execute JS
 # or not.
+
 class Person(object):
     def __init__(self):
         self.first_name = ""
@@ -191,7 +192,7 @@ class SocialMedia:
 
         # handle profile site
         self.handle_social_media_url(url_to_profil)
-        #is accunt private or not
+        #is account private or not
         html_of_search = self.browser.page_source
         html_soup = BeautifulSoup(html_of_search, "html.parser")
         #To get personen first and second name, only username is given
@@ -207,8 +208,7 @@ class SocialMedia:
         #To find out if it is a private account or not
         if html_soup.find_all(text="Dieses Konto ist privat"):
             print("Dieses Konto ist privat!!!")
-            # Just for testing
-            self.get_contacts_private_account(self.instagram_key, )
+            self.get_contacts_private_account(self.instagram_key)
         else:
             self.get_contacts_public_account()
 
@@ -285,22 +285,6 @@ class SocialMedia:
         if current_mails != -1:
             self.person_object.mails_found.append(current_mails)
 
-
-
-
-
-
-
-        """
-        keyword_extraction_class = Keyword_Extraction_Class.KeywordExtraction()
-        formatted_text = keyword_extraction_class.formate_input_text(text)
-        keywords = keyword_extraction_class.create_keywords(formatted_text)
-        gather_information_class = Gather_Information_Class.GatherInformation()
-        self.person_object.hobbies.append(gather_information_class.compare_keywords_with_hobbies(keywords))
-        self.person_object.locations.append(gather_information_class.compare_keywords_with_locations(keywords))
-        self.person_object.institutions_found.append(gather_information_class.compare_keywords_with_institutions(keywords))
-        self.person_object.occupation.append(gather_information_class.compare_keywords_with_occupations(keywords))
-        """
     def check_person_information(self):
         is_name = False
         if self.person_object.first_name and self.person_object.second_name:
@@ -309,7 +293,6 @@ class SocialMedia:
 
     def get_contacts_public_account(self):
         print("get_contacts_public_account()")
-        #self.person_object.hobbies.append("fußball")
         html_of_search = self.browser.page_source
         html_soup = BeautifulSoup(html_of_search, "html.parser")
         username = html_soup.find("h1")
@@ -320,11 +303,9 @@ class SocialMedia:
         html_of_search = self.browser.page_source
         html_soup = BeautifulSoup(html_of_search, "html.parser")
         print(html_soup.prettify())
-        #for link in html_soup.find_all("a",attrs={"class": re.compile("(FPmhX notranslate _0imsa)|(_2dbep qNELH kIKUG)")}):
         for link in html_soup.find_all("a", attrs={"class": re.compile("(FPmhX notranslate _0imsa)")}):
             print(link.attrs["href"])
         # Find the pop-up window
-        #pop_up = self.browser.find_element_by_xpath('/html/body/div[2]/div/div[2]')        # find number of followers
         pop_up = self.browser.find_element_by_class_name("isgrP")
         print(pop_up)
         all_following = int(self.browser.find_element_by_xpath("//li[2]/a/span").text)
@@ -338,7 +319,6 @@ class SocialMedia:
             else:
                 self.browser.execute_script("arguments[0].scrollTop = arguments[0].scrollHeight", pop_up)
             time.sleep(random.randint(500, 1000) / 1000)
-            #print("Extract friends %", round((i / (all_following / 2) * 100), 2), "from", "%100")
         html_of_search= self.browser.page_source
         html_soup = BeautifulSoup(html_of_search, "html.parser")
         for link in html_soup.find_all("a", attrs={"class": re.compile("(FPmhX notranslate _0imsa)")}):
@@ -374,8 +354,6 @@ class SocialMedia:
                 html_soup = BeautifulSoup(html_of_search, "html.parser")
                 #Section or whole HTML???
                 div = html_soup.find("div",{"class":"-vDIg"})
-                #print(sections[1].text)
-
 
                 keyword_extraction_class = Keyword_Extraction_Class.KeywordExtraction()
                 formatted_text = keyword_extraction_class.formate_input_text(div.text)
@@ -457,15 +435,6 @@ class SocialMedia:
             search_url_list.append("https://www.xing.com/search/old/members?hdr=1&keywords="
                                    +self.person_object.first_name+"+"+self.person_object.second_name+
                                    "+"+self.person_object.place_of_residence)
-
         elif key == self.facebook_key:
             search_url_list.append("https://www.facebook.com/search/str/"+self.person_object.facebook_name+"/users-named")
-            #TODO have look in OSINT BOOK to find further links with location
         return search_url_list
-
-"""
-test = SocialMedia()
-#test.handle_instagram()
-test.handle_social_media("test")
-
-"""

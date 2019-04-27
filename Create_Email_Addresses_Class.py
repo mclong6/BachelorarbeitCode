@@ -12,9 +12,8 @@ class CreateEmailAddresses:
         self.point = "."
         self.formatted_localnames=[]
         self.email_list = []
-        #TODO more provider
         self.provider_list = ["web.de", "gmail.com", "gmx.de", "t-online.de", "freenet.de"]
-        #TODO UMLAUTE ändern!!!
+
     def create_email_addresses(self, person):
         self.firstname = person.first_name.replace("%22", "").replace("ä", "ae").replace("ö", "oe").replace("ü", "ue")
         self.secondname = str(person.second_name).replace("%22", "").replace("ä", "ae").replace("ö", "oe").replace("ü", "ue")
@@ -82,12 +81,6 @@ class CreateEmailAddresses:
 
 
     def create_permutations(self,list):
-        #TODO create Permutations
         permutation_list = permutations(list)
         for perm in permutation_list:
             self.localname.append(perm)
-        #print(list(combinations(mylist,2)))
-
-
-#email = CreateEmailAddresses()
-#email.create_email_addresses("marco","lang", "1995")

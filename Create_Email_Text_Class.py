@@ -1,4 +1,6 @@
 import re
+
+
 class CreateEmailText:
 
     def __init__(self):
@@ -39,8 +41,6 @@ class CreateEmailText:
 
             elif person.occupation:
                 self.occupation_text(person)
-        """else:
-            self.occupation_text(person)"""
 
     def institution_text(self, person, key):
         if key:
@@ -52,7 +52,7 @@ class CreateEmailText:
         person.second_name = str(person.second_name).capitalize()
         person.first_name = str (person.second_name).capitalize()
         if person.second_name != "":
-                if person.occupation != None:
+                if person.occupation is not None:
                     person.occupation = str(person.occupation).capitalize()
                     if person.occupation == "Student":
                         self.subject = "Rückmeldung - " + institution
@@ -79,7 +79,6 @@ class CreateEmailText:
                                                                 "https://badlink.com\n\nMit freundlichen Grüßen\n\n" \
                                                                 "Ihr IT-Team der Institution" + institution
 
-
     def occupation_text(self, person):
         person.occupation = str(person.occupation).capitalize()
         person.second_name = str (person.second_name).capitalize()
@@ -90,7 +89,7 @@ class CreateEmailText:
                 "Ihr Karriere-Team der Bundesrepublik Deutschland"
 
     def private_text(self, person):
-        if person.year_of_birth != None:
+        if person.year_of_birth != "":
             self.year_of_birth_text(person)
         elif person.hobbies != None:
             self.hobby_text(person)
@@ -112,31 +111,35 @@ class CreateEmailText:
                        person.contacts_information[1] + " hätte ich noch ein paar Fragen an dich...\n" \
                                                         "Könntest du vielleicht in den Anhang schauen und bewerten, was ich da so rausgesucht habe?" \
                                                         "\n\nGrüße,\n\n" + person.contacts_information[0]
+
     def hobby_text(self,person):
         self.subject = "Verbessere deine Technik im "+person.hobbies
-        self.text = "Hi "+person.first_name+",\n damit du deine Leistung im"+person.hobbies+" verbessern kannst, musst du unbedingt" \
+        self.text = "Hi "+person.first_name+",\ndamit du deine Leistung im"+person.hobbies+" verbessern kannst, musst du unbedingt" \
                                                                                             "die Techniken deiner Vorbilder anschauen!\n" \
                                                                                             "Im Anhang befindet sich eine kleine Übersicht.\n\n" \
                                                                                             "Dein Team der deutschen Förderung"
+
     def year_of_birth_text(self,person):
         year_of_birth = str(person.year_of_birth)
         print("YEAR", year_of_birth)
         if person.locations:
-            self.subject = "Jahrgang "+year_of_birth+" - "+person.locations
-            self.text = "Hi "+ person.first_name+",\ndieses Jahr findet in "+person.locations+" ein Treffen für alle Personen, die "+year_of_birth+"" \
+            location = str(person.locations).capitalize()
+            self.subject = "Jahrgang "+year_of_birth+" - "+location
+            self.text = "Hi "+ person.first_name+",\ndieses Jahr findet in "+location+" ein Treffen für alle Personen, die "+year_of_birth+"" \
                         " geboren sind, statt. Im Anhang befindet sich eine Liste mit den Leuten die bereits zugesagt haben.\n\n" \
-                        "Dein Orga-Team "+person.locations
+                        "Dein Orga-Team "+location
         else:
             self.subject = "Jahrgang " + year_of_birth
             self.text = "Hi " + person.first_name + ",\ndieses Jahr findet ein Treffen für alle Personen, die " + person.year_of_birth + "" \
                         " geboren sind, statt. Im Anhang befindet sich eine Liste mit den Leuten die bereits zugesagt haben.\n\n" \
                         "Dein Orga-Team"
+
     def locations_text(self,person):
         if person.locations != "":
             location = person.locations
         else:
             location = person.place_of_residence
         self.subject = "Streetfood-Festival in "+person.locations
-        self.text = "Hi "+ person.first_name+"dieses Jahr findet das erste STREETFOOD-FESTIVAL in "+ location + "" \
-                    " statt. Im Anhang befindet sich der Plan, auf dem alles weitere erklärt wird.\n" \
+        self.text = "Hi "+ person.first_name+"derzeit findet das erste STREETFOOD-FESTIVAL in "+ location + "" \
+                    "statt. Im Anhang befindet sich der Plan, auf dem alles weitere erklärt wird.\n" \
                     "Wir freuen uns auf dich!\n\nDein Streefood-Team aus "+location
