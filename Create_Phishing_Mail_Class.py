@@ -23,5 +23,5 @@ class CreatePhishingMail:
         send_email_class = Send_Email_Class.SendEmailClass()
         send_email_class.send_mail(self.email_attributes[0], self.email_attributes[1])
 
-        print("Phishing-Mail:\n\nSUBJECT: ", self.email_attributes[0])
+        print("\nPhishing-Mail:\n\nSUBJECT: ", self.email_attributes[0])
         print(self.email_attributes[1])

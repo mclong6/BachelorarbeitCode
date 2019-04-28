@@ -12,19 +12,26 @@ import Social_Media_Class
 import Handle_Google_Results_Class
 import Create_Phishing_Mail_Class
 import Choose_Information_Class
+import time
 
 
 
 class Person(object):
     def __init__(self):
+        time.sleep(1)
+        print("\nZugelassene Eingaben sind:")
+        print("- Geschlecht, Vorname, Nachname, Wohnort/Standort;")
+        print("- Geschlecht, Vorname, Nachname, Geburtsjahr;")
+        print("- Geschlecht, Social-Media-Benutzername;")
+        print("- Geschlecht, E-Mail-Adresse;\n")
+        self.sex = input("Geschlecht m/w: ").replace(" ", "%22").lower()
         self.first_name = input("Vorname: ").replace(" ", "%22").lower()
         self.second_name = input("Nachname: ").replace(" ", "%22").lower()
-        self.sex = input("Geschlecht m/w: ").replace(" ", "%22").lower()
         self.place_of_residence = input("Wohnort/Standort: ").replace(" ", "%22").lower()
         self.year_of_birth = input("Genaues Geburtsjahr: ").replace(" ", "%22")
         self.institution = input("Institution: ")
         self.instagram_name = input("Instagram Benutzername: ")
-        self.facebook_name = input("Facebook Benutzername: ")
+        #self.facebook_name = input("Facebook Benutzername: ")
         self.twitter_name = input("Twitter Benutzername: ")
         self.input_email = input("E-Mail-Adresse: ")
         self.occupation = []
@@ -56,22 +63,32 @@ class QuotesSpider(scrapy.Spider):
         self.instagram_key = 1
         self.facebook_key = 2
         self.twitter_key = 3
+        self.linkedin_key = 4
+        self.xing_key = 5
         global person_object
         person_object = Person()
         self.count = 0
         self.counter = 1
         self.length_for_counter = 0
         self.social_media = Social_Media_Class.SocialMedia()
+        self.instagram_regex = re.compile(r'.*(instagram).*')
+        self.twitter_regex = re.compile(r'.*(twitter).*')
+        self.linkedin_regex = re.compile(r'.*(linkedin).*')
+        self.xing_regex = re.compile(r'.*(xing).*')
 
     def start_requests(self):
-        self.compare_place_of_residence_with_database()
-        self.transfer_information(self.social_media.handle_social_media(person_object))
-        create_search_link = Create_Search_Link_Class.CreateSearchLink()
-        search_url_list = create_search_link.get_search_links(person_object)
-        print("URL-LIST: ", search_url_list)
+        if person_object.sex == "":
+            print("Geben Sie das Geschlecht der Zielperson an!!")
+            self.social_media.close_browser()
+        else:
+            self.compare_place_of_residence_with_database()
+            self.transfer_information(self.social_media.handle_social_media(person_object))
+            create_search_link = Create_Search_Link_Class.CreateSearchLink()
+            search_url_list = create_search_link.get_search_links(person_object)
+            print("URL-LIST: ", search_url_list)
 
-        for url in search_url_list:
-            yield SeleniumRequest(url=url, callback=self.parse, wait_time=5)
+            for url in search_url_list:
+                yield SeleniumRequest(url=url, callback=self.parse, wait_time=5)
 
     def parse(self, response):
         handle_google_results_class = Handle_Google_Results_Class.HandleGoogleResults()
@@ -80,12 +97,15 @@ class QuotesSpider(scrapy.Spider):
         # For testing
         self.length_for_counter = len(links_to_scrape_list)
         for link in links_to_scrape_list:
-            if link in person_object.visited_links:
-                print("Already visited!")
-            else:
-                test = re.compile(r'.*((instagram)|(twitter)|(linkedin)).*')
-                if test.match(link):
-                    self.social_media.handle_social_media_url(link)
+            if link not in person_object.visited_links:
+                if self.instagram_regex.match(link):
+                    self.social_media.handle_social_media_url(link, self.instagram_key)
+                elif self.twitter_regex.match(link):
+                    self.social_media.handle_social_media_url(link, self.twitter_key)
+                elif self.linkedin_regex.match(link):
+                    self.social_media.handle_social_media_url(link, self.linkedin_key)
+                elif self.xing_regex.match(link):
+                    self.social_media.handle_social_media_url(link, self.xing_key)
                 else:
                     yield SeleniumRequest(url=link, headers=self.header, callback=self.gather_information, wait_time=10)
                     person_object.visited_links.append(link)
@@ -179,6 +199,7 @@ class QuotesSpider(scrapy.Spider):
                     writer.writerow([person_object.place_of_residence])
                 csvFile.close()
 
+print("\n--------OSINT-Anwednung einer ausgwählten Person--------\n")
 
 process = CrawlerProcess({
     "user-Agent": "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:63.0) Gecko/20100101 Firefox/63.0"
@@ -194,6 +215,7 @@ person_object.occupation = choose_information_class.get_highest_score(person_obj
 person_object.hobbies = choose_information_class.get_highest_score(person_object.hobbies,key_other)
 person_object.institutions_found = choose_information_class.get_highest_score(person_object.institutions_found, key_institution)
 
+print("\nPersonenprofil:\n")
 print("Vorname: ", person_object.first_name)
 print("Nachname: ", person_object.second_name)
 print("Wohnort/Standort:", person_object.place_of_residence)

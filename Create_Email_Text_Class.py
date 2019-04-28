@@ -10,13 +10,14 @@ class CreateEmailText:
         self.salutation = ""
 
     def create_email_text(self, person):
-        if person.first_name != "" and person.second_name != "" and person.sex:
-            person.first_name = str(person.first_name).replace("%22", "").capitalize()
-            person.second_name = str(person.second_name).replace("%22", "").capitalize()
+
+        if person.first_name != "" and person.second_name != "" and person.sex != "":
             if person.sex == "w":
                 self.salutation = "Frau"
             else:
                 self.salutation = "Herr"
+            person.first_name = str(person.first_name).replace("%22", "").capitalize()
+            person.second_name = str(person.second_name).replace("%22", "").capitalize()
             if person.contacts_information:
                 if person.contacts_information:
                     self.contacts_information_text(person)
@@ -24,6 +25,12 @@ class CreateEmailText:
                 self.professional_text(person)
             else:
                 self.private_text(person)
+        elif person.first_name != "" and person.sex != "":
+            if person.sex == "w":
+                self.salutation = "Frau"
+            else:
+                self.salutation = "Herr"
+            self.private_text(person)
         else:
             self.subject = "Random Subject"
             self.text = "Random Text - No information"
@@ -68,7 +75,7 @@ class CreateEmailText:
                                                                                   "\n\nMif freundlichen Grüßen\n\n" \
                                                                                   "Max Mustermann"
                     else:
-                        self.subject = person.occupation+" bei der Institution" + institution
+                        self.subject = person.occupation+" bei der Institution " + institution
                         self.text = "Hallo "+self.salutation+" "+person.second_name+",\nals "+ person.occupation+" bei der Institution "+institution+"," \
                                  " stehen Ihnen nun alle Möglichkeiten offen. Sehen Sie sich die neuen Möglichkeiten unter folgendem Link an.\n" \
                                 "https://badlink.com\n\nMit freundlichen Grüßen\n\nIhr Karriere-Team der Institution "+institution
@@ -93,7 +100,7 @@ class CreateEmailText:
             self.year_of_birth_text(person)
         elif person.hobbies != None:
             self.hobby_text(person)
-        elif person.locations != "" or person.place_of_residence != "":
+        elif person.locations != None or person.place_of_residence != "":
             self.locations_text(person)
 
     def contacts_information_text(self,person):
@@ -113,8 +120,9 @@ class CreateEmailText:
                                                         "\n\nGrüße,\n\n" + person.contacts_information[0]
 
     def hobby_text(self,person):
-        self.subject = "Verbessere deine Technik im "+person.hobbies
-        self.text = "Hi "+person.first_name+",\ndamit du deine Leistung im"+person.hobbies+" verbessern kannst, musst du unbedingt" \
+        hobbie = str(person.hobbies).capitalize()
+        self.subject = "Verbessere deine Techniken im Hobby "+hobbie
+        self.text = "Hi "+person.first_name+",\ndamit du deine Leistung im Hobby "+hobbie+" verbessern kannst, musst du unbedingt" \
                                                                                             "die Techniken deiner Vorbilder anschauen!\n" \
                                                                                             "Im Anhang befindet sich eine kleine Übersicht.\n\n" \
                                                                                             "Dein Team der deutschen Förderung"
@@ -135,11 +143,11 @@ class CreateEmailText:
                         "Dein Orga-Team"
 
     def locations_text(self,person):
-        if person.locations != "":
+        if person.locations is not None:
             location = person.locations
         else:
             location = person.place_of_residence
-        self.subject = "Streetfood-Festival in "+person.locations
+        self.subject = "Streetfood-Festival in "+ location
         self.text = "Hi "+ person.first_name+"derzeit findet das erste STREETFOOD-FESTIVAL in "+ location + "" \
                     "statt. Im Anhang befindet sich der Plan, auf dem alles weitere erklärt wird.\n" \
                     "Wir freuen uns auf dich!\n\nDein Streefood-Team aus "+location

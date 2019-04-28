@@ -12,6 +12,7 @@ import Handle_Google_Results_Class
 # ReactJS,VueJS) website, Selenium can help you;If you need to auto login, it depends the web page needs to execute JS
 # or not.
 
+
 class Person(object):
     def __init__(self):
         self.first_name = ""
@@ -31,6 +32,7 @@ class Person(object):
         self.mails_found = []
         self.visited_links = []
 
+
 class SocialMedia:
     def __init__(self):
         self.username = "bachelorarbeit2@gmx.de"
@@ -43,7 +45,7 @@ class SocialMedia:
         self.linkedin_key = 4
         self.xing_key = 5
         self.facebook_login_page = "https://www.facebook.com/login/"
-        self.instagram_login_page = "https://www.instagram.com/accounts/login/?next=%2Fbachelor_arbeit2%2F&source=desktop_nav"
+        self.instagram_login_page = "https://www.instagram.com/accounts/login/?next=%2Fbachelorarbeit21%2F&source=desktop_nav"
         self.xing_login_page = "https://login.xing.com/login"
         self.linkedin_login_page = "https://www.linkedin.com/uas/login"
         self.twitter_login_page = "https://twitter.com/login"
@@ -54,6 +56,8 @@ class SocialMedia:
         self.instagram_login = False
         self.facebook_login = False
         self.twitter_login = False
+        self.linkedin_login = False
+        self.xing_login = False
         self.person_object = Person()
 
     def handle_social_media(self, person):
@@ -64,18 +68,17 @@ class SocialMedia:
             self.search_xing()
         if self.person_object.instagram_name:
             self.login_to_any_page(self.instagram_key)
-            self.instagram_login = True
             if not self.check_person_information():
                 self.handle_instagram(False)
             else:
                 self.handle_instagram(True)
         if self.person_object.twitter_name:
             self.login_to_any_page(self.twitter_key)
-            self.twitter_login = True
             if not self.check_person_information():
                 self.handle_twitter(False)
             else:
                 self.handle_twitter(True)
+        # no account für login
         #if self.person_object.facebook_name:
             #self.handle_facebook()
         return self.person_object
@@ -87,7 +90,7 @@ class SocialMedia:
         self.person_object.institution = social_media_person.institution
         self.person_object.year_of_birth = social_media_person.year_of_birth
         self.person_object.twitter_name=social_media_person.twitter_name
-        self.person_object.facebook_name = social_media_person.facebook_name
+        #self.person_object.facebook_name = social_media_person.facebook_name
         self.person_object.instagram_name = social_media_person.instagram_name
         self.person_object.institutions_found = social_media_person.institutions_found
         self.person_object.visited_links = social_media_person.visited_links
@@ -103,14 +106,13 @@ class SocialMedia:
             self.browser.get(search_link_list[0])
             html_of_search = self.browser.page_source
             html_soup = BeautifulSoup(html_of_search, "html.parser")
-            #links = html_soup.find_all("a",{"id": re.compile("(ember)[0-9]*")})
             links = html_soup.find_all("a", {"href": re.compile("(/in/)[(w)]*")})
             for link in links:
                 if link.attrs["href"] not in links_to_person:
                     links_to_person.append(link.attrs["href"])
             if len(links_to_person) == 1:
                 url = "https://www.linkedin.com"+links_to_person[0]
-                self.handle_social_media_url(url)
+                self.handle_social_media_url(url, self.linkedin_key)
             self.person_object.visited_links.append(search_link_list[0])
 
     def search_xing(self):
@@ -131,10 +133,10 @@ class SocialMedia:
                 if link.attrs["href"] not in links_to_person:
                     links_to_person.append(link.attrs["href"])
             print(links_to_person)
-            # TODO Create Alogrithmus to know which person is the vitim
+            # if it is exactly one person, then open this profile
             if len(links_to_person) == 1:
                 url = "https://www.xing.com" + links_to_person[0]
-                self.handle_social_media_url(url)
+                self.handle_social_media_url(url, self.xing_key)
             self.person_object.visited_links.append(search_link_list[0])
 
     def login_to_any_page(self, key):
@@ -154,6 +156,10 @@ class SocialMedia:
             self.browser.find_element_by_id(input_username.attrs["id"]).send_keys(self.username)
             self.browser.find_element_by_id(input_password.attrs["id"]).send_keys(self.password+"\n")
             time.sleep(2)
+            if key == self.instagram_key:
+                self.instagram_login = True
+            elif key == self.linkedin_key:
+                self.linkedin_login = True
 
         elif key == self.twitter_key:
             self.url = self.twitter_login_page
@@ -170,6 +176,7 @@ class SocialMedia:
             self.browser.find_element_by_class_name(username_class).send_keys(self.username)
             self.browser.find_element_by_class_name(password_class).send_keys(self.password+"\n")
             time.sleep(2)
+            self.twitter_login = True
 
         elif key == self.xing_key:
             self.url = self.xing_login_page
@@ -183,6 +190,11 @@ class SocialMedia:
             # time.sleep(1)
             self.browser.find_element_by_name(input_username.attrs["name"]).send_keys(self.username)
             self.browser.find_element_by_name(input_password.attrs["name"]).send_keys(self.password + "\n")
+            self.xing_login = True
+
+        # No account for facebook login
+        # elif key == self.facebook_key:
+        # self.facebook_login =True
 
     def handle_instagram(self, is_name_known):
         print("handle_instagram()", is_name_known)
@@ -191,7 +203,7 @@ class SocialMedia:
         url_to_further_information = search_url_list[1]
 
         # handle profile site
-        self.handle_social_media_url(url_to_profil)
+        self.handle_social_media_url(url_to_profil, self.instagram_key)
         #is account private or not
         html_of_search = self.browser.page_source
         html_soup = BeautifulSoup(html_of_search, "html.parser")
@@ -219,12 +231,12 @@ class SocialMedia:
         links_to_scrape = handle_google_results_class.handle_google_results(html_of_search)
         print(links_to_scrape)
         for link in links_to_scrape:
-            self.handle_social_media_url(link)
+            self.handle_social_media_url(link, self.instagram_key)
 
     def handle_twitter(self, is_name_known):
         print("handle_twitter()")
         search_url_list = self.create_search_links(self.twitter_key)
-        self.handle_social_media_url(search_url_list[0])
+        self.handle_social_media_url(search_url_list[0], self.twitter_key)
         html_of_search = self.browser.page_source
         html_soup = BeautifulSoup(html_of_search, "html.parser")
         #To get personen first and second name, only username is given
@@ -241,20 +253,52 @@ class SocialMedia:
         print("handle_facebook()")
         search_link_list = self.create_search_links(self.facebook_key)
         for url in search_link_list:
-            self.handle_social_media_url(url)
+            self.handle_social_media_url(url, self.facebook_key)
 
-    def handle_social_media_url(self, url):
+    def handle_social_media_url(self, url, key):
         url = url.split("%",1)[0]
         print(url)
         if url in self.person_object.visited_links:
             print("link already visited")
         else:
-            self.browser.get(url)
-            time.sleep(2)
-            html_of_search = self.browser.page_source
-            html_soup = BeautifulSoup(html_of_search, "html.parser")
-            self.gather_information(html_soup.text)
-            self.person_object.visited_links.append(url)
+            if key == self.instagram_key:
+                if self.instagram_login:
+                    self.visit_social_media_url(url)
+                else:
+                    self.login_to_any_page(self.instagram_key)
+                    self.visit_social_media_url(url)
+
+            elif key == self.twitter_key:
+                if self.twitter_login:
+                    self.visit_social_media_url(url)
+                else:
+                    self.login_to_any_page(self.twitter_key)
+                    self.visit_social_media_url(url)
+
+            elif key == self.linkedin_key:
+                if self.linkedin_login:
+                    self.visit_social_media_url(url)
+                else:
+                    self.login_to_any_page(self.linkedin_key)
+                    self.visit_social_media_url(url)
+
+            elif key == self.xing_key:
+                print(self.xing_login)
+                if self.xing_login:
+                    self.visit_social_media_url(url)
+                else:
+                    self.login_to_any_page(self.xing_key)
+                    self.visit_social_media_url(url)
+            elif key == self.facebook_key:
+                # no login, because there is no fake account
+                self.visit_social_media_url(url)
+    def visit_social_media_url(self, url):
+        self.browser.get(url)
+        time.sleep(2)
+        html_of_search = self.browser.page_source
+        html_soup = BeautifulSoup(html_of_search, "html.parser")
+        self.gather_information(html_soup.text)
+        self.person_object.visited_links.append(url)
 
     def gather_information(self, text):
         keyword_extraction_class = Keyword_Extraction_Class.KeywordExtraction()
@@ -438,3 +482,6 @@ class SocialMedia:
         elif key == self.facebook_key:
             search_url_list.append("https://www.facebook.com/search/str/"+self.person_object.facebook_name+"/users-named")
         return search_url_list
+
+    def close_browser(self):
+        self.browser.close()
