@@ -15,7 +15,7 @@ import Choose_Information_Class
 import time
 
 
-
+# person object, in this object all information about the searched person is stored
 class Person(object):
     def __init__(self):
         time.sleep(1)
@@ -78,23 +78,23 @@ class QuotesSpider(scrapy.Spider):
 
     def start_requests(self):
         if person_object.sex == "":
-            print("Geben Sie das Geschlecht der Zielperson an!!")
+            print("Geben Sie bitte das Geschlecht der Zielperson an.")
             self.social_media.close_browser()
         else:
             self.compare_place_of_residence_with_database()
             self.transfer_information(self.social_media.handle_social_media(person_object))
             create_search_link = Create_Search_Link_Class.CreateSearchLink()
             search_url_list = create_search_link.get_search_links(person_object)
-            print("URL-LIST: ", search_url_list)
+            print("URL-Liste: ", search_url_list)
 
             for url in search_url_list:
                 yield SeleniumRequest(url=url, callback=self.parse, wait_time=5)
 
+    # handle results from google search
     def parse(self, response):
         handle_google_results_class = Handle_Google_Results_Class.HandleGoogleResults()
         links_to_scrape_list = handle_google_results_class.handle_google_results(response)
         print(links_to_scrape_list)
-        # For testing
         self.length_for_counter = len(links_to_scrape_list)
         for link in links_to_scrape_list:
             if link not in person_object.visited_links:
@@ -119,7 +119,7 @@ class QuotesSpider(scrapy.Spider):
                 obj = BeautifulSoup(response.text, "html.parser")
             except:
                 return
-        #Look for attributs
+        # check which attributes are known
         if person_object.first_name and person_object.second_name:
             person_name_string = person_object.first_name+" "+person_object.second_name
             if person_name_string in str(obj.text).lower() or person_object.input_email:
@@ -133,7 +133,7 @@ class QuotesSpider(scrapy.Spider):
             self.get_data(person_object.input_email, obj)
 
     def get_data(self, string, obj):
-        #check for the correct website
+        # filter out websites that do not meet any of the following criteria
         if string in str(obj.text).lower():
             keyword_extraction_class = Keyword_Extraction_Class.KeywordExtraction()
             formatted_string = keyword_extraction_class.formate_input_text(obj.text)
@@ -153,7 +153,6 @@ class QuotesSpider(scrapy.Spider):
             current_institution = gather_information_class.compare_keywords_with_institutions(obj.text)
             if current_institution != -1:
                 person_object.institutions_found.append(current_institution)
-                print(person_object.institutions_found)
 
             current_occupations = gather_information_class.compare_keywords_with_occupations(keywords)
             if current_occupations != -1:
@@ -165,6 +164,7 @@ class QuotesSpider(scrapy.Spider):
                     if mail not in person_object.mails_found:
                         person_object.mails_found.append(mail)
 
+    # transfer the data found in the social media class to the person object.
     def transfer_information(self, social_media_person):
         if person_object.first_name == "":
             person_object.first_name = social_media_person.first_name
@@ -179,6 +179,7 @@ class QuotesSpider(scrapy.Spider):
         person_object.mails_found = social_media_person.mails_found
         person_object.visited_links = social_media_person.visited_links
 
+    # add place of residence to database, if it is not included
     def compare_place_of_residence_with_database(self):
         database_word_list_location= []
         place_of_residence_in_database = False

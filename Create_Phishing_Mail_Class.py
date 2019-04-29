@@ -3,6 +3,7 @@ import Create_Email_Text_Class
 import Send_Email_Class
 
 
+# This class gathers all the information to generate the phishing mail.
 class CreatePhishingMail:
 
     def __init__(self):

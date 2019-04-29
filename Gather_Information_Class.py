@@ -18,8 +18,8 @@ class GatherInformation:
         self.whitespace_wt = WhitespaceTokenizer()
         self.emails = []
 
+    # find locations in keywords
     def compare_keywords_with_locations(self, keywords):
-        print(keywords)
         with open('location.csv', 'r') as csvFile:
             csv_reader = csv.reader(csvFile)
             for row in csv_reader:
@@ -31,9 +31,13 @@ class GatherInformation:
                 for element in self.database_word_list_location:
                     if element == word:
                         self.location.append(element)
-        print("Location: ", self.location)
-        return self.location
+        if self.location:
+            print("Gefundene Orte: ", self.location)
+            return self.location
+        return -1
 
+
+    # find hobbies in keywords
     def compare_keywords_with_hobbies(self, keywords):
         with open('hobbies.csv', 'r') as csvFile:
             csv_reader = csv.reader(csvFile)
@@ -43,28 +47,12 @@ class GatherInformation:
                 for element in self.database_word_list_hobbies:
                     if element == word:
                         self.hobbies.append(element)
-        print("Hobbies: ",self.hobbies)
         if self.hobbies:
+            print("Gefundene Hobbies: ", self.hobbies)
             return self.hobbies
         return -1
 
-    def get_most_frequencies(self,list):
-        if list:
-            if len(list)>=2:
-                print("IN IF",list)
-                counter = 0
-                element_with_most_frequency = ""
-                for i in list:
-                    current_frequency = list.count(i)
-                    if (current_frequency > counter):
-                        counter = current_frequency
-                        element_with_most_frequency = i
-                return element_with_most_frequency
-            else:
-                return list[0]
-        else:
-            return -1
-
+    # find occupations in keywords
     def compare_keywords_with_occupations(self, keywords):
         with open('occupations.csv', 'r') as csvFile:
             csv_reader = csv.reader(csvFile)
@@ -79,10 +67,12 @@ class GatherInformation:
                         self.occupation.append(element)
         #return most_often_occupation
         if self.occupation:
+            print("Gefundene Tätigkeiten: ", self.occupation)
             return self.occupation
         else:
             return -1
 
+    # find institutions in keywords
     def compare_keywords_with_institutions(self, html_string):
         text = str(html_string)
         with open('institutions.csv', 'r') as csvFile:
@@ -93,37 +83,41 @@ class GatherInformation:
                 else:
                     self.database_word_list_institutions.append(row[0])
             for element in self.database_word_list_institutions:
-                    # if element in word:
                 if element in text:
                     self.institution.append(element)
+
         if self.institution:
+            print("Gefundene Institutionen: ", self.institution)
             return self.institution
         else:
             return -1
 
+    # check the found emails and choose the right one
     def compare_email_with_name(self, firstname, secondname, mail):
         formatted_name = firstname.lower()+secondname.lower()
         local_part_of_mailaddress = mail.split("@")[0].lower()
         percentage_limit = 0.5
-        print(SequenceMatcher(None, formatted_name, local_part_of_mailaddress).ratio())
+        print("Score",SequenceMatcher(None, formatted_name, local_part_of_mailaddress).ratio())
         if SequenceMatcher(None, formatted_name, local_part_of_mailaddress).ratio()>= percentage_limit:
             formatted_mail = mail.replace("(at)","@")
             if formatted_mail not in self.emails:
                 self.emails.append(formatted_mail)
 
+    # search for emails in website text
     def get_email(self, html_string, firstname, secondname):
         email_words = self.whitespace_wt.tokenize(html_string.lower())
         for fragment in email_words:
             mail_regex = re.search('(.*((@)|(\(at\))).*\.(de|com|net)).*', fragment)
             if mail_regex:
-                print("Email found:",mail_regex.group(1))
+                print("Nicht überprüfte Email gefunden: ", mail_regex.group(1))
                 self.compare_email_with_name(firstname, secondname, mail_regex.group(1))
-        print("Correct Emails: ", self.emails)
         if self.emails:
+            print("Korrekte Emails gefunden: ", self.emails)
             return self.emails
         else:
             return -1
 
+    # search for the year of birth
     def get_years(self, keywords):
         regex_string = "(geburtsdatum)|(alter)|(geboren)|(geburtsort)|(born)|(birth)"
         all_years_in_text = []
@@ -134,7 +128,7 @@ class GatherInformation:
                     all_years_in_text.append(element)
 
         if all_years_in_text:
-            print(all_years_in_text)
+            print("Gefundene Jahreszahlen: ",all_years_in_text)
             for year in all_years_in_text:
                 vistited_elements = 1
                 max_number_of_visited_elements = 15

@@ -13,6 +13,7 @@ import Handle_Google_Results_Class
 # or not.
 
 
+# Person object from this class
 class Person(object):
     def __init__(self):
         self.first_name = ""
@@ -33,6 +34,8 @@ class Person(object):
         self.visited_links = []
 
 
+# This class handles all social media requests for Instagram, Twitter, Xing and LinkedIn.
+# It also filters out information.
 class SocialMedia:
     def __init__(self):
         self.username = "bachelorarbeit2@gmx.de"
@@ -60,6 +63,7 @@ class SocialMedia:
         self.xing_login = False
         self.person_object = Person()
 
+    # handles social media requests for Instagram, Twitter, Xing and LinkedIn
     def handle_social_media(self, person):
         print("handle_social_media()")
         self.transfer_information(person)
@@ -83,6 +87,7 @@ class SocialMedia:
             #self.handle_facebook()
         return self.person_object
 
+    # Transfer the information of the person object from the Scrapy_Selium_Class to the current person object.
     def transfer_information(self, social_media_person):
         self.person_object.first_name = social_media_person.first_name
         self.person_object.second_name = social_media_person.second_name
@@ -95,8 +100,9 @@ class SocialMedia:
         self.person_object.institutions_found = social_media_person.institutions_found
         self.person_object.visited_links = social_media_person.visited_links
 
+    # search the website linkedin
     def search_linkedin(self):
-        print("in search linkedin")
+        print("handle_linkedin()")
         links_to_person = []
         self.login_to_any_page(self.linkedin_key)
         search_link_list = self.create_search_links(self.linkedin_key)
@@ -110,12 +116,15 @@ class SocialMedia:
             for link in links:
                 if link.attrs["href"] not in links_to_person:
                     links_to_person.append(link.attrs["href"])
+            print("Links to LinkedIn-Person", links_to_person)
             if len(links_to_person) == 1:
                 url = "https://www.linkedin.com"+links_to_person[0]
                 self.handle_social_media_url(url, self.linkedin_key)
             self.person_object.visited_links.append(search_link_list[0])
 
+    # search the website xing
     def search_xing(self):
+        print("handle_xing()")
         links_to_person = []
         self.login_to_any_page(self.xing_key)
         search_link_list = self.create_search_links(self.xing_key)
@@ -132,13 +141,14 @@ class SocialMedia:
             for link in links:
                 if link.attrs["href"] not in links_to_person:
                     links_to_person.append(link.attrs["href"])
-            print(links_to_person)
+            print("Link to Xing-Person", links_to_person)
             # if it is exactly one person, then open this profile
             if len(links_to_person) == 1:
                 url = "https://www.xing.com" + links_to_person[0]
                 self.handle_social_media_url(url, self.xing_key)
             self.person_object.visited_links.append(search_link_list[0])
 
+    # this method logs into every page
     def login_to_any_page(self, key):
         if key == self.instagram_key or key == self.linkedin_key:
             if key == self.instagram_key:
@@ -196,6 +206,7 @@ class SocialMedia:
         # elif key == self.facebook_key:
         # self.facebook_login =True
 
+    # search the website instagram
     def handle_instagram(self, is_name_known):
         print("handle_instagram()", is_name_known)
         search_url_list = self.create_search_links(self.instagram_key)
@@ -215,7 +226,7 @@ class SocialMedia:
                 self.person_object.second_name = person_name[1]
             else:
                 self.person_object.first_name = person_name[0]
-        print("Found Names: ",self.person_object.first_name,self.person_object.second_name)
+        print("Names found: ",self.person_object.first_name,self.person_object.second_name)
 
         #To find out if it is a private account or not
         if html_soup.find_all(text="Dieses Konto ist privat"):
@@ -233,6 +244,7 @@ class SocialMedia:
         for link in links_to_scrape:
             self.handle_social_media_url(link, self.instagram_key)
 
+    # search the website twitter
     def handle_twitter(self, is_name_known):
         print("handle_twitter()")
         search_url_list = self.create_search_links(self.twitter_key)
@@ -247,7 +259,6 @@ class SocialMedia:
                 self.person_object.second_name = person_name[1]
             else:
                 self.person_object.first_name = person_name[0]
-        print("HandleTWITTER:",self.person_object.first_name, self.person_object.second_name)
 
     def handle_facebook(self):
         print("handle_facebook()")
@@ -255,6 +266,7 @@ class SocialMedia:
         for url in search_link_list:
             self.handle_social_media_url(url, self.facebook_key)
 
+    # for each social media request it is checked whether the browser is already logged in
     def handle_social_media_url(self, url, key):
         url = url.split("%",1)[0]
         print(url)
@@ -283,7 +295,6 @@ class SocialMedia:
                     self.visit_social_media_url(url)
 
             elif key == self.xing_key:
-                print(self.xing_login)
                 if self.xing_login:
                     self.visit_social_media_url(url)
                 else:
@@ -292,6 +303,8 @@ class SocialMedia:
             elif key == self.facebook_key:
                 # no login, because there is no fake account
                 self.visit_social_media_url(url)
+
+    # load the current website
     def visit_social_media_url(self, url):
         self.browser.get(url)
         time.sleep(2)
@@ -300,6 +313,7 @@ class SocialMedia:
         self.gather_information(html_soup.text)
         self.person_object.visited_links.append(url)
 
+    # gather information from the current website
     def gather_information(self, text):
         keyword_extraction_class = Keyword_Extraction_Class.KeywordExtraction()
         formatted_string = keyword_extraction_class.formate_input_text(text)
@@ -314,7 +328,10 @@ class SocialMedia:
         current_hobbies = gather_information_class.compare_keywords_with_hobbies(keywords)
         if current_hobbies != -1:
             self.person_object.hobbies.append(current_hobbies)
-        self.person_object.locations.append(gather_information_class.compare_keywords_with_locations(keywords))
+
+        current_location = gather_information_class.compare_keywords_with_locations(keywords)
+        if current_location != -1:
+            self.person_object.locations.append(gather_information_class.compare_keywords_with_locations(keywords))
 
         current_institution = gather_information_class.compare_keywords_with_institutions(text)
         if current_institution != -1:
@@ -329,12 +346,14 @@ class SocialMedia:
         if current_mails != -1:
             self.person_object.mails_found.append(current_mails)
 
+    # check if the full person name is known, otherwise it will be searched for
     def check_person_information(self):
         is_name = False
         if self.person_object.first_name and self.person_object.second_name:
             is_name = True
         return is_name
 
+    # get contacts information from a public victim account on instagram
     def get_contacts_public_account(self):
         print("get_contacts_public_account()")
         html_of_search = self.browser.page_source
@@ -346,15 +365,14 @@ class SocialMedia:
         time.sleep(2)
         html_of_search = self.browser.page_source
         html_soup = BeautifulSoup(html_of_search, "html.parser")
-        print(html_soup.prettify())
         for link in html_soup.find_all("a", attrs={"class": re.compile("(FPmhX notranslate _0imsa)")}):
             print(link.attrs["href"])
         # Find the pop-up window
         pop_up = self.browser.find_element_by_class_name("isgrP")
-        print(pop_up)
+
         all_following = int(self.browser.find_element_by_xpath("//li[2]/a/span").text)
         # scroll down the page
-        print("FOLLOWER",all_following)
+        print("FOLLOWER", all_following)
         print("RANGE:",int(all_following / 6))
         for i in range(int(all_following / 6)):
             if i == 0:
@@ -370,6 +388,7 @@ class SocialMedia:
             self.links_to_contacts.append(link.attrs["href"])
         self.get_contacts_information()
 
+    # get contacts information from a private victim account on instagram
     def get_contacts_private_account(self, key):
         if key == self.instagram_key:
             try:
@@ -378,7 +397,6 @@ class SocialMedia:
                     html_soup = BeautifulSoup(html_of_search, "html.parser")
                     for div in html_soup.find_all("div", attrs={"class":"_41KYi LQtnO"}):
                             for a_tag in div.find_all("a", attrs={'href': re.compile("/[a-z0-9.\-_]/*")}):
-                                #print(a_tag.attrs["href"])
                                 if a_tag.attrs["href"] not in self.links_to_contacts:
                                     self.links_to_contacts.append(a_tag.attrs["href"])
                                     print(self.links_to_contacts)
@@ -388,6 +406,7 @@ class SocialMedia:
                 print(e)
             self.get_contacts_information()
 
+    # search for information at contacts profile on instagram
     def get_contacts_information(self):
         if self.links_to_contacts:
             for contact_link in self.links_to_contacts:
@@ -410,8 +429,8 @@ class SocialMedia:
 
                 if self.compare_contact_information(html_soup,hobbies_of_contact,locations_of_contact,institution_of_contact,occupations_of_contact):
                     break
-            print(self.person_object.contacts_information)
 
+    # compare contacts information with victims information, if a match is made, this contact is selected as contact
     def compare_contact_information(self, html_soup, hobbies_of_contact, locations_of_contact, institution_of_contact,
                                     occupations_of_contact):
         if self.person_object.place_of_residence in locations_of_contact:
@@ -424,12 +443,8 @@ class SocialMedia:
             for hobbies in self.person_object.hobbies:
                 for hobby in hobbies:
                     if hobbies_of_contact != -1:
-                        print("person: ", hobby)
-                        print(hobbies_of_contact)
                         if hobby in hobbies_of_contact:
-                            print("person: ",hobby)
-                            print(hobbies_of_contact)
-                            print("Same Hobbie")
+                            print("Same Hobbie", hobby)
                             contact_name = html_soup.find("h1", attrs={"class": "rhpdm"}).text
                             self.person_object.contacts_information.append(contact_name)
                             self.person_object.contacts_information.append(hobby)
@@ -456,7 +471,7 @@ class SocialMedia:
                             return True
         return False
 
-
+    # create search links for the five big social media platforms
     def create_search_links(self, key):
         search_url_list = []
         if key == self.instagram_key:

@@ -2,16 +2,18 @@ import numpy
 from collections import Counter
 
 
+# This class selects the information that most closely matches the person.
 class ChooseInformation:
     def __init__(self):
         self.key_institution = 1
         self.key_other = 2
 
+    # choose an element from a list with the highest score, score will be calculated
     def get_highest_score(self, list_with_scores, key):
         if key == self.key_other:
             for i in range(0, len(list_with_scores)):
                 list_with_scores[i].sort(key=Counter(list_with_scores[i]).get, reverse=True)
-        instances = []
+        instances = []      # instances correspond to the columns in the matrix
         if list_with_scores:
             # get all instances
             for i in range(0, len(list_with_scores)):
@@ -52,7 +54,6 @@ class ChooseInformation:
                 for k in range(0,len(list3[i])):
                     index = instances.index(list3[i][k][0])
                     matrix[i][index] = (list3[i][k][1])
-
             print(matrix)
 
             score = 0
@@ -61,7 +62,7 @@ class ChooseInformation:
             for k in range(0, numpy.size(matrix, 1)):
                 # current_score = sum of elements of a column
                 current_score = 0
-                #every row
+                # every row
                 for i in range(0,numpy.size(matrix,0)):
                     current_score = current_score + matrix[i][k]
                 current_score = current_score / len(list3)

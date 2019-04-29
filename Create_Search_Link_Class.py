@@ -1,5 +1,6 @@
 
 
+# In this class the search links for google are created.
 class CreateSearchLink:
 
     def __init__(self):
@@ -12,6 +13,7 @@ class CreateSearchLink:
         self.location_year_institution_key = 9
         self.search_link_list = []
 
+    # check with which data the search links are generated
     def get_search_links(self, person_object):
         if person_object.input_email is not "":
             self.build_search_string(self.email_key, person_object)
@@ -30,6 +32,7 @@ class CreateSearchLink:
                 self.build_search_string(self.institution_key, person_object)
         return self.search_link_list
 
+    # generate seach links
     def build_search_string(self, key, person_object):
         if key == self.email_key:
             search_string = "https://www.google.com/search?q=%22" + person_object.input_email + "%22"
